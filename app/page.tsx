@@ -53,7 +53,7 @@ export default function Home() {
     <main>
       <header className="site-header">
         <a className="brand-lockup" href="#top" aria-label="Satellite Inference home">
-          <Image src="/logo-mark.svg" alt="" className="brand-mark" width={37} height={37} priority />
+          <Image src="./logo-mark.svg" alt="" className="brand-mark" width={37} height={37} priority />
           <span>
             <strong>Satellite Inference</strong>
             <small>Orbital Computing Infrastructure</small>
@@ -85,7 +85,7 @@ export default function Home() {
             <a className="button button-primary" href="#model">
               Explore the orbital model <ArrowDown aria-hidden="true" size={17} />
             </a>
-            <a className="button button-ghost" href="/documents/Satellite_Inference_Whitepaper_v0.1.pdf">
+            <a className="button button-ghost" href="./documents/Satellite_Inference_Whitepaper_v0.1.pdf">
               Read Whitepaper v0.1 <FileText aria-hidden="true" size={16} />
             </a>
           </div>
@@ -255,13 +255,13 @@ export default function Home() {
           </p>
         </div>
         <div className="document-grid">
-          <a className="document-card document-card-primary" href="/documents/Satellite_Inference_Whitepaper_v0.1.pdf">
+          <a className="document-card document-card-primary" href="./documents/Satellite_Inference_Whitepaper_v0.1.pdf">
             <span className="document-type">WHITEPAPER / ENGLISH / PDF</span>
             <h3>Orbital Computing Infrastructure</h3>
             <p>Program thesis, market entry, proposed mission ladder, parametric model, evidence gates, and public risk register.</p>
             <div><span>Version 0.1</span><ArrowUpRight aria-hidden="true" /></div>
           </a>
-          <a className="document-card" href="/documents/Node_1kW_Public_Mission_Definition_v0.1.pdf">
+          <a className="document-card" href="./documents/Node_1kW_Public_Mission_Definition_v0.1.pdf">
             <span className="document-type">MISSION SUMMARY / ENGLISH / PDF</span>
             <h3>Node 1 kW Public Mission Definition</h3>
             <p>Mission purpose, success criteria, preliminary architecture, public requirement categories, risks, and review gates.</p>
@@ -287,7 +287,7 @@ export default function Home() {
 
       <footer>
         <div className="footer-brand">
-          <Image src="/logo-mark.svg" alt="" width={34} height={34} />
+          <Image src="./logo-mark.svg" alt="" width={34} height={34} />
           <div><strong>Satellite Inference</strong><span>A program of RFID INC</span></div>
         </div>
         <div className="footer-links">
