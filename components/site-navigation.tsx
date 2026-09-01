@@ -10,6 +10,7 @@ const navigation = [
   { href: "#roadmap", label: "Roadmap" },
   { href: "#evidence", label: "Evidence" },
   { href: "#documents", label: "Documents" },
+  { href: "#contact", label: "Contact" },
 ];
 
 export function SiteNavigation() {
@@ -65,7 +66,7 @@ export function SiteNavigation() {
               <span>{String(index + 1).padStart(2, "0")}</span>{item.label}
             </a>
           ))}
-          <a className="mobile-menu-contact" href="mailto:ceo@keyai.org" onClick={() => setOpen(false)}>
+          <a className="mobile-menu-contact" href="mailto:partnerships@satelliteinference.com" onClick={() => setOpen(false)}>
             Start a technical conversation <ArrowUpRight aria-hidden="true" />
           </a>
         </nav>

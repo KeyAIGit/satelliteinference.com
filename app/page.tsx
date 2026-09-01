@@ -49,6 +49,44 @@ const markets = [
   "Autonomous spacecraft",
 ];
 
+const contactChannels = [
+  {
+    label: "General",
+    email: "contact@satelliteinference.com",
+    description: "General inquiries and the right starting point when you are not sure which team to contact.",
+  },
+  {
+    label: "Procurement",
+    email: "procurement@satelliteinference.com",
+    description: "Components, quotations, lead times, supplier qualification, and technical interface data.",
+  },
+  {
+    label: "Partnerships",
+    email: "partnerships@satelliteinference.com",
+    description: "Spacecraft operators, sensor owners, compute, thermal, launch, and mission integration partners.",
+  },
+  {
+    label: "Investors",
+    email: "investors@satelliteinference.com",
+    description: "Investor relations, financing conversations, and company information requests.",
+  },
+  {
+    label: "Billing",
+    email: "billing@satelliteinference.com",
+    description: "Invoices, payments, vendor onboarding, tax forms, and remittance questions.",
+  },
+  {
+    label: "Legal",
+    email: "legal@satelliteinference.com",
+    description: "Contracts, corporate matters, intellectual property, and formal legal notices.",
+  },
+  {
+    label: "Security",
+    email: "security@satelliteinference.com",
+    description: "Responsible disclosure, suspected abuse, privacy, and information security matters.",
+  },
+];
+
 export default function Home() {
   return (
     <main>
@@ -296,7 +334,32 @@ export default function Home() {
         </div>
         <div className="closing-actions">
           <p>We are looking for spacecraft operators, sensor owners, compute and thermal partners, and U.S. mission integrators.</p>
-          <a className="button button-primary" href="mailto:ceo@keyai.org">Start a technical conversation <ArrowUpRight size={16} /></a>
+          <a className="button button-primary" href="mailto:partnerships@satelliteinference.com">Start a technical conversation <ArrowUpRight size={16} /></a>
+        </div>
+      </section>
+
+      <section className="section section-contact" id="contact">
+        <div className="section-heading split-heading inverse contact-heading">
+          <div>
+            <p className="kicker">08 / CONTACT DIRECTORY</p>
+            <h2>Reach the right channel<br />on the first transmission.</h2>
+          </div>
+          <p>
+            Every address below reaches the same operating team today, while keeping
+            supplier, partner, investor, financial, legal, and security conversations organized.
+          </p>
+        </div>
+        <div className="contact-grid">
+          {contactChannels.map((channel, index) => (
+            <a className="contact-card" href={`mailto:${channel.email}`} key={channel.email}>
+              <div className="contact-card-top">
+                <span>{String(index + 1).padStart(2, "0")} / {channel.label}</span>
+                <ArrowUpRight aria-hidden="true" />
+              </div>
+              <strong>{channel.email}</strong>
+              <p>{channel.description}</p>
+            </a>
+          ))}
         </div>
       </section>
 
@@ -306,6 +369,7 @@ export default function Home() {
           <div><strong>Satellite Inference</strong><span>Orbital Computing Infrastructure</span></div>
         </div>
         <div className="footer-links">
+          <a href="mailto:contact@satelliteinference.com">Contact</a>
           <a href="https://keyai.org">KeyAI Research</a>
           <a href="https://www.spacex.com/rideshare/">Launch reference</a>
           <a href="https://science.nasa.gov/resource/what-is-a-lagrange-point/">NASA reference</a>
