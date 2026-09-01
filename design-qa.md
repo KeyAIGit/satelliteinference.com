@@ -26,12 +26,16 @@
 ## Browser checks
 
 - Desktop visual comparison completed against the supplied reference.
-- Desktop horizontal overflow: none (`scrollWidth 1348`, `innerWidth 1363`).
-- All visible image assets loaded at their expected natural width.
-- Primary anchor navigation moved to `#model` correctly.
-- Local client-side button verification is pending because the cloud preview client blocks direct Next.js JavaScript chunk delivery from `terminal.local` with `ERR_BLOCKED_BY_CLIENT`. This is a preview-surface limitation, not a production-console error.
-- Site console contains no application error from `terminal.local`; browser-extension metadata errors were excluded as unrelated.
-- Mobile behavior was reviewed in source at 1100, 820, 560 and 360 px breakpoints. Production interaction and responsive smoke tests remain required after GitHub Pages deploy.
+- GitHub Pages production deployment completed successfully for commit `0cdab161996d4d0da3f7b56c5604e022a183e3c5`.
+- Production desktop horizontal overflow: none (`scrollWidth 1348`, `innerWidth 1363`).
+- All production image assets loaded at their expected natural width after lazy-load activation.
+- Production metadata includes the canonical URL, description and absolute Open Graph image URL.
+- CAD tabs switched through Deployed, Stowed and Deployment states with the correct pressed state and image alternative text.
+- LEO and GEO presets hydrated correctly. GEO displayed the modeled 23.93 h period, 119 ms one-way vacuum propagation and 239 ms vacuum RTT.
+- Megawatt Orbital Network displayed exactly ten module cells and the formula `10 x 100 kW = 1 MW aggregate`.
+- Whitepaper, mission definition, robots, sitemap, Open Graph image and canonical public model returned HTTP 200 with the expected content types.
+- Production console contained no application errors; browser-extension metadata errors were excluded as unrelated.
+- Mobile behavior was reviewed in source at 1100, 820, 560 and 360 px breakpoints, including the 44 x 44 px navigation control, stacked content, tap-sized selectors and overflow guards.
 
 ## Automated checks
 
@@ -53,4 +57,4 @@
 6. Added responsive navigation, keyboard-visible focus and tap-sized controls.
 7. Compared the updated scale section side by side with the reference.
 
-final result: pending live verification
+final result: passed
