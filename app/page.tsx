@@ -10,11 +10,12 @@ import {
   Radio,
   Satellite,
   ShieldCheck,
-  Sparkles,
   ThermometerSun,
 } from "lucide-react";
 import Image from "next/image";
 import { OrbitalExplorer, ScaleJourney } from "@/components/orbital-explorer";
+import { FlightNodeConcept } from "@/components/flight-node-concept";
+import { SiteNavigation } from "@/components/site-navigation";
 
 const capabilities = [
   {
@@ -51,31 +52,15 @@ const markets = [
 export default function Home() {
   return (
     <main>
-      <header className="site-header">
-        <a className="brand-lockup" href="#top" aria-label="Satellite Inference home">
-          <Image src="./logo-mark.svg" alt="" className="brand-mark" width={37} height={37} priority />
-          <span>
-            <strong>Satellite Inference</strong>
-            <small>Orbital Computing Infrastructure</small>
-          </span>
-        </a>
-        <nav aria-label="Primary navigation">
-          <a href="#model">Orbit model</a>
-          <a href="#roadmap">Roadmap</a>
-          <a href="#architecture">Architecture</a>
-          <a href="#documents">Documents</a>
-        </nav>
-        <a className="header-cta" href="#documents">
-          Whitepaper <ArrowUpRight aria-hidden="true" size={15} />
-        </a>
-      </header>
+      <a className="skip-link" href="#content">Skip to main content</a>
+      <SiteNavigation />
 
-      <section className="hero" id="top">
+      <section className="hero" id="top" aria-labelledby="hero-title">
         <div className="hero-glow hero-glow-one" />
         <div className="hero-glow hero-glow-two" />
         <div className="hero-copy reveal-up">
-          <p className="eyebrow"><span /> A program of RFID INC</p>
-          <h1>Compute where<br />space data begins.</h1>
+          <p className="eyebrow"><span /> Operated by RFID INC</p>
+          <h1 id="hero-title">Compute where<br />space data begins.</h1>
           <p className="hero-lead">
             Orbital computing infrastructure for spacecraft, constellations,
             and autonomous systems, scaling from hosted flight tests to
@@ -92,36 +77,23 @@ export default function Home() {
           <div className="hero-proof" aria-label="Program baseline">
             <div><strong>500-600 km</strong><span>LEO baseline</span></div>
             <div><strong>1 kW</strong><span>first owned node</span></div>
-            <div><strong>10 kW</strong><span>solar at launch</span></div>
+            <div><strong>10 kW</strong><span>BOL solar</span></div>
           </div>
         </div>
-        <div className="hero-visual reveal-up delay-one" aria-label="Animated orbital compute concept">
-          <div className="hero-orbit-shell">
-            <div className="orbit-label orbit-label-top">DATA ORIGIN</div>
-            <div className="orbit-label orbit-label-bottom">USEFUL RESULT</div>
-            <div className="hero-earth">
-              <span className="earth-grid" />
-              <span className="earth-light" />
-            </div>
-            <div className="hero-orbit-ring orbit-ring-a"><span /></div>
-            <div className="hero-orbit-ring orbit-ring-b"><span /></div>
-            <div className="signal-trace trace-one" />
-            <div className="signal-trace trace-two" />
-            <div className="compute-card compute-card-one">
-              <Braces size={15} aria-hidden="true" />
-              <span>FILTER</span>
-            </div>
-            <div className="compute-card compute-card-two">
-              <Sparkles size={15} aria-hidden="true" />
-              <span>INFER</span>
-            </div>
-            <div className="compute-card compute-card-three">
-              <Radio size={15} aria-hidden="true" />
-              <span>PRIORITIZE</span>
-            </div>
+        <figure className="hero-visual hero-node-figure reveal-up delay-one">
+          <div className="hero-node-frame">
+            <Image
+              src="./assets/cad/flight-demonstrator-deployed.png"
+              alt="Notional Flight Demonstrator with deployed solar arrays"
+              fill
+              sizes="(max-width: 820px) 100vw, 48vw"
+              className="hero-node-image"
+              priority
+            />
+            <div className="hero-node-reticle" aria-hidden="true" />
           </div>
-          <p className="visual-caption"><span>SIMULATION 01</span> Processing moves closer to the sensor</p>
-        </div>
+          <figcaption className="visual-caption"><span>CONCEPT CAD / REV B</span> Notional geometry, not flight-release design</figcaption>
+        </figure>
         <a href="#why" className="scroll-cue" aria-label="Continue to the next section">
           <span>Scroll to enter orbit</span><ArrowDown size={15} aria-hidden="true" />
         </a>
@@ -129,13 +101,15 @@ export default function Home() {
 
       <section className="signal-strip" aria-label="Target markets">
         <span className="signal-strip-label">BUILT FOR</span>
-        <div className="signal-strip-track">
+        <span className="sr-only">{markets.join(", ")}</span>
+        <div className="signal-strip-track" aria-hidden="true">
           {[...markets, ...markets].map((market, index) => (
             <span key={`${market}-${index}`}>{market}<i /></span>
           ))}
         </div>
       </section>
 
+      <div id="content">
       <section className="section section-light" id="why">
         <div className="section-heading split-heading">
           <div>
@@ -148,19 +122,19 @@ export default function Home() {
             before transmission to Earth.
           </p>
         </div>
-        <div className="flow-line" aria-label="Data reduction flow">
-          <div className="flow-node">
+        <ol className="flow-line" aria-label="Data reduction flow">
+          <li className="flow-node">
             <span>01</span><Satellite aria-hidden="true" /><strong>Sense</strong><small>Raw orbital data</small>
-          </div>
-          <div className="flow-arrow"><span>HIGH VOLUME</span></div>
-          <div className="flow-node flow-node-accent">
+          </li>
+          <li className="flow-arrow" aria-hidden="true"><span>HIGH VOLUME</span></li>
+          <li className="flow-node flow-node-accent">
             <span>02</span><CircuitBoard aria-hidden="true" /><strong>Infer</strong><small>Filter and classify</small>
-          </div>
-          <div className="flow-arrow flow-arrow-short"><span>REDUCED</span></div>
-          <div className="flow-node">
+          </li>
+          <li className="flow-arrow flow-arrow-short" aria-hidden="true"><span>REDUCED</span></li>
+          <li className="flow-node">
             <span>03</span><Radio aria-hidden="true" /><strong>Deliver</strong><small>Useful result</small>
-          </div>
-        </div>
+          </li>
+        </ol>
         <div className="capability-grid">
           {capabilities.map(({ icon: Icon, label, text }, index) => (
             <article className="capability-card" key={label}>
@@ -173,16 +147,31 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="section section-concept" id="concept">
+        <div className="section-heading split-heading inverse">
+          <div>
+            <p className="kicker">02 / FLIGHT NODE CONCEPT</p>
+            <h2>One geometry.<br />Every unknown visible.</h2>
+          </div>
+          <p>
+            Rev B connects the current 1 kW compute target to a 10 kW BOL solar concept,
+            eclipse energy storage, radiator area and a bounded launch envelope. It is
+            communication CAD for supplier conversations, not manufacturing data.
+          </p>
+        </div>
+        <FlightNodeConcept />
+      </section>
+
       <section className="section section-space" id="model">
         <div className="section-heading split-heading inverse">
           <div>
-            <p className="kicker">02 / ORBIT LAB</p>
+            <p className="kicker">03 / ORBIT LAB</p>
             <h2>Place the node.<br />See the physics.</h2>
           </div>
           <p>
-            Compare a 550 km reference LEO with geostationary orbit. Geometry,
-            propagation delay, orbital period, and idealized maximum eclipse are
-            calculated in the browser from published physical constants.
+            Move continuously from 200 km to GEO. Orbital radius shares one physical
+            scale with Earth; period, propagation and worst-case eclipse are calculated
+            locally from disclosed constants.
           </p>
         </div>
         <OrbitalExplorer />
@@ -191,13 +180,13 @@ export default function Home() {
       <section className="section section-roadmap" id="roadmap">
         <div className="section-heading split-heading">
           <div>
-            <p className="kicker">03 / GATED SCALE</p>
+            <p className="kicker">04 / GATED SCALE</p>
             <h2>Flight evidence before<br />industrial scale.</h2>
           </div>
           <p>
-            Every step is a separate mission, budget, and review gate. The number
-            in each Node name always means continuous compute power. Solar generation
-            is stated separately.
+            Every step is a separate mission, budget and review gate. Public names now
+            describe mission purpose. Continuous compute, solar generation and aggregate
+            network capacity remain separate quantities.
           </p>
         </div>
         <ScaleJourney />
@@ -206,7 +195,7 @@ export default function Home() {
       <section className="section section-light" id="architecture">
         <div className="section-heading split-heading">
           <div>
-            <p className="kicker">04 / THE STACK</p>
+            <p className="kicker">05 / THE STACK</p>
             <h2>Hardware, runtime,<br />and flight evidence.</h2>
           </div>
           <p>
@@ -244,12 +233,38 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="section section-evidence" id="evidence">
+        <div className="section-heading split-heading inverse">
+          <div>
+            <p className="kicker">06 / ENGINEERING EVIDENCE</p>
+            <h2>A claim is only as strong<br />as its status.</h2>
+          </div>
+          <p>
+            The public model carries units, provenance and status with every important value.
+            Supplier data, coupled analyses and test evidence replace preliminary screens at formal gates.
+          </p>
+        </div>
+        <div className="evidence-grid">
+          <article><span>CALCULATED</span><h3>Reproducible model output</h3><p>Derived by disclosed Rev A equations from versioned assumptions and checked by deterministic tests.</p></article>
+          <article><span>WORKING ASSUMPTION</span><h3>Planning input</h3><p>A target or early input that remains subject to trade studies, mission definition and validation.</p></article>
+          <article><span>NOTIONAL GEOMETRY</span><h3>Packaging communication</h3><p>Concept geometry for scale, deployment and interface conversations. It is not flight CAD.</p></article>
+          <article><span>TBD BY SUPPLIER</span><h3>Evidence still required</h3><p>Interface data, mass, loads, deployment dynamics, thermal performance and launch compatibility.</p></article>
+        </div>
+        <div className="evidence-gates">
+          <span>PRE-SRR</span><i />
+          <span>SUPPLIER ICD</span><i />
+          <span>COUPLED ANALYSIS</span><i />
+          <span>HARDWARE TEST</span><i />
+          <span>FLIGHT EVIDENCE</span>
+        </div>
+      </section>
+
       <section className="section section-documents" id="documents">
         <div className="document-intro">
-          <p className="kicker">05 / PUBLIC BASELINE</p>
+          <p className="kicker">07 / PUBLIC BASELINE</p>
           <h2>Read the engineering case.</h2>
           <p>
-            Version 0.1 is a transparent, pre-SRR working baseline. It exposes assumptions,
+            Version 0.1 Rev B is a transparent, pre-SRR working baseline. It exposes assumptions,
             separates known facts from model outputs, and states which supplier and customer
             evidence must replace early estimates.
           </p>
@@ -259,11 +274,11 @@ export default function Home() {
             <span className="document-type">WHITEPAPER / ENGLISH / PDF</span>
             <h3>Orbital Computing Infrastructure</h3>
             <p>Program thesis, market entry, proposed mission ladder, parametric model, evidence gates, and public risk register.</p>
-            <div><span>Version 0.1</span><ArrowUpRight aria-hidden="true" /></div>
+            <div><span>Version 0.1 / Rev B</span><ArrowUpRight aria-hidden="true" /></div>
           </a>
           <a className="document-card" href="./documents/Node_1kW_Public_Mission_Definition_v0.1.pdf">
             <span className="document-type">MISSION SUMMARY / ENGLISH / PDF</span>
-            <h3>Node 1 kW Public Mission Definition</h3>
+            <h3>Flight Demonstrator Mission Definition</h3>
             <p>Mission purpose, success criteria, preliminary architecture, public requirement categories, risks, and review gates.</p>
             <div><span>Pre-SRR baseline</span><ArrowUpRight aria-hidden="true" /></div>
           </a>
@@ -288,15 +303,19 @@ export default function Home() {
       <footer>
         <div className="footer-brand">
           <Image src="./logo-mark.svg" alt="" width={34} height={34} />
-          <div><strong>Satellite Inference</strong><span>A program of RFID INC</span></div>
+          <div><strong>Satellite Inference</strong><span>Orbital Computing Infrastructure</span></div>
         </div>
         <div className="footer-links">
           <a href="https://keyai.org">KeyAI Research</a>
           <a href="https://www.spacex.com/rideshare/">Launch reference</a>
           <a href="https://science.nasa.gov/resource/what-is-a-lagrange-point/">NASA reference</a>
         </div>
-        <p className="footer-legal">Public working concept, 1 September 2026. Preliminary assumptions require supplier, regulatory, and customer validation.</p>
+        <p className="footer-legal">
+          Satellite Inference™ is currently operated by RFID INC, a Delaware corporation. © 2026 RFID INC. All rights reserved.<br />
+          Public working concept, 1 September 2026. Preliminary assumptions require supplier, regulatory and customer validation.
+        </p>
       </footer>
+      </div>
     </main>
   );
 }

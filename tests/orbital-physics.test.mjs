@@ -47,5 +47,7 @@ test("obeys basic orbital and link monotonicity", () => {
 
 test("rejects impossible inputs", () => {
   assert.throws(() => physics.orbitMetrics(0), RangeError);
+  assert.throws(() => physics.slantRangeKm(0, 90), RangeError);
+  assert.throws(() => physics.slantRangeKm(Number.NaN, 90), RangeError);
   assert.throws(() => physics.slantRangeKm(550, 91), RangeError);
 });

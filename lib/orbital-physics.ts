@@ -53,6 +53,9 @@ export function orbitMetrics(altitudeKm: number, betaDeg = 0) {
 }
 
 export function slantRangeKm(altitudeKm: number, elevationDeg = 90): number {
+  if (!Number.isFinite(altitudeKm) || altitudeKm <= 0) {
+    throw new RangeError("altitudeKm must be a positive finite number");
+  }
   if (elevationDeg < 0 || elevationDeg > 90) {
     throw new RangeError("elevationDeg must be between 0 and 90 degrees");
   }

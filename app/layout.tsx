@@ -3,6 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://satelliteinference.com"),
+  alternates: { canonical: "/" },
   title: {
     default: "Satellite Inference | Orbital Computing Infrastructure",
     template: "%s | Satellite Inference",
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
     siteName: "Satellite Inference",
     title: "Satellite Inference | Orbital Computing Infrastructure",
     description: "Compute where space data begins.",
-    images: [{ url: "/og.png", width: 1672, height: 941, alt: "Satellite Inference orbital compute node" }],
+    images: [{ url: "/og.png", width: 1200, height: 630, alt: "Satellite Inference orbital computing infrastructure" }],
   },
   twitter: {
     card: "summary_large_image",
@@ -34,9 +35,6 @@ export const metadata: Metadata = {
     images: ["/og.png"],
   },
   robots: { index: true, follow: true },
-  other: {
-    "codex-preview": "development",
-  },
   icons: {
     icon: "./favicon.svg",
     shortcut: "./favicon.svg",
