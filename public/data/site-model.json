@@ -1,0 +1,839 @@
+{
+  "schemaVersion": "1.0.0",
+  "dataVersion": "2026-09-01.rev-a.1",
+  "model": {
+    "name": "Orbital Compute Parametric Model",
+    "revision": "Rev A",
+    "asOf": "2026-09-01",
+    "status": "PRELIMINARY",
+    "deterministic": true,
+    "disclaimer": "Preliminary engineering screen. Supplier and launch-provider validation required."
+  },
+  "statusDefinitions": [
+    {
+      "code": "CALCULATED",
+      "definition": "Derived by the Rev A screening equations from disclosed assumptions."
+    },
+    {
+      "code": "WORKING_ASSUMPTION",
+      "definition": "A planning input or program target that has not been validated by test or supplier data."
+    },
+    {
+      "code": "NOTIONAL_GEOMETRY",
+      "definition": "Concept geometry for communication and first-order packaging only, not flight CAD."
+    },
+    {
+      "code": "EXTERNAL_REFERENCE",
+      "definition": "A statement transcribed or summarized from the cited external public source."
+    },
+    {
+      "code": "TBD_BY_SUPPLIER",
+      "definition": "Must be replaced by a selected supplier's interface data, analysis or quotation."
+    }
+  ],
+  "sources": [
+    {
+      "id": "assumptions-rev-a",
+      "type": "internal",
+      "title": "Orbital Compute Parametric Model assumptions, Rev A",
+      "locator": "work/model/assumptions.yaml",
+      "asOf": "2026-09-01"
+    },
+    {
+      "id": "model-rev-a",
+      "type": "internal",
+      "title": "Orbital Compute Parametric Model equations, Rev A",
+      "locator": "work/model/model_rev_a.py",
+      "asOf": "2026-09-01"
+    },
+    {
+      "id": "spacex-rideshare",
+      "type": "external",
+      "title": "SpaceX Rideshare",
+      "url": "https://www.spacex.com/rideshare/",
+      "asOf": "2026-09-01"
+    },
+    {
+      "id": "spacex-starship",
+      "type": "external",
+      "title": "SpaceX Starship",
+      "url": "https://www.spacex.com/vehicles/starship/",
+      "asOf": "2026-09-01"
+    }
+  ],
+  "constants": {
+    "earthEquatorialRadius": {
+      "value": 6378.137,
+      "unit": "km",
+      "displayPrecision": 3,
+      "status": "WORKING_ASSUMPTION",
+      "sourceIds": [
+        "assumptions-rev-a"
+      ]
+    },
+    "earthGravitationalParameter": {
+      "value": 398600.4418,
+      "unit": "km3/s2",
+      "displayPrecision": 4,
+      "status": "WORKING_ASSUMPTION",
+      "sourceIds": [
+        "assumptions-rev-a"
+      ]
+    },
+    "speedOfLight": {
+      "value": 299792.458,
+      "unit": "km/s",
+      "displayPrecision": 3,
+      "status": "WORKING_ASSUMPTION",
+      "sourceIds": [
+        "assumptions-rev-a"
+      ]
+    },
+    "siderealDay": {
+      "value": 86164.0905,
+      "unit": "s",
+      "displayPrecision": 4,
+      "status": "WORKING_ASSUMPTION",
+      "sourceIds": [
+        "assumptions-rev-a"
+      ]
+    },
+    "solarBolArealPower": {
+      "value": 300.0,
+      "unit": "W/m2",
+      "displayPrecision": 0,
+      "status": "WORKING_ASSUMPTION",
+      "sourceIds": [
+        "assumptions-rev-a"
+      ]
+    },
+    "radiatorNetRejection": {
+      "value": 350.0,
+      "unit": "W/m2",
+      "displayPrecision": 0,
+      "status": "WORKING_ASSUMPTION",
+      "sourceIds": [
+        "assumptions-rev-a"
+      ]
+    }
+  },
+  "orbitPresets": [
+    {
+      "id": "leo-550",
+      "name": "Reference LEO",
+      "regime": "LEO",
+      "status": "CALCULATED",
+      "sourceIds": [
+        "assumptions-rev-a",
+        "model-rev-a"
+      ],
+      "metrics": {
+        "altitude": {
+          "value": 550.0,
+          "unit": "km",
+          "displayPrecision": 0,
+          "status": "WORKING_ASSUMPTION",
+          "sourceIds": [
+            "assumptions-rev-a"
+          ]
+        },
+        "orbitalRadiusEarthRadii": {
+          "value": 1.08623,
+          "unit": "Earth radii",
+          "displayPrecision": 5,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ]
+        },
+        "period": {
+          "value": 95.65,
+          "unit": "min",
+          "displayPrecision": 3,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ]
+        },
+        "worstCaseCylindricalShadow": {
+          "value": 35.611,
+          "unit": "min",
+          "displayPrecision": 3,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ]
+        },
+        "zenithVacuumOneWayLatency": {
+          "value": 1.835,
+          "unit": "ms",
+          "displayPrecision": 3,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ]
+        }
+      },
+      "limitations": [
+        "Circular orbit and beta = 0 deg are assumed.",
+        "Latency is vacuum propagation at zenith, not end-to-end service latency."
+      ]
+    },
+    {
+      "id": "geo",
+      "name": "Geostationary orbit",
+      "regime": "GEO",
+      "status": "CALCULATED",
+      "sourceIds": [
+        "assumptions-rev-a",
+        "model-rev-a"
+      ],
+      "metrics": {
+        "altitude": {
+          "value": 35786.033,
+          "unit": "km",
+          "displayPrecision": 3,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ]
+        },
+        "orbitalRadiusEarthRadii": {
+          "value": 6.61073,
+          "unit": "Earth radii",
+          "displayPrecision": 5,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ]
+        },
+        "period": {
+          "value": 1436.068,
+          "unit": "min",
+          "displayPrecision": 3,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ]
+        },
+        "worstCaseCylindricalShadow": {
+          "value": 69.414,
+          "unit": "min",
+          "displayPrecision": 3,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ]
+        },
+        "zenithVacuumOneWayLatency": {
+          "value": 119.369,
+          "unit": "ms",
+          "displayPrecision": 3,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ]
+        }
+      },
+      "limitations": [
+        "Altitude is derived from the stated sidereal day and Earth gravitational parameter.",
+        "The cylindrical-shadow duration is a worst-case geometry screen, not a seasonal operations model.",
+        "Latency is vacuum propagation at zenith, not end-to-end service latency."
+      ]
+    }
+  ],
+  "missions": [
+    {
+      "id": "hosted-pathfinder",
+      "order": 1,
+      "publicName": "Hosted Pathfinder",
+      "legacyCode": "Hosted-1",
+      "stage": "PATHFINDER",
+      "architecture": "hosted payload",
+      "status": "WORKING_ASSUMPTION",
+      "sourceIds": [
+        "assumptions-rev-a"
+      ],
+      "description": "A compute payload integrated on a host spacecraft. The host provides solar power, eclipse energy, attitude control, propulsion and the primary link.",
+      "metrics": {
+        "continuousCompute": {
+          "min": 0.2,
+          "max": 1.0,
+          "unit": "kW",
+          "displayPrecision": 1,
+          "status": "WORKING_ASSUMPTION",
+          "sourceIds": [
+            "assumptions-rev-a"
+          ],
+          "nominal": 0.5
+        },
+        "hostInterfacePower": {
+          "min": 0.33,
+          "max": 1.25,
+          "unit": "kW",
+          "displayPrecision": 3,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ],
+          "nominal": 0.675
+        },
+        "screeningPayloadMass": {
+          "min": 18.05,
+          "max": 147.79,
+          "unit": "kg",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ],
+          "nominal": 44.29
+        }
+      },
+      "hostProvidedServices": [
+        "solar generation",
+        "eclipse energy storage",
+        "attitude control",
+        "propulsion",
+        "primary communications"
+      ],
+      "validation": {
+        "status": "TBD_BY_SUPPLIER",
+        "sourceIds": [],
+        "required": [
+          "host payload interface control document",
+          "host thermal interface and rejection allocation",
+          "data-link allocation and operations concept",
+          "commercial hosted-payload proposal"
+        ]
+      }
+    },
+    {
+      "id": "flight-demonstrator",
+      "order": 2,
+      "publicName": "Flight Demonstrator",
+      "legacyCode": "Solar-10",
+      "stage": "DEMONSTRATOR",
+      "architecture": "free-flyer",
+      "status": "WORKING_ASSUMPTION",
+      "sourceIds": [
+        "assumptions-rev-a"
+      ],
+      "description": "First owned 10 kW BOL solar spacecraft targeting 1 kW continuous compute in 550 km LEO.",
+      "metrics": {
+        "continuousCompute": {
+          "value": 1.0,
+          "unit": "kW",
+          "displayPrecision": 0,
+          "status": "WORKING_ASSUMPTION",
+          "sourceIds": [
+            "assumptions-rev-a"
+          ]
+        },
+        "totalSpacecraftLoad": {
+          "value": 1.65,
+          "unit": "kW",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ]
+        },
+        "solarBolPower": {
+          "value": 10.0,
+          "unit": "kW",
+          "displayPrecision": 1,
+          "status": "WORKING_ASSUMPTION",
+          "sourceIds": [
+            "assumptions-rev-a"
+          ]
+        },
+        "deployedSolarArea": {
+          "value": 33.333,
+          "unit": "m2",
+          "displayPrecision": 3,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ]
+        },
+        "batteryRevABase": {
+          "value": 3.7,
+          "unit": "kWh",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ]
+        },
+        "radiatorModeledMinimum": {
+          "value": 4.57,
+          "unit": "m2",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ]
+        },
+        "screeningMass": {
+          "min": 277.89,
+          "max": 1051.35,
+          "unit": "kg",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ],
+          "nominal": 479.38,
+          "display": {
+            "min": 0.28,
+            "nominal": 0.48,
+            "max": 1.05,
+            "unit": "t",
+            "precision": 2
+          }
+        },
+        "batteryPlanningRange": {
+          "min": 4.0,
+          "max": 8.0,
+          "unit": "kWh",
+          "displayPrecision": 0,
+          "status": "WORKING_ASSUMPTION",
+          "sourceIds": [
+            "assumptions-rev-a"
+          ]
+        },
+        "radiatorNotionalGross": {
+          "value": 6.0,
+          "unit": "m2",
+          "displayPrecision": 1,
+          "status": "NOTIONAL_GEOMETRY",
+          "sourceIds": [
+            "assumptions-rev-a"
+          ]
+        }
+      },
+      "validation": {
+        "status": "TBD_BY_SUPPLIER",
+        "sourceIds": [],
+        "required": [
+          "supplier mass and interface data",
+          "coupled thermal analysis",
+          "deployable structural and modal analysis",
+          "launch-provider compatibility review"
+        ]
+      },
+      "notes": [
+        "The 4 to 8 kWh battery value is a preliminary planning range.",
+        "The 3.70 kWh Rev A base is an analytical screening result, not a selected battery.",
+        "The 4.57 m2 radiator value is a modeled minimum at 350 W/m2 assumed net rejection.",
+        "The 6.0 m2 radiator value is notional gross planform; orientation is not validated."
+      ]
+    },
+    {
+      "id": "commercial-orbital-node",
+      "order": 3,
+      "publicName": "Commercial Orbital Node",
+      "legacyCode": "Compute-10",
+      "stage": "COMMERCIAL",
+      "architecture": "free-flyer",
+      "status": "WORKING_ASSUMPTION",
+      "sourceIds": [
+        "assumptions-rev-a"
+      ],
+      "description": "A later free-flyer sized for 10 kW continuous orbital compute.",
+      "metrics": {
+        "continuousCompute": {
+          "value": 10.0,
+          "unit": "kW",
+          "displayPrecision": 0,
+          "status": "WORKING_ASSUMPTION",
+          "sourceIds": [
+            "assumptions-rev-a"
+          ]
+        },
+        "totalSpacecraftLoad": {
+          "value": 12.0,
+          "unit": "kW",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ]
+        },
+        "solarBolPower": {
+          "value": 29.97,
+          "unit": "kW",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ]
+        },
+        "deployedSolarArea": {
+          "value": 99.89,
+          "unit": "m2",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ]
+        },
+        "batteryRevABase": {
+          "value": 26.94,
+          "unit": "kWh",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ]
+        },
+        "radiatorModeledMinimum": {
+          "value": 33.26,
+          "unit": "m2",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ]
+        },
+        "screeningMass": {
+          "min": 952.02,
+          "max": 3691.86,
+          "unit": "kg",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ],
+          "nominal": 1661.96,
+          "display": {
+            "min": 0.95,
+            "nominal": 1.66,
+            "max": 3.69,
+            "unit": "t",
+            "precision": 2
+          }
+        }
+      },
+      "validation": {
+        "status": "TBD_BY_SUPPLIER",
+        "sourceIds": [],
+        "required": [
+          "supplier mass and interface data",
+          "coupled thermal analysis",
+          "deployable structural and modal analysis",
+          "launch-provider compatibility review"
+        ]
+      }
+    },
+    {
+      "id": "industrial-orbital-module",
+      "order": 4,
+      "publicName": "Industrial Orbital Module",
+      "legacyCode": "C100",
+      "stage": "INDUSTRIAL",
+      "architecture": "free-flyer",
+      "status": "WORKING_ASSUMPTION",
+      "sourceIds": [
+        "assumptions-rev-a"
+      ],
+      "description": "A 100 kW continuous-compute module requiring large deployable power and thermal systems.",
+      "metrics": {
+        "continuousCompute": {
+          "value": 100.0,
+          "unit": "kW",
+          "displayPrecision": 0,
+          "status": "WORKING_ASSUMPTION",
+          "sourceIds": [
+            "assumptions-rev-a"
+          ]
+        },
+        "totalSpacecraftLoad": {
+          "value": 115.5,
+          "unit": "kW",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ]
+        },
+        "solarBolPower": {
+          "value": 288.44,
+          "unit": "kW",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ]
+        },
+        "deployedSolarArea": {
+          "value": 961.47,
+          "unit": "m2",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ]
+        },
+        "batteryRevABase": {
+          "value": 259.33,
+          "unit": "kWh",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ]
+        },
+        "radiatorModeledMinimum": {
+          "value": 320.1,
+          "unit": "m2",
+          "displayPrecision": 1,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ]
+        },
+        "screeningMass": {
+          "min": 8337.96,
+          "max": 32602.12,
+          "unit": "kg",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ],
+          "nominal": 14630.68,
+          "display": {
+            "min": 8.34,
+            "nominal": 14.63,
+            "max": 32.6,
+            "unit": "t",
+            "precision": 2
+          }
+        }
+      },
+      "validation": {
+        "status": "TBD_BY_SUPPLIER",
+        "sourceIds": [],
+        "required": [
+          "supplier mass and interface data",
+          "coupled thermal analysis",
+          "deployable structural and modal analysis",
+          "launch-provider compatibility review"
+        ]
+      }
+    },
+    {
+      "id": "megawatt-orbital-network",
+      "order": 5,
+      "publicName": "Megawatt Orbital Network",
+      "legacyCode": "C1000",
+      "stage": "NETWORK",
+      "architecture": "distributed cluster",
+      "status": "WORKING_ASSUMPTION",
+      "sourceIds": [
+        "assumptions-rev-a"
+      ],
+      "description": "A ten-module reference cluster, not one monolithic spacecraft or one-launch claim.",
+      "metrics": {
+        "continuousCompute": {
+          "value": 1000.0,
+          "unit": "kW",
+          "displayPrecision": 0,
+          "status": "WORKING_ASSUMPTION",
+          "sourceIds": [
+            "assumptions-rev-a"
+          ],
+          "display": {
+            "value": 1.0,
+            "unit": "MW",
+            "precision": 0
+          }
+        },
+        "totalSpacecraftLoad": {
+          "value": 1155.0,
+          "unit": "kW",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ]
+        },
+        "solarBolPower": {
+          "value": 2884.4,
+          "unit": "kW",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ],
+          "display": {
+            "value": 2.884,
+            "unit": "MW",
+            "precision": 3
+          }
+        },
+        "deployedSolarArea": {
+          "value": 9614.66,
+          "unit": "m2",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ]
+        },
+        "batteryRevABase": {
+          "value": 2593.25,
+          "unit": "kWh",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ],
+          "display": {
+            "value": 2.593,
+            "unit": "MWh",
+            "precision": 3
+          }
+        },
+        "radiatorModeledMinimum": {
+          "value": 3201.0,
+          "unit": "m2",
+          "displayPrecision": 0,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ]
+        },
+        "screeningMass": {
+          "min": 83379.59,
+          "max": 326021.17,
+          "unit": "kg",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-a",
+            "model-rev-a"
+          ],
+          "nominal": 146306.76,
+          "display": {
+            "min": 83.38,
+            "nominal": 146.31,
+            "max": 326.02,
+            "unit": "t",
+            "precision": 2
+          }
+        }
+      },
+      "validation": {
+        "status": "TBD_BY_SUPPLIER",
+        "sourceIds": [],
+        "required": [
+          "supplier mass and interface data",
+          "coupled thermal analysis",
+          "deployable structural and modal analysis",
+          "launch-provider compatibility review"
+        ]
+      },
+      "moduleArchitecture": {
+        "moduleCount": 10,
+        "modulePublicName": "Industrial Orbital Module",
+        "continuousComputePerModule": {
+          "value": 100.0,
+          "unit": "kW",
+          "displayPrecision": 0,
+          "status": "WORKING_ASSUMPTION",
+          "sourceIds": [
+            "assumptions-rev-a"
+          ]
+        },
+        "status": "WORKING_ASSUMPTION",
+        "sourceIds": [
+          "assumptions-rev-a"
+        ]
+      }
+    }
+  ],
+  "launchReferences": [
+    {
+      "provider": "SpaceX",
+      "product": "Falcon rideshare",
+      "status": "EXTERNAL_REFERENCE",
+      "sourceIds": [
+        "spacex-rideshare"
+      ],
+      "baseMass": {
+        "value": 50.0,
+        "unit": "kg",
+        "displayPrecision": 0,
+        "status": "EXTERNAL_REFERENCE",
+        "sourceIds": [
+          "spacex-rideshare"
+        ]
+      },
+      "basePrice": {
+        "value": 350000.0,
+        "unit": "USD",
+        "displayPrecision": 0,
+        "status": "EXTERNAL_REFERENCE",
+        "sourceIds": [
+          "spacex-rideshare"
+        ]
+      },
+      "incrementalPrice": {
+        "value": 7000.0,
+        "unit": "USD/kg",
+        "displayPrecision": 0,
+        "status": "EXTERNAL_REFERENCE",
+        "sourceIds": [
+          "spacex-rideshare"
+        ]
+      },
+      "note": "Public page states $350k for 50 kg to SSO and $7k per additional kg. Arithmetic screening only."
+    },
+    {
+      "provider": "SpaceX",
+      "product": "Starship",
+      "status": "EXTERNAL_REFERENCE",
+      "sourceIds": [
+        "spacex-starship"
+      ],
+      "publicDesignStatement": "Designed to carry more than 100 metric tonnes to orbit in a fully reusable configuration",
+      "commercialPriceStatus": "No standard public commercial per-kg tariff used in this model"
+    }
+  ]
+}

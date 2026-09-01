@@ -1,364 +1,328 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
-import { BatteryCharging, Clock3, Gauge, Radio, Sun, ThermometerSun } from "lucide-react";
-import { geoAltitudeKm, latencyMetrics, orbitMetrics } from "@/lib/orbital-physics";
+import { useMemo, useState, type CSSProperties } from "react";
+import Image from "next/image";
+import {
+  BatteryCharging,
+  Clock3,
+  Gauge,
+  Radio,
+  Sun,
+  ThermometerSun,
+} from "lucide-react";
+import siteModel from "@/public/data/site-model.json";
+import { PHYSICS, geoAltitudeKm, latencyMetrics, orbitMetrics } from "@/lib/orbital-physics";
 
-type OrbitKey = "LEO" | "GEO";
+const MIN_ALTITUDE_KM = 200;
+const MAX_ALTITUDE_KM = geoAltitudeKm();
+const ANIMATION_SECONDS = 16;
 
-const orbitDefinitions: Record<OrbitKey, {
-  label: string;
-  altitudeKm: number;
-  positioning: string;
-  note: string;
-}> = {
-  LEO: {
-    label: "Reference LEO",
-    altitudeKm: 550,
-    positioning: "Program baseline",
-    note: "Fast access to space-originated data, lower link loss, and a credible early deorbit path.",
-  },
-  GEO: {
-    label: "Geostationary orbit",
-    altitudeKm: geoAltitudeKm(),
-    positioning: "Comparison only",
-    note: "Persistent regional geometry, but higher launch energy, radiation exposure, and propagation delay.",
-  },
-};
+function sliderToAltitude(value: number) {
+  const ratio = value / 1000;
+  return MIN_ALTITUDE_KM * Math.pow(MAX_ALTITUDE_KM / MIN_ALTITUDE_KM, ratio);
+}
+
+function altitudeToSlider(altitudeKm: number) {
+  return 1000 * Math.log(altitudeKm / MIN_ALTITUDE_KM) / Math.log(MAX_ALTITUDE_KM / MIN_ALTITUDE_KM);
+}
 
 function calculateOrbit(altitudeKm: number) {
   const orbit = orbitMetrics(altitudeKm);
   const latency = latencyMetrics(altitudeKm);
   return {
-    periodMinutes: orbit.periodS / 60,
-    eclipseMinutes: orbit.eclipseS / 60,
+    ...orbit,
     oneWayMs: latency.oneWayMs,
     responseFloorMs: latency.requestResultMs,
+    periodMinutes: orbit.periodS / 60,
+    eclipseMinutes: orbit.eclipseS / 60,
     sunlitPercent: orbit.sunlitFraction * 100,
+    earthRadii: orbit.orbitRadiusKm / PHYSICS.earthRadiusKm,
+    timeCompression: orbit.periodS / ANIMATION_SECONDS,
   };
 }
 
 function formatPeriod(minutes: number) {
-  if (minutes < 180) return `${minutes.toFixed(2)} min`;
-  return `${(minutes / 60).toFixed(2)} h`;
+  return minutes < 180 ? `${minutes.toFixed(2)} min` : `${(minutes / 60).toFixed(2)} h`;
 }
 
 function formatLatency(milliseconds: number) {
-  if (milliseconds < 10) return `${milliseconds.toFixed(2)} ms`;
-  return `${milliseconds.toFixed(0)} ms`;
+  return milliseconds < 10 ? `${milliseconds.toFixed(2)} ms` : `${milliseconds.toFixed(0)} ms`;
+}
+
+function formatAltitude(altitudeKm: number) {
+  return `${Math.round(altitudeKm).toLocaleString()} km`;
 }
 
 export function OrbitalExplorer() {
-  const [orbit, setOrbit] = useState<OrbitKey>("LEO");
-  const definition = orbitDefinitions[orbit];
-  const metrics = useMemo(() => calculateOrbit(definition.altitudeKm), [definition.altitudeKm]);
-  const orbitScale = orbit === "LEO" ? 0.66 : 0.94;
+  const [altitudeKm, setAltitudeKm] = useState(550);
+  const metrics = useMemo(() => calculateOrbit(altitudeKm), [altitudeKm]);
+  const isLeoPreset = Math.abs(altitudeKm - 550) < 1;
+  const isGeoPreset = Math.abs(altitudeKm - MAX_ALTITUDE_KM) < 2;
+  const regime = altitudeKm < 2000 ? "LEO" : altitudeKm > 34000 ? "GEO" : "TRANSFER RANGE";
+  const earthRadiusPx = 38;
+  const orbitRadiusPx = earthRadiusPx * metrics.earthRadii;
+  const centerX = 360;
+  const centerY = 280;
+  const animationStyle = { "--orbit-seconds": `${ANIMATION_SECONDS}s` } as CSSProperties;
 
   return (
-    <div className="orbit-lab">
+    <div className="orbit-lab orbit-lab-v2">
       <div className="orbit-control-panel">
-        <div className="orbit-control-head">
+        <div className="orbit-control-head orbit-control-head-v2">
           <div>
-            <span>ORBIT SELECTION</span>
-            <strong>{definition.positioning}</strong>
+            <span>LOG ALTITUDE CONTROL / PHYSICAL RADIAL VIEW</span>
+            <strong>{regime} / {formatAltitude(altitudeKm)}</strong>
           </div>
-          <div className="orbit-tabs" role="tablist" aria-label="Select an orbit">
-            {(Object.keys(orbitDefinitions) as OrbitKey[]).map((key) => (
-              <button
-                type="button"
-                role="tab"
-                aria-selected={orbit === key}
-                className={orbit === key ? "active" : ""}
-                onClick={() => setOrbit(key)}
-                key={key}
-              >
-                {key}
-              </button>
-            ))}
+          <div className="orbit-presets" aria-label="Orbit presets">
+            <button type="button" aria-pressed={isLeoPreset} className={isLeoPreset ? "active" : ""} onClick={() => setAltitudeKm(550)}>550 KM LEO</button>
+            <button type="button" aria-pressed={isGeoPreset} className={isGeoPreset ? "active" : ""} onClick={() => setAltitudeKm(MAX_ALTITUDE_KM)}>GEO</button>
           </div>
         </div>
-        <div className="orbit-canvas-wrap">
+
+        <div className="altitude-slider-wrap">
+          <label htmlFor="altitude-slider"><span>200 km</span><strong>Drag altitude</strong><span>35,786 km</span></label>
+          <input
+            id="altitude-slider"
+            type="range"
+            min="0"
+            max="1000"
+            step="1"
+            value={Math.round(altitudeToSlider(altitudeKm))}
+            onChange={(event) => setAltitudeKm(sliderToAltitude(Number(event.target.value)))}
+            aria-valuetext={`${formatAltitude(altitudeKm)} altitude`}
+          />
+        </div>
+
+        <figure className="orbit-canvas-wrap">
           <svg
             className="orbit-canvas"
-            viewBox="0 0 720 500"
+            viewBox="0 0 720 560"
             role="img"
-            aria-label={`${definition.label} schematic with calculated orbital geometry`}
+            aria-labelledby="orbit-title orbit-description"
           >
+            <title id="orbit-title">Physical radial scale from Earth to the selected circular orbit</title>
+            <desc id="orbit-description">Earth radius and orbital radius share one linear scale. At low Earth orbit, the orbital ring sits close to Earth. At geostationary altitude, it expands to 6.61 Earth radii.</desc>
             <defs>
-              <radialGradient id="earthFill" cx="32%" cy="28%">
+              <radialGradient id="earthFillV2" cx="32%" cy="28%">
                 <stop offset="0%" stopColor="#73d9ee" />
-                <stop offset="35%" stopColor="#187db3" />
+                <stop offset="38%" stopColor="#187db3" />
                 <stop offset="100%" stopColor="#061c38" />
               </radialGradient>
-              <linearGradient id="orbitStroke" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="#4fe5ff" stopOpacity="0.12" />
-                <stop offset="45%" stopColor="#4fe5ff" stopOpacity="0.95" />
-                <stop offset="100%" stopColor="#ffbd4a" stopOpacity="0.25" />
-              </linearGradient>
-              <filter id="nodeGlow" x="-200%" y="-200%" width="400%" height="400%">
-                <feGaussianBlur stdDeviation="7" result="blur" />
+              <filter id="nodeGlowV2" x="-250%" y="-250%" width="500%" height="500%">
+                <feGaussianBlur stdDeviation="5" result="blur" />
                 <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
               </filter>
             </defs>
-            <g opacity="0.32">
-              {Array.from({ length: 34 }, (_, index) => (
-                <circle
-                  key={index}
-                  cx={(index * 137) % 700 + 10}
-                  cy={(index * 83) % 470 + 12}
-                  r={index % 5 === 0 ? 1.4 : 0.75}
-                  fill="#d7f7ff"
-                />
+
+            <g className="orbit-stars" aria-hidden="true">
+              {Array.from({ length: 42 }, (_, index) => (
+                <circle key={index} cx={(index * 137) % 700 + 10} cy={(index * 83) % 530 + 12} r={index % 6 === 0 ? 1.35 : 0.7} />
               ))}
             </g>
-            <line x1="92" y1="250" x2="630" y2="250" stroke="#91a8bc" strokeOpacity="0.12" strokeDasharray="3 8" />
-            <ellipse
-              cx="360"
-              cy="250"
-              rx={280 * orbitScale}
-              ry={174 * orbitScale}
-              fill="none"
-              stroke="url(#orbitStroke)"
-              strokeWidth="2"
-            />
-            <ellipse
-              cx="360"
-              cy="250"
-              rx={280 * orbitScale + 10}
-              ry={174 * orbitScale + 6}
-              fill="none"
-              stroke="#ffffff"
-              strokeOpacity="0.07"
-              strokeDasharray="4 10"
-            />
-            <circle cx="360" cy="250" r="86" fill="url(#earthFill)" />
-            <path d="M295 230 C330 210 360 228 390 202 C420 180 445 214 446 238" fill="none" stroke="#93d6b0" strokeOpacity="0.45" strokeWidth="8" strokeLinecap="round" />
-            <path d="M288 264 C324 248 344 276 384 264 C410 256 420 274 435 280" fill="none" stroke="#82c99e" strokeOpacity="0.34" strokeWidth="6" strokeLinecap="round" />
-            <ellipse cx="360" cy="250" rx="86" ry="24" fill="none" stroke="#a9eaf7" strokeOpacity="0.18" />
-            <g className={`orbiting-node orbiting-node-${orbit.toLowerCase()}`} style={{ transformOrigin: "360px 250px" }}>
-              <g transform={`translate(${360 + 280 * orbitScale} 250)`}>
-                <circle r="19" fill="#4fe5ff" fillOpacity="0.16" filter="url(#nodeGlow)" />
-                <rect x="-9" y="-7" width="18" height="14" rx="3" fill="#effcff" stroke="#4fe5ff" strokeWidth="2" />
-                <rect x="-25" y="-5" width="13" height="10" rx="1" fill="#2b8bdd" stroke="#4fe5ff" strokeWidth="1" />
-                <rect x="12" y="-5" width="13" height="10" rx="1" fill="#2b8bdd" stroke="#4fe5ff" strokeWidth="1" />
+            <line x1="54" y1={centerY} x2="666" y2={centerY} className="orbit-axis" />
+            {[2, 4, 6].map((ratio) => (
+              <circle key={ratio} cx={centerX} cy={centerY} r={earthRadiusPx * ratio} className="earth-radii-guide" />
+            ))}
+            <circle cx={centerX} cy={centerY} r={orbitRadiusPx} className="selected-orbit" />
+            <circle cx={centerX} cy={centerY} r={earthRadiusPx} fill="url(#earthFillV2)" className="earth-disc" />
+            <path d="M334 273 C345 263 354 277 366 267 C375 258 387 270 392 278" className="earth-land" />
+
+            <g className="orbiting-node" style={animationStyle}>
+              <g transform={`translate(${centerX + orbitRadiusPx} ${centerY})`}>
+                <circle r="11" className="node-halo" filter="url(#nodeGlowV2)" />
+                <circle r="4.5" className="node-point" />
               </g>
             </g>
-            <g transform="translate(360 160)">
-              <circle r="4" fill="#ffbd4a" />
-              <path d="M0 5 L0 21 M-11 21 L11 21 M-6 21 L-12 33 M6 21 L12 33" stroke="#ffbd4a" strokeWidth="2" fill="none" />
+
+            <line x1={centerX} y1={centerY + 18} x2={centerX + orbitRadiusPx} y2={centerY + 18} className="radius-measure" />
+            <text x={centerX + orbitRadiusPx / 2} y={centerY + 34} textAnchor="middle" className="svg-measure-label">
+              {metrics.earthRadii.toFixed(3)} EARTH RADII
+            </text>
+
+            <g className="scale-key" transform="translate(35 494)">
+              <line x1="0" y1="0" x2={earthRadiusPx} y2="0" />
+              <line x1="0" y1="-5" x2="0" y2="5" />
+              <line x1={earthRadiusPx} y1="-5" x2={earthRadiusPx} y2="5" />
+              <text x="0" y="20">1 EARTH RADIUS = 6,378 KM</text>
             </g>
-            <path
-              d={`M360 160 Q${470 + 150 * orbitScale} ${115 + 50 * orbitScale} ${360 + 280 * orbitScale} 250`}
-              stroke="#ffbd4a"
-              strokeOpacity="0.4"
-              strokeWidth="1.5"
-              strokeDasharray="4 6"
-              fill="none"
-            />
-            <text x="28" y="38" fill="#8ba5bb" fontSize="11" letterSpacing="2">PHYSICS-BASED SCHEMATIC</text>
-            <text x="28" y="58" fill="#eefbff" fontSize="18" fontWeight="700">{definition.label}</text>
-            <text x="28" y="78" fill="#5ddff8" fontSize="12">ALTITUDE {Math.round(definition.altitudeKm).toLocaleString()} KM</text>
+            <text x="35" y="44" className="svg-kicker">LINEAR PHYSICAL RADIAL SCALE</text>
+            <text x="35" y="69" className="svg-title">{regime} / {formatAltitude(altitudeKm)}</text>
+            <text x="35" y="91" className="svg-subtitle">ANIMATION: 1 ORBIT / {ANIMATION_SECONDS} S, {Math.round(metrics.timeCompression).toLocaleString()}x REAL TIME</text>
           </svg>
-          <div className="canvas-readout"><span className="live-dot" /> MODEL RUNNING LOCALLY</div>
-        </div>
+          <figcaption>
+            <span className="live-dot" /> Geometry is linear, not illustrative. The altitude control is logarithmic so LEO and GEO remain selectable.
+          </figcaption>
+        </figure>
       </div>
 
-      <div className="orbit-readout-panel" role="tabpanel">
+      <aside className="orbit-readout-panel" aria-live="polite">
         <div className="orbit-readout-title">
-          <span>{orbit} / CALCULATED</span>
-          <h3>{definition.label}</h3>
-          <p>{definition.note}</p>
+          <span>{regime} / CALCULATED</span>
+          <h3>{isLeoPreset ? "Reference LEO" : isGeoPreset ? "Geostationary orbit" : "Circular orbit screen"}</h3>
+          <p>{isLeoPreset ? "Program baseline for the first owned node." : isGeoPreset ? "Comparison case, not the v0.1 mission." : "Explore geometry between the first LEO mission and GEO."}</p>
         </div>
         <div className="metric-stack">
           <div className="metric-row"><Clock3 aria-hidden="true" /><span><small>Orbital period</small><strong>{formatPeriod(metrics.periodMinutes)}</strong></span></div>
-          <div className="metric-row"><Radio aria-hidden="true" /><span><small>One-way space leg</small><strong>{formatLatency(metrics.oneWayMs)}</strong></span></div>
-          <div className="metric-row"><Gauge aria-hidden="true" /><span><small>Ground-to-node response floor</small><strong>{formatLatency(metrics.responseFloorMs)}</strong></span></div>
-          <div className="metric-row"><Sun aria-hidden="true" /><span><small>Idealized maximum eclipse</small><strong>{metrics.eclipseMinutes.toFixed(2)} min</strong></span></div>
-          <div className="metric-row"><BatteryCharging aria-hidden="true" /><span><small>Sunlit fraction at beta 0</small><strong>{metrics.sunlitPercent.toFixed(1)}%</strong></span></div>
+          <div className="metric-row"><Radio aria-hidden="true" /><span><small>Zenith vacuum one-way</small><strong>{formatLatency(metrics.oneWayMs)}</strong></span></div>
+          <div className="metric-row"><Gauge aria-hidden="true" /><span><small>Zenith vacuum RTT</small><strong>{formatLatency(metrics.responseFloorMs)}</strong></span></div>
+          <div className="metric-row"><Sun aria-hidden="true" /><span><small>Worst-case shadow, beta 0</small><strong>{metrics.eclipseMinutes.toFixed(2)} min</strong></span></div>
+          <div className="metric-row"><BatteryCharging aria-hidden="true" /><span><small>Sunlit fraction, beta 0</small><strong>{metrics.sunlitPercent.toFixed(1)}%</strong></span></div>
         </div>
         <div className="orbit-interpretation">
-          <strong>{orbit === "LEO" ? "Why LEO first" : "Why GEO stays a comparison"}</strong>
+          <strong>{altitudeKm < 2000 ? "Inference fit: strong" : isGeoPreset ? "Inference fit: workload-dependent" : "Inference fit: evaluate links"}</strong>
           <p>
-            {orbit === "LEO"
-              ? "The first market processes data already generated on spacecraft. LEO closes the near-term flight, link, disposal, and customer-learning loop without requiring GEO insertion."
-              : "GEO can offer persistent regional geometry, but it does not improve the first space-originated workload enough to offset launch energy, radiation, communications, and serviceability risk."}
+            {altitudeKm < 2000
+              ? "Propagation is small compared with typical sensing, model execution and network queues. LEO supports inference on data already created in orbit."
+              : "The number shown is propagation through vacuum only. End-to-end inference also includes radio, routing, queue and compute time."}
           </p>
         </div>
-      </div>
+      </aside>
+
       <p className="model-footnote">
-        Circular orbit, spherical Earth, beta angle 0, cylindrical shadow, zenith slant range. Real links and eclipses depend on geometry, atmosphere, inclination, season, pointing, and ground location. GEO eclipse is seasonal.
+        Circular two-body screen, WGS-84 equatorial radius, beta angle 0, cylindrical shadow and zenith ground geometry. RTT excludes atmosphere, routing, protocol, queues and compute. GEO eclipse is seasonal.
       </p>
       <details className="model-method">
-        <summary>Open equations, constants, and sources</summary>
+        <summary>Open equations, constants, status and sources</summary>
         <div className="model-method-grid">
-          <div>
-            <span>ORBITAL PERIOD</span>
-            <strong>T = 2pi sqrt(r^3 / mu)</strong>
-            <p>Two-body circular-orbit screen using WGS-84 Earth radius and gravitational parameter.</p>
-          </div>
-          <div>
-            <span>PROPAGATION FLOOR</span>
-            <strong>t = rho / c</strong>
-            <p>Vacuum delay only. It excludes compute time, routing, queues, gateway, and protocol overhead.</p>
-          </div>
-          <div>
-            <span>MAXIMUM ECLIPSE</span>
-            <strong>te = T asin(RE / r) / pi</strong>
-            <p>Beta 0 cylindrical-shadow estimate. GEO eclipse occurs seasonally near the equinoxes.</p>
-          </div>
+          <div><span>ORBITAL PERIOD / CALCULATED</span><strong>T = 2pi sqrt(r³ / μ)</strong><p>Two-body circular-orbit screen from disclosed constants.</p></div>
+          <div><span>PROPAGATION / CALCULATED</span><strong>t = ρ / c</strong><p>Vacuum space-leg delay only. It is not application response time.</p></div>
+          <div><span>MAX SHADOW / CALCULATED</span><strong>te = T asin(RE / r) / pi</strong><p>Worst-case beta 0 cylindrical-shadow estimate.</p></div>
         </div>
         <div className="model-sources">
-          <span>CONSTANTS AND CROSS-CHECKS</span>
+          <span>EXTERNAL REFERENCES</span>
           <a href="https://www.ngs.noaa.gov/PUBS_LIB/DevelopmentOfTheWorldGeodeticSystem1984.pdf">NOAA WGS-84</a>
-          <a href="https://ssd.jpl.nasa.gov/astro_par.html">NASA JPL astrodynamic parameters</a>
+          <a href="https://ssd.jpl.nasa.gov/astro_par.html">NASA JPL parameters</a>
           <a href="https://physics.nist.gov/cgi-bin/cuu/Value?c=">NIST speed of light</a>
-          <a href="https://www.ospo.noaa.gov/operations/goes/eclipse.html">NOAA GEO eclipse operations</a>
+          <a href="https://www.ospo.noaa.gov/operations/goes/eclipse.html">NOAA GEO eclipse</a>
         </div>
       </details>
     </div>
   );
 }
 
-type Mission = {
-  name: string;
-  code: string;
-  stage: string;
-  descriptor: string;
-  compute: string;
-  solar: string;
-  battery: string;
-  radiator: string;
-  architecture: string;
-  proof: string;
+type Metric = {
+  value?: number;
+  min?: number;
+  max?: number;
+  nominal?: number;
+  unit: string;
+  display?: { value?: number; min?: number; max?: number; unit: string; precision: number };
 };
 
-const missions: Mission[] = [
-  {
-    name: "Hosted Pathfinder",
-    code: "SI-HP",
-    stage: "MISSION 0",
-    descriptor: "Hosted compute flight test",
-    compute: "0.2-1.0 kW allocation",
-    solar: "Provided by host",
-    battery: "Provided by host",
-    radiator: "Host interface dependent",
-    architecture: "Hosted payload",
-    proof: "Compute, recovery, memory behavior, workload packaging, and flight telemetry in the real environment.",
-  },
-  {
-    name: "Node 1 kW",
-    code: "SI-N1",
-    stage: "MISSION 1",
-    descriptor: "First owned free-flyer",
-    compute: "1 kW continuous",
-    solar: "10 kW BOL",
-    battery: "3.7 kWh target",
-    radiator: "4.6 m² net",
-    architecture: "Single node",
-    proof: "Deployable power, eclipse continuity, thermal rejection, owned-bus autonomy, customer workload, and disposal.",
-  },
-  {
-    name: "Node 10 kW",
-    code: "SI-N10",
-    stage: "MISSION 2",
-    descriptor: "Dedicated operational node",
-    compute: "10 kW continuous",
-    solar: "30.0 kW BOL",
-    battery: "26.9 kWh target",
-    radiator: "33.3 m² net",
-    architecture: "Single node",
-    proof: "Commercial utilization, high-rate payload data flow, operational scheduling, and repeatable service economics.",
-  },
-  {
-    name: "Node 100 kW",
-    code: "SI-N100",
-    stage: "SCALE STAGE",
-    descriptor: "High-power orbital platform",
-    compute: "100 kW continuous",
-    solar: "288 kW BOL",
-    battery: "259 kWh target",
-    radiator: "320 m² net",
-    architecture: "Single-node screen",
-    proof: "Large deployable dynamics, modular integration, industrial workload demand, and launch architecture at scale.",
-  },
-  {
-    name: "Grid 1 MW",
-    code: "SI-G1MW",
-    stage: "NETWORK STAGE",
-    descriptor: "Distributed orbital compute network",
-    compute: "1 MW aggregate",
-    solar: "2.88 MW aggregate BOL",
-    battery: "2.59 MWh aggregate",
-    radiator: "3,201 m² aggregate",
-    architecture: "10-node reference",
-    proof: "A ten-module reference cluster, not a claim of one spacecraft or one launch. Architecture follows measured node economics.",
-  },
-];
+type PublicMission = {
+  id: string;
+  publicName: string;
+  legacyCode: string;
+  stage: string;
+  architecture: string;
+  description: string;
+  metrics: Record<string, Metric>;
+  moduleArchitecture?: { moduleCount: number; modulePublicName: string };
+};
+
+const missions = siteModel.missions as unknown as PublicMission[];
+
+const missionProof: Record<string, string> = {
+  "hosted-pathfinder": "Compute recovery, memory behavior, signed workload packaging and traceable telemetry in the flight environment.",
+  "flight-demonstrator": "Owned deployable power, eclipse continuity, thermal rejection, autonomy, customer workload and disposal.",
+  "commercial-orbital-node": "Commercial utilization, payload data flow, scheduling and repeatable service economics.",
+  "industrial-orbital-module": "Large deployable dynamics, modular integration, demand and launch architecture at scale.",
+  "megawatt-orbital-network": "Aggregate economics and operations across ten measured 100 kW modules, not a monolithic spacecraft claim.",
+};
+
+function metricValue(metric: Metric | undefined, fallback = "TBD") {
+  if (!metric) return fallback;
+  if (metric.display?.value !== undefined) return `${metric.display.value.toFixed(metric.display.precision)} ${metric.display.unit}`;
+  if (metric.value !== undefined) return `${metric.value.toLocaleString(undefined, { maximumFractionDigits: 3 })} ${metric.unit}`;
+  if (metric.min !== undefined && metric.max !== undefined) return `${metric.min}-${metric.max} ${metric.unit}`;
+  return fallback;
+}
+
+function MissionGraphic({ mission }: { mission: PublicMission }) {
+  if (mission.id === "hosted-pathfinder") {
+    return (
+      <div className="hosted-graphic" aria-label="Hosted payload interface diagram">
+        <div className="host-bus"><span>HOST SPACECRAFT</span><strong>POWER / THERMAL / ADCS / LINK</strong></div>
+        <div className="host-payload"><span>SI PAYLOAD</span><strong>0.2-1.0 kW compute</strong></div>
+      </div>
+    );
+  }
+
+  if (mission.id === "flight-demonstrator") {
+    return (
+      <div className="cad-mission-graphic">
+        <Image src="./assets/cad/flight-demonstrator-deployed.png" alt="Flight Demonstrator notional deployed concept" fill sizes="(max-width: 860px) 100vw, 45vw" />
+        <span>REV B / NOTIONAL GEOMETRY</span>
+      </div>
+    );
+  }
+
+  if (mission.id === "megawatt-orbital-network") {
+    return (
+      <div className="network-graphic" aria-label="Ten modules of 100 kilowatts equal one megawatt aggregate">
+        {Array.from({ length: 10 }, (_, index) => <span key={index}><i>{String(index + 1).padStart(2, "0")}</i><strong>100 kW</strong></span>)}
+        <p>10 x 100 kW = 1 MW aggregate</p>
+      </div>
+    );
+  }
+
+  const isIndustrial = mission.id === "industrial-orbital-module";
+  return (
+    <div className={isIndustrial ? "capacity-graphic industrial" : "capacity-graphic"} aria-label={`${mission.publicName} capacity diagram, physical geometry not selected`}>
+      <div><span>COMPUTE ENVELOPE</span><strong>{metricValue(mission.metrics.continuousCompute)}</strong></div>
+      <div><span>SOLAR AREA SCREEN</span><strong>{metricValue(mission.metrics.deployedSolarArea)}</strong></div>
+      <p>PHYSICAL GEOMETRY / TBD BY SUPPLIER</p>
+    </div>
+  );
+}
+
+function missionMetrics(mission: PublicMission) {
+  if (mission.id === "hosted-pathfinder") {
+    return { compute: metricValue(mission.metrics.continuousCompute), solar: "Host-provided", battery: "Host-provided", radiator: "Host interface" };
+  }
+  if (mission.id === "flight-demonstrator") {
+    return { compute: metricValue(mission.metrics.continuousCompute), solar: metricValue(mission.metrics.solarBolPower), battery: metricValue(mission.metrics.batteryPlanningRange), radiator: `${metricValue(mission.metrics.radiatorModeledMinimum)} min` };
+  }
+  return { compute: metricValue(mission.metrics.continuousCompute), solar: metricValue(mission.metrics.solarBolPower), battery: metricValue(mission.metrics.batteryRevABase), radiator: metricValue(mission.metrics.radiatorModeledMinimum) };
+}
 
 export function ScaleJourney() {
-  const [active, setActive] = useState(0);
-  const refs = useRef<Array<HTMLElement | null>>([]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-        if (visible) setActive(Number((visible.target as HTMLElement).dataset.index));
-      },
-      { rootMargin: "-24% 0px -48% 0px", threshold: [0.15, 0.45, 0.75] },
-    );
-    refs.current.forEach((node) => node && observer.observe(node));
-    return () => observer.disconnect();
-  }, []);
-
+  const [active, setActive] = useState(1);
   const mission = missions[active];
+  const metrics = missionMetrics(mission);
 
   return (
-    <div className="scale-journey">
-      <div className="scale-display">
-        <div className="scale-display-head"><span>{mission.stage}</span><strong>{mission.code}</strong></div>
-        <div className="scale-visual" aria-hidden="true">
-          <div className={`node-geometry node-geometry-${active}`}>
-            <span className="node-core" />
-            <span className="node-wing node-wing-left" />
-            <span className="node-wing node-wing-right" />
-            {active === 4 && <>
-              <i className="cluster-dot d1" /><i className="cluster-dot d2" />
-              <i className="cluster-dot d3" /><i className="cluster-dot d4" />
-            </>}
-          </div>
-          <div className="scale-grid-lines" />
-          <span className="scale-value">{mission.compute}</span>
+    <div className="scale-journey scale-journey-v2">
+      <div className="mission-selector" aria-label="Select a program stage">
+        {missions.map((item, index) => (
+          <button
+            type="button"
+            key={item.id}
+            className={active === index ? "active" : ""}
+            aria-pressed={active === index}
+            onClick={() => setActive(index)}
+          >
+            <span>{String(index).padStart(2, "0")} / {item.stage}</span>
+            <strong>{item.publicName}</strong>
+            <small>{missionProof[item.id]}</small>
+          </button>
+        ))}
+      </div>
+
+      <div className="scale-display" aria-live="polite">
+        <div className="scale-display-head"><span>{mission.stage} STAGE</span><strong>{mission.legacyCode}</strong></div>
+        <div className="scale-visual scale-visual-v2"><MissionGraphic mission={mission} /></div>
+        <div className="scale-title-row">
+          <div><h3>{mission.publicName}</h3><p>{mission.description}</p></div>
+          <span>{metrics.compute}<small>continuous compute</small></span>
         </div>
-        <h3>{mission.name}</h3>
-        <p>{mission.descriptor}</p>
         <div className="scale-metrics">
-          <span><Sun aria-hidden="true" /><small>Solar</small><strong>{mission.solar}</strong></span>
-          <span><BatteryCharging aria-hidden="true" /><small>Battery</small><strong>{mission.battery}</strong></span>
-          <span><ThermometerSun aria-hidden="true" /><small>Radiator</small><strong>{mission.radiator}</strong></span>
+          <span><Sun aria-hidden="true" /><small>Solar BOL</small><strong>{metrics.solar}</strong></span>
+          <span><BatteryCharging aria-hidden="true" /><small>Battery</small><strong>{metrics.battery}</strong></span>
+          <span><ThermometerSun aria-hidden="true" /><small>Radiator</small><strong>{metrics.radiator}</strong></span>
           <span><Gauge aria-hidden="true" /><small>Architecture</small><strong>{mission.architecture}</strong></span>
         </div>
-      </div>
-      <div className="scale-steps">
-        {missions.map((item, index) => (
-          <article
-            key={item.code}
-            data-index={index}
-            ref={(node) => { refs.current[index] = node; }}
-            className={active === index ? "scale-step active" : "scale-step"}
-            onMouseEnter={() => setActive(index)}
-          >
-            <div className="step-index"><span>{String(index).padStart(2, "0")}</span><i /></div>
-            <div>
-              <span className="step-stage">{item.stage}</span>
-              <h3>{item.name}</h3>
-              <p>{item.proof}</p>
-              <div className="step-spec"><strong>{item.compute}</strong><span>{item.solar} solar</span></div>
-            </div>
-          </article>
-        ))}
+        <p className="scale-status-note">MODEL STATUS / Working assumption plus calculated Rev A screening values. Visuals do not share a physical scale.</p>
       </div>
     </div>
   );

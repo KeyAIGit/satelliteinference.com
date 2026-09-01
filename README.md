@@ -1,22 +1,32 @@
 # Satellite Inference
 
-Public website and publication layer for Satellite Inference, an RFID INC program developing orbital computing infrastructure.
+Public website and publication layer for Satellite Inference™, currently operated by RFID INC, a Delaware corporation.
 
 > Compute where space data begins.
 
-The site explains a staged path from a hosted compute flight test to independently operated orbital nodes. Its interactive Orbit Lab compares a 550 km reference LEO with GEO using deterministic, client-side calculations for orbital period, idealized maximum eclipse, and vacuum propagation delay.
+The site explains a staged path from a hosted compute flight test to independently operated orbital nodes. Its interactive Orbit Lab moves from 200 km to GEO using deterministic, client-side calculations for orbital period, worst-case beta-0 eclipse, and vacuum propagation delay. The orbit visual uses one linear physical radial scale; the altitude control is logarithmic.
 
 ## Public mission names
 
 | Name | Identifier | Continuous compute |
 |---|---|---:|
-| Hosted Pathfinder | SI-HP | 0.2-1.0 kW allocation |
-| Node 1 kW | SI-N1 | 1 kW |
-| Node 10 kW | SI-N10 | 10 kW |
-| Node 100 kW | SI-N100 | 100 kW |
-| Grid 1 MW | SI-G1MW | 1 MW aggregate |
+| Hosted Pathfinder | Hosted-1 | 0.2-1.0 kW allocation |
+| Flight Demonstrator | Solar-10 | 1 kW |
+| Commercial Orbital Node | Compute-10 | 10 kW |
+| Industrial Orbital Module | C100 | 100 kW |
+| Megawatt Orbital Network | C1000 | 1 MW aggregate |
 
-The number in each Node or Grid name always means continuous compute power. Solar generation is stated separately.
+Continuous compute, solar generation and aggregate network capacity are stated separately. The Megawatt Orbital Network is exactly a ten-module reference architecture: 10 x 100 kW continuous compute = 1 MW aggregate.
+
+## Public model contract
+
+`public/data/site-model.json` is generated deterministically from the internal Rev A screening model. Important public values include unit, status and source identifiers. The status vocabulary is:
+
+- `CALCULATED`
+- `WORKING_ASSUMPTION`
+- `NOTIONAL_GEOMETRY`
+- `EXTERNAL_REFERENCE`
+- `TBD_BY_SUPPLIER`
 
 ## Publications
 
@@ -42,6 +52,7 @@ Requires Node.js 22.13 or later.
 
 ```bash
 npm ci
+npm run generate:og
 npm run build:pages
 npm test
 ```

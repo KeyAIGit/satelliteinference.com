@@ -6,8 +6,10 @@
     "node": ">=22.13.0"
   },
   "scripts": {
+    "dev": "node scripts/dev-server.mjs",
     "build": "next build",
     "build:pages": "next build",
+    "generate:og": "node scripts/generate-og.mjs",
     "lint": "eslint .",
     "test": "node --test tests/*.test.mjs"
   },
