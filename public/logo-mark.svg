@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="title desc">
+  <title id="title">Satellite Inference mark</title>
+  <desc id="desc">An orbital path crossing a compute node</desc>
+  <defs>
+    <linearGradient id="orbit" x1="7" y1="50" x2="57" y2="14" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#177DC1"/>
+      <stop offset="0.58" stop-color="#4FE5FF"/>
+      <stop offset="1" stop-color="#B7F3FF"/>
+    </linearGradient>
+  </defs>
+  <path d="M10.5 40.8C2.7 34.5 9.2 21.9 24.9 15.4c15.8-6.5 31.1-4.4 33.9 4.7 2.9 9.1-7.8 21.7-23.6 28.2C19.4 54.8 5 52.4 5 43.2" fill="none" stroke="url(#orbit)" stroke-width="3" stroke-linecap="round"/>
+  <path d="M17.2 17.6c6.7-6.2 20.1-4.4 29.8 4 9.8 8.5 12.2 20.5 5.5 26.7-6.8 6.2-20.2 4.4-29.9-4.1C12.9 35.8 10.4 23.8 17.2 17.6Z" fill="none" stroke="#4FE5FF" stroke-opacity=".22" stroke-width="1.5"/>
+  <rect x="25" y="25" width="14" height="14" rx="2.8" fill="#F3FBFF" stroke="#4FE5FF" stroke-width="2.4"/>
+  <rect x="29" y="29" width="6" height="6" rx="1" fill="#177DC1"/>
+  <circle cx="52.4" cy="16.6" r="3" fill="#FFBD4A"/>
+</svg>
