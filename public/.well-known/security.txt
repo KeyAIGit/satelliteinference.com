@@ -1,0 +1,4 @@
+Contact: mailto:security@satelliteinference.com
+Canonical: https://satelliteinference.com/.well-known/security.txt
+Preferred-Languages: en, ru
+Expires: 2027-09-02T00:00:00Z

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 
@@ -15,6 +15,13 @@ const navigation = [
 
 export function SiteNavigation() {
   const [open, setOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  const closeMenu = () => {
+    setOpen(false);
+    window.requestAnimationFrame(() => menuButtonRef.current?.focus());
+  };
 
   useEffect(() => {
     document.documentElement.dataset.hydrated = "true";
@@ -23,12 +30,38 @@ export function SiteNavigation() {
   }, [open]);
 
   useEffect(() => {
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
+    if (!open) return;
+
+    const handleKeyboard = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeMenu();
+        return;
+      }
+
+      if (event.key !== "Tab") return;
+
+      const menuItems = Array.from(
+        menuRef.current?.querySelectorAll<HTMLElement>("a[href], button:not([disabled])") ?? [],
+      );
+      const focusableItems = [menuButtonRef.current, ...menuItems].filter(
+        (item): item is HTMLElement => Boolean(item),
+      );
+      const firstItem = focusableItems[0];
+      const lastItem = focusableItems.at(-1);
+
+      if (event.shiftKey && document.activeElement === firstItem) {
+        event.preventDefault();
+        lastItem?.focus();
+      } else if (!event.shiftKey && document.activeElement === lastItem) {
+        event.preventDefault();
+        firstItem?.focus();
+      }
     };
-    window.addEventListener("keydown", closeOnEscape);
-    return () => window.removeEventListener("keydown", closeOnEscape);
-  }, []);
+
+    window.addEventListener("keydown", handleKeyboard);
+    return () => window.removeEventListener("keydown", handleKeyboard);
+  }, [open]);
 
   return (
     <header className="site-header">
@@ -49,6 +82,7 @@ export function SiteNavigation() {
       </a>
 
       <button
+        ref={menuButtonRef}
         type="button"
         className="menu-toggle"
         aria-label={open ? "Close navigation" : "Open navigation"}
@@ -59,14 +93,23 @@ export function SiteNavigation() {
         {open ? <X aria-hidden="true" /> : <Menu aria-hidden="true" />}
       </button>
 
-      <div className={open ? "mobile-menu open" : "mobile-menu"} id="mobile-navigation">
+      <div
+        ref={menuRef}
+        className={open ? "mobile-menu open" : "mobile-menu"}
+        id="mobile-navigation"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Mobile navigation"
+        aria-hidden={!open}
+        inert={!open}
+      >
         <nav aria-label="Mobile navigation">
           {navigation.map((item, index) => (
-            <a href={item.href} key={item.href} onClick={() => setOpen(false)}>
+            <a href={item.href} key={item.href} onClick={closeMenu}>
               <span>{String(index + 1).padStart(2, "0")}</span>{item.label}
             </a>
           ))}
-          <a className="mobile-menu-contact" href="mailto:partnerships@satelliteinference.com" onClick={() => setOpen(false)}>
+          <a className="mobile-menu-contact" href="mailto:partnerships@satelliteinference.com" onClick={closeMenu}>
             Start a technical conversation <ArrowUpRight aria-hidden="true" />
           </a>
         </nav>

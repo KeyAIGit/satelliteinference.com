@@ -370,9 +370,9 @@ export default function Home() {
         </div>
         <div className="footer-links">
           <a href="mailto:contact@satelliteinference.com">Contact</a>
-          <a href="https://keyai.org">KeyAI Research</a>
-          <a href="https://www.spacex.com/rideshare/">Launch reference</a>
-          <a href="https://science.nasa.gov/resource/what-is-a-lagrange-point/">NASA reference</a>
+          <a href="/privacy/">Privacy</a>
+          <a href="/disclaimer/">Disclaimer</a>
+          <a href="/.well-known/security.txt">Security</a>
         </div>
         <p className="footer-legal">
           Satellite Inference™ is currently operated by RFID INC, a Delaware corporation. © 2026 RFID INC. All rights reserved.<br />

@@ -6,9 +6,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
       url: "https://satelliteinference.com",
-      lastModified: new Date("2026-09-01T00:00:00Z"),
+      lastModified: new Date("2026-09-02T00:00:00Z"),
       changeFrequency: "monthly",
       priority: 1,
+    },
+    {
+      url: "https://satelliteinference.com/privacy/",
+      lastModified: new Date("2026-09-02T00:00:00Z"),
+      changeFrequency: "yearly",
+      priority: 0.2,
+    },
+    {
+      url: "https://satelliteinference.com/disclaimer/",
+      lastModified: new Date("2026-09-02T00:00:00Z"),
+      changeFrequency: "yearly",
+      priority: 0.2,
     },
   ];
 }
