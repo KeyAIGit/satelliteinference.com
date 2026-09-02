@@ -1,7 +1,7 @@
 {
-  "schemaVersion": "1.0.0",
-  "dataVersion": "2026-09-02.rev-b.1",
-  "modelRevision": "Rev B",
+  "schemaVersion": "2.0.0",
+  "dataVersion": "2026-09-02.rev-c.2",
+  "modelRevision": "Rev C",
   "status": "PRELIMINARY",
   "asOf": "2026-09-02",
   "referenceOrbit": {
@@ -11,23 +11,33 @@
     "earthGravitationalParameterKm3s2": 398600.4418
   },
   "powerThermalScreen": {
-    "solarLossAndMarginFactor": 1.56754,
-    "batterySizingFactor": 3.78296,
-    "solarBolArealPowerWm2": 300.0,
-    "radiatorNetRejectionWm2": 350.0,
-    "radiatorHeatLoadFraction": 0.97
+    "solar": {
+      "designMargin": 1.1,
+      "arrayToLoadEfficiency": 0.88,
+      "eolPowerRetention": 0.8,
+      "activePvBolArealPowerWm2": 300.0,
+      "activeToGrossPackingFactor": 0.8
+    },
+    "battery": {
+      "maximumDepthOfDischarge": 0.5,
+      "dischargeEfficiency": 0.92,
+      "eolCapacityRetention": 0.8,
+      "energyReserveFactor": 1.3
+    },
+    "thermal": {
+      "heatLoadFraction": 0.97,
+      "radiatorNetRejectionWm2": 350.0
+    }
   },
   "missionInputs": [
     {
-      "id": "flight-demonstrator",
-      "continuousComputeKw": 1.0,
-      "totalSpacecraftLoadKw": 1.65,
-      "installedBolTargetKw": 10.0
-    },
-    {
-      "id": "commercial-orbital-node",
+      "id": "orbital-node-10kw",
       "continuousComputeKw": 10.0,
-      "totalSpacecraftLoadKw": 12.0
+      "totalSpacecraftLoadKw": {
+        "min": 12.0,
+        "nominal": 13.5,
+        "max": 15.0
+      }
     },
     {
       "id": "industrial-orbital-module",
@@ -37,17 +47,21 @@
   ],
   "equations": {
     "orbitalPeriod": "T = 2 * pi * sqrt(r^3 / mu)",
-    "betaZeroEclipse": "te = T * asin(RE / r) / pi",
-    "requiredBolSolar": "Pbol = Pload * solarLossAndMarginFactor / sunlitFraction",
-    "activePvEquivalentArea": "Apv = selectedBolPower * 1000 / solarBolArealPower",
-    "batteryEnergy": "Ebatt = Pload * eclipseHours * batterySizingFactor",
-    "radiatorEffectiveArea": "Arad = Pload * 1000 * radiatorHeatLoadFraction / radiatorNetRejection"
+    "cylindricalEclipse": "te = T * acos(sqrt(r^2 - RE^2) / (r * cos(beta))) / pi, with te = 0 above critical beta",
+    "requiredBolSolar": "Pbol = Pload * designMargin / (sunlitFraction * arrayToLoadEfficiency * eolPowerRetention)",
+    "activePvEquivalentArea": "Aactive = Pbol * 1000 / activePvBolArealPower",
+    "grossSolarPlanform": "Agross = Aactive / activeToGrossPackingFactor",
+    "batteryEnergy": "Ebatt = Pload * eclipseHours * energyReserveFactor / (maximumDepthOfDischarge * dischargeEfficiency * eolCapacityRetention)",
+    "rejectedHeat": "Qreject = Pload * heatLoadFraction",
+    "radiatorEquivalentArea": "Arad = Qreject * 1000 / radiatorNetRejection"
   },
   "limitations": [
-    "The combined solar factor groups preliminary electrical losses and design margin; it is not supplier performance data.",
-    "The battery factor is a combined preliminary sizing factor; cell chemistry, depth of discharge, aging and thermal limits remain unselected.",
-    "Active-PV equivalent area excludes packing, gaps, structure, mechanisms, harness and pointing losses, so it is not gross array planform.",
-    "Radiator area is an idealized effective-area screen. View factors, sink temperature, coatings, orientation, degradation and two-sided geometry are not modeled.",
+    "The 1 kW engineering tile is a ground-only development unit and is intentionally excluded from orbital power, eclipse and radiator equations.",
+    "The 10 kW flight requirement is continuous electrical input at the compute-payload interface; total spacecraft load is screened from 12 to 15 kW with 13.5 kW nominal.",
+    "Solar, battery and thermal factors are preliminary planning assumptions, not supplier performance data.",
+    "Active-PV equivalent area excludes packing, gaps, structure, mechanisms and harness. Gross planform applies only the disclosed packing factor and remains a screening result.",
+    "Radiator area is an idealized equivalent-area screen. View factors, sink temperature, coatings, orientation, degradation and one-sided versus two-sided geometry are not modeled.",
+    "Mass, physical radiator geometry, deployed span, launch compatibility and high-beta orbit availability remain working assumptions or supplier-validation items.",
     "All results are pre-SRR screening values and require supplier data, coupled analysis and test validation."
   ]
 }

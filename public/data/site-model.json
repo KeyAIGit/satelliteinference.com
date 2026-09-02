@@ -1,9 +1,9 @@
 {
-  "schemaVersion": "1.0.0",
-  "dataVersion": "2026-09-02.rev-b.1",
+  "schemaVersion": "2.0.0",
+  "dataVersion": "2026-09-02.rev-c.2",
   "model": {
     "name": "Orbital Compute Parametric Model",
-    "revision": "Rev B",
+    "revision": "Rev C",
     "asOf": "2026-09-02",
     "status": "PRELIMINARY",
     "deterministic": true,
@@ -12,7 +12,7 @@
   "statusDefinitions": [
     {
       "code": "CALCULATED",
-      "definition": "Derived by the public Rev B screening equations from disclosed assumptions."
+      "definition": "Derived by the public Rev C screening equations from disclosed assumptions."
     },
     {
       "code": "WORKING_ASSUMPTION",
@@ -33,17 +33,17 @@
   ],
   "sources": [
     {
-      "id": "assumptions-rev-b",
+      "id": "assumptions-rev-c",
       "type": "internal",
-      "title": "Orbital Compute Parametric Model assumptions, Rev B",
+      "title": "Orbital Compute Parametric Model assumptions, Rev C",
       "locator": "/data/model-assumptions.json",
       "url": "https://satelliteinference.com/data/model-assumptions.json",
       "asOf": "2026-09-02"
     },
     {
-      "id": "model-rev-b",
+      "id": "model-rev-c",
       "type": "internal",
-      "title": "Orbital Compute Parametric Model equations, Rev B",
+      "title": "Orbital Compute Parametric Model equations, Rev C",
       "locator": "/model/engineering-screen.mjs",
       "url": "https://satelliteinference.com/model/engineering-screen.mjs",
       "asOf": "2026-09-02"
@@ -70,7 +70,7 @@
       "displayPrecision": 3,
       "status": "WORKING_ASSUMPTION",
       "sourceIds": [
-        "assumptions-rev-b"
+        "assumptions-rev-c"
       ]
     },
     "earthGravitationalParameter": {
@@ -79,7 +79,7 @@
       "displayPrecision": 4,
       "status": "WORKING_ASSUMPTION",
       "sourceIds": [
-        "assumptions-rev-b"
+        "assumptions-rev-c"
       ]
     },
     "speedOfLight": {
@@ -88,7 +88,7 @@
       "displayPrecision": 3,
       "status": "WORKING_ASSUMPTION",
       "sourceIds": [
-        "assumptions-rev-b"
+        "assumptions-rev-c"
       ]
     },
     "siderealDay": {
@@ -97,25 +97,25 @@
       "displayPrecision": 4,
       "status": "WORKING_ASSUMPTION",
       "sourceIds": [
-        "assumptions-rev-b"
+        "assumptions-rev-c"
       ]
     },
     "solarBolArealPower": {
-      "value": 300.0,
+      "value": 300,
       "unit": "W/m2",
       "displayPrecision": 0,
       "status": "WORKING_ASSUMPTION",
       "sourceIds": [
-        "assumptions-rev-b"
+        "assumptions-rev-c"
       ]
     },
     "radiatorNetRejection": {
-      "value": 350.0,
+      "value": 350,
       "unit": "W/m2",
       "displayPrecision": 0,
       "status": "WORKING_ASSUMPTION",
       "sourceIds": [
-        "assumptions-rev-b"
+        "assumptions-rev-c"
       ]
     }
   },
@@ -126,17 +126,17 @@
       "regime": "LEO",
       "status": "CALCULATED",
       "sourceIds": [
-        "assumptions-rev-b",
-        "model-rev-b"
+        "assumptions-rev-c",
+        "model-rev-c"
       ],
       "metrics": {
         "altitude": {
-          "value": 550.0,
+          "value": 550,
           "unit": "km",
           "displayPrecision": 0,
           "status": "WORKING_ASSUMPTION",
           "sourceIds": [
-            "assumptions-rev-b"
+            "assumptions-rev-c"
           ]
         },
         "orbitalRadiusEarthRadii": {
@@ -145,8 +145,8 @@
           "displayPrecision": 5,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
+            "assumptions-rev-c",
+            "model-rev-c"
           ]
         },
         "period": {
@@ -155,8 +155,8 @@
           "displayPrecision": 3,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
+            "assumptions-rev-c",
+            "model-rev-c"
           ]
         },
         "worstCaseCylindricalShadow": {
@@ -165,8 +165,8 @@
           "displayPrecision": 3,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
+            "assumptions-rev-c",
+            "model-rev-c"
           ]
         },
         "zenithVacuumOneWayLatency": {
@@ -175,8 +175,8 @@
           "displayPrecision": 3,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
+            "assumptions-rev-c",
+            "model-rev-c"
           ]
         }
       },
@@ -191,8 +191,8 @@
       "regime": "GEO",
       "status": "CALCULATED",
       "sourceIds": [
-        "assumptions-rev-b",
-        "model-rev-b"
+        "assumptions-rev-c",
+        "model-rev-c"
       ],
       "metrics": {
         "altitude": {
@@ -201,8 +201,8 @@
           "displayPrecision": 3,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
+            "assumptions-rev-c",
+            "model-rev-c"
           ]
         },
         "orbitalRadiusEarthRadii": {
@@ -211,8 +211,8 @@
           "displayPrecision": 5,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
+            "assumptions-rev-c",
+            "model-rev-c"
           ]
         },
         "period": {
@@ -221,8 +221,8 @@
           "displayPrecision": 3,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
+            "assumptions-rev-c",
+            "model-rev-c"
           ]
         },
         "worstCaseCylindricalShadow": {
@@ -231,8 +231,8 @@
           "displayPrecision": 3,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
+            "assumptions-rev-c",
+            "model-rev-c"
           ]
         },
         "zenithVacuumOneWayLatency": {
@@ -241,8 +241,8 @@
           "displayPrecision": 3,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
+            "assumptions-rev-c",
+            "model-rev-c"
           ]
         }
       },
@@ -255,311 +255,231 @@
   ],
   "missions": [
     {
-      "id": "hosted-pathfinder",
+      "id": "ground-engineering-tile",
       "order": 1,
-      "publicName": "Hosted Pathfinder",
-      "legacyCode": "Hosted-1",
-      "stage": "PATHFINDER",
-      "architecture": "hosted payload",
+      "publicName": "Ground Engineering Tile",
+      "legacyCode": "GROUND / 1 KW",
+      "stage": "GROUND VALIDATION",
+      "architecture": "ground engineering unit",
+      "orbitId": null,
       "status": "WORKING_ASSUMPTION",
       "sourceIds": [
-        "assumptions-rev-b"
+        "assumptions-rev-c"
       ],
-      "description": "A compute payload integrated on a host spacecraft. The host provides solar power, eclipse energy, attitude control, propulsion and the primary link.",
+      "description": "A 1 kW modular compute, power, cooling and runtime unit used on the ground to retire integration risk before flight hardware is released.",
       "metrics": {
         "continuousCompute": {
-          "min": 0.2,
-          "max": 1.0,
-          "unit": "kW",
-          "displayPrecision": 1,
-          "status": "WORKING_ASSUMPTION",
-          "sourceIds": [
-            "assumptions-rev-b"
-          ],
-          "nominal": 0.5
-        },
-        "hostInterfacePower": {
-          "min": 0.33,
-          "max": 1.25,
-          "unit": "kW",
-          "displayPrecision": 3,
-          "status": "CALCULATED",
-          "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
-          ],
-          "nominal": 0.675
-        },
-        "screeningPayloadMass": {
-          "min": 18.05,
-          "max": 147.79,
-          "unit": "kg",
-          "displayPrecision": 2,
-          "status": "CALCULATED",
-          "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
-          ],
-          "nominal": 44.29
-        }
-      },
-      "hostProvidedServices": [
-        "solar generation",
-        "eclipse energy storage",
-        "attitude control",
-        "propulsion",
-        "primary communications"
-      ],
-      "validation": {
-        "status": "TBD_BY_SUPPLIER",
-        "sourceIds": [],
-        "required": [
-          "host payload interface control document",
-          "host thermal interface and rejection allocation",
-          "data-link allocation and operations concept",
-          "commercial hosted-payload proposal"
-        ]
-      }
-    },
-    {
-      "id": "flight-demonstrator",
-      "order": 2,
-      "publicName": "Flight Demonstrator",
-      "legacyCode": "Solar-10",
-      "stage": "DEMONSTRATOR",
-      "architecture": "free-flyer",
-      "status": "WORKING_ASSUMPTION",
-      "sourceIds": [
-        "assumptions-rev-b"
-      ],
-      "description": "First owned spacecraft targeting 1 kW continuous compute in 550 km LEO, with a 10 kW installed BOL solar target that remains a working assumption.",
-      "metrics": {
-        "continuousCompute": {
-          "value": 1.0,
+          "value": 1,
           "unit": "kW",
           "displayPrecision": 0,
           "status": "WORKING_ASSUMPTION",
           "sourceIds": [
-            "assumptions-rev-b"
+            "assumptions-rev-c"
           ]
         },
-        "totalSpacecraftLoad": {
-          "value": 1.65,
-          "unit": "kW",
-          "displayPrecision": 2,
-          "status": "CALCULATED",
-          "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
-          ]
-        },
-        "solarBolPower": {
-          "value": 10.0,
+        "rackElectricalInput": {
+          "min": 1.2,
+          "max": 1.8,
           "unit": "kW",
           "displayPrecision": 1,
           "status": "WORKING_ASSUMPTION",
           "sourceIds": [
-            "assumptions-rev-b"
+            "assumptions-rev-c"
           ]
         },
-        "solarBolRequiredScreen": {
-          "value": 4.12,
-          "unit": "kW",
-          "displayPrecision": 2,
-          "status": "CALCULATED",
-          "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
-          ]
-        },
-        "activePvEquivalentArea": {
-          "value": 33.333,
-          "unit": "m2",
-          "displayPrecision": 3,
-          "status": "CALCULATED",
-          "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
-          ]
-        },
-        "batteryRevABase": {
-          "value": 3.7,
-          "unit": "kWh",
-          "displayPrecision": 2,
-          "status": "CALCULATED",
-          "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
-          ]
-        },
-        "radiatorEffectiveAreaScreen": {
-          "value": 4.57,
-          "unit": "m2",
-          "displayPrecision": 2,
-          "status": "CALCULATED",
-          "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
-          ]
-        },
-        "screeningMass": {
-          "min": 277.89,
-          "max": 1051.35,
-          "unit": "kg",
-          "displayPrecision": 2,
-          "status": "CALCULATED",
-          "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
-          ],
-          "nominal": 479.38,
-          "display": {
-            "min": 0.28,
-            "nominal": 0.48,
-            "max": 1.05,
-            "unit": "t",
-            "precision": 2
-          }
-        },
-        "batteryPlanningRange": {
-          "min": 4.0,
-          "max": 8.0,
-          "unit": "kWh",
-          "displayPrecision": 0,
+        "thermalRejectionTarget": {
+          "min": 1,
+          "max": 1.5,
+          "unit": "kWth",
+          "displayPrecision": 1,
           "status": "WORKING_ASSUMPTION",
           "sourceIds": [
-            "assumptions-rev-b"
-          ]
-        },
-        "radiatorNotionalGross": {
-          "value": 6.0,
-          "unit": "m2",
-          "displayPrecision": 1,
-          "status": "NOTIONAL_GEOMETRY",
-          "sourceIds": [
-            "assumptions-rev-b"
-          ]
-        },
-        "radiatorFullLoadEquivalent": {
-          "value": 4.71,
-          "unit": "m2",
-          "displayPrecision": 2,
-          "status": "CALCULATED",
-          "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
+            "assumptions-rev-c"
           ]
         }
       },
       "validation": {
-        "status": "TBD_BY_SUPPLIER",
-        "sourceIds": [],
+        "status": "WORKING_ASSUMPTION",
+        "sourceIds": [
+          "assumptions-rev-c"
+        ],
         "required": [
-          "supplier mass and interface data",
-          "coupled thermal analysis",
-          "deployable structural and modal analysis",
-          "launch-provider compatibility review"
+          "steady-state one kilowatt workload operation",
+          "power-cycle and fault-recovery evidence",
+          "thermal-loop characterization",
+          "workload signing and telemetry traceability"
         ]
       },
       "notes": [
-        "The 4 to 8 kWh battery value is a preliminary planning range.",
-        "The 3.70 kWh Rev B base is an analytical screening result, not a selected battery.",
-        "The 10 kW BOL value is an installed generation target and working assumption; the Rev B required-power screen is 4.12 kW.",
-        "The 33.333 m2 solar value is active-PV equivalent area at 300 W/m2, not gross deployed planform.",
-        "The 4.57 m2 radiator value is an idealized effective-area screen at 350 W/m2 and a 0.97 heat-load factor; the corresponding 100% electrical-load equivalent is 4.71 m2.",
-        "The 6.0 m2 radiator value is notional gross planform; orientation, view factors and usable two-sided area are not validated."
+        "This stage remains on the ground and is not a separate hosted-payload or spacecraft mission.",
+        "The tile is a reusable engineering building block for the 10 kW ground breadboard and orbital node."
       ]
     },
     {
-      "id": "commercial-orbital-node",
-      "order": 3,
-      "publicName": "Commercial Orbital Node",
-      "legacyCode": "Compute-10",
-      "stage": "COMMERCIAL",
-      "architecture": "free-flyer",
+      "id": "orbital-node-10kw",
+      "order": 2,
+      "publicName": "10 kW Orbital Node",
+      "legacyCode": "LEO / 10 KW",
+      "stage": "FIRST FLIGHT",
+      "architecture": "owned LEO node",
       "status": "WORKING_ASSUMPTION",
       "sourceIds": [
-        "assumptions-rev-b"
+        "assumptions-rev-c"
       ],
-      "description": "A later free-flyer sized for 10 kW continuous orbital compute.",
+      "description": "First owned orbital system targeting 10 kW continuous compute-payload electrical input in a 500-600 km LEO baseline.",
       "metrics": {
         "continuousCompute": {
-          "value": 10.0,
+          "value": 10,
           "unit": "kW",
           "displayPrecision": 0,
           "status": "WORKING_ASSUMPTION",
           "sourceIds": [
-            "assumptions-rev-b"
+            "assumptions-rev-c"
           ]
         },
         "totalSpacecraftLoad": {
-          "value": 12.0,
+          "min": 12,
+          "nominal": 13.5,
+          "max": 15,
           "unit": "kW",
-          "displayPrecision": 2,
-          "status": "CALCULATED",
+          "displayPrecision": 1,
+          "status": "WORKING_ASSUMPTION",
           "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
+            "assumptions-rev-c"
           ]
         },
         "solarBolPower": {
-          "value": 29.97,
+          "min": 29.87,
+          "nominal": 33.61,
+          "max": 37.34,
           "unit": "kW",
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
+            "assumptions-rev-c",
+            "model-rev-c"
           ]
         },
         "activePvEquivalentArea": {
-          "value": 99.89,
+          "min": 99.57,
+          "nominal": 112.02,
+          "max": 124.46,
           "unit": "m2",
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
+            "assumptions-rev-c",
+            "model-rev-c"
           ]
         },
-        "batteryRevABase": {
-          "value": 26.94,
+        "grossSolarPlanformScreen": {
+          "min": 124.46,
+          "nominal": 140.02,
+          "max": 155.58,
+          "unit": "m2",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-c",
+            "model-rev-c"
+          ]
+        },
+        "batteryEnergyScreen": {
+          "min": 25.16,
+          "nominal": 28.31,
+          "max": 31.45,
           "unit": "kWh",
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
+            "assumptions-rev-c",
+            "model-rev-c"
+          ]
+        },
+        "rejectedHeatScreen": {
+          "min": 11.64,
+          "nominal": 13.1,
+          "max": 14.55,
+          "unit": "kWth",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-c",
+            "model-rev-c"
           ]
         },
         "radiatorEffectiveAreaScreen": {
-          "value": 33.26,
+          "min": 33.26,
+          "nominal": 37.41,
+          "max": 41.57,
           "unit": "m2",
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
+            "assumptions-rev-c",
+            "model-rev-c"
           ]
         },
-        "screeningMass": {
-          "min": 952.02,
-          "max": 3691.86,
-          "unit": "kg",
-          "displayPrecision": 2,
-          "status": "CALCULATED",
+        "solarBolPlanningRange": {
+          "min": 30,
+          "max": 38,
+          "unit": "kW",
+          "displayPrecision": 0,
+          "status": "WORKING_ASSUMPTION",
           "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
-          ],
-          "nominal": 1661.96,
-          "display": {
-            "min": 0.95,
-            "nominal": 1.66,
-            "max": 3.69,
-            "unit": "t",
-            "precision": 2
-          }
+            "assumptions-rev-c"
+          ]
+        },
+        "grossDeployedSolarAreaPlanning": {
+          "min": 125,
+          "max": 156,
+          "unit": "m2",
+          "displayPrecision": 0,
+          "status": "WORKING_ASSUMPTION",
+          "sourceIds": [
+            "assumptions-rev-c"
+          ]
+        },
+        "batteryPlanningRange": {
+          "min": 25,
+          "max": 32,
+          "unit": "kWh",
+          "displayPrecision": 0,
+          "status": "WORKING_ASSUMPTION",
+          "sourceIds": [
+            "assumptions-rev-c"
+          ]
+        },
+        "radiatorPlanningRange": {
+          "min": 35,
+          "max": 60,
+          "unit": "m2",
+          "displayPrecision": 0,
+          "status": "WORKING_ASSUMPTION",
+          "sourceIds": [
+            "assumptions-rev-c"
+          ]
+        },
+        "screeningMassPlanningRange": {
+          "min": 3,
+          "nominal": 4.7,
+          "max": 7,
+          "unit": "t",
+          "displayPrecision": 0,
+          "status": "WORKING_ASSUMPTION",
+          "sourceIds": [
+            "assumptions-rev-c"
+          ]
+        },
+        "deployedSpanPlanningRange": {
+          "min": 25,
+          "max": 40,
+          "unit": "m",
+          "displayPrecision": 0,
+          "status": "WORKING_ASSUMPTION",
+          "sourceIds": [
+            "assumptions-rev-c"
+          ]
         }
       },
       "validation": {
@@ -571,68 +491,96 @@
           "deployable structural and modal analysis",
           "launch-provider compatibility review"
         ]
-      }
+      },
+      "orbitId": "leo-550",
+      "notes": [
+        "10 kW is continuous electrical input available to the compute payload, not accelerator silicon power or delivered customer FLOPS.",
+        "The 12 to 15 kW total spacecraft-load range is a working assumption; 13.5 kW is the nominal power and thermal screening point.",
+        "At the nominal point the model calculates 33.61 kW required BOL solar, 112.02 m2 active-PV equivalent, 140.02 m2 gross solar planform, 28.31 kWh battery and 37.41 m2 equivalent radiator area.",
+        "Physical radiator planform remains a 35 to 60 m2 working envelope because orientation, view factors and one-sided versus two-sided rejection are not selected.",
+        "The 3 to 7 t mass range is a conservative pre-SRR planning envelope. Supplier-validated mass, propellant and launch interfaces remain open.",
+        "Single-spacecraft versus distributed first-node packaging remains an MDR trade."
+      ]
     },
     {
       "id": "industrial-orbital-module",
-      "order": 4,
-      "publicName": "Industrial Orbital Module",
-      "legacyCode": "C100",
-      "stage": "INDUSTRIAL",
+      "order": 3,
+      "publicName": "100 kW Orbital Module",
+      "legacyCode": "SCALE / 100 KW",
+      "stage": "SCALE",
       "architecture": "free-flyer",
       "status": "WORKING_ASSUMPTION",
       "sourceIds": [
-        "assumptions-rev-b"
+        "assumptions-rev-c"
       ],
-      "description": "A 100 kW continuous-compute module requiring large deployable power and thermal systems.",
+      "description": "A later 100 kW continuous-compute module gated by measured performance, customer demand and a validated heavy-lift architecture.",
       "metrics": {
         "continuousCompute": {
-          "value": 100.0,
+          "value": 100,
           "unit": "kW",
           "displayPrecision": 0,
           "status": "WORKING_ASSUMPTION",
           "sourceIds": [
-            "assumptions-rev-b"
+            "assumptions-rev-c"
           ]
         },
         "totalSpacecraftLoad": {
           "value": 115.5,
           "unit": "kW",
           "displayPrecision": 2,
-          "status": "CALCULATED",
+          "status": "WORKING_ASSUMPTION",
           "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
+            "assumptions-rev-c"
           ]
         },
         "solarBolPower": {
-          "value": 288.44,
+          "value": 287.51,
           "unit": "kW",
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
+            "assumptions-rev-c",
+            "model-rev-c"
           ]
         },
         "activePvEquivalentArea": {
-          "value": 961.47,
+          "value": 958.38,
           "unit": "m2",
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
+            "assumptions-rev-c",
+            "model-rev-c"
           ]
         },
-        "batteryRevABase": {
-          "value": 259.33,
+        "grossSolarPlanformScreen": {
+          "value": 1197.97,
+          "unit": "m2",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-c",
+            "model-rev-c"
+          ]
+        },
+        "batteryEnergyScreen": {
+          "value": 242.17,
           "unit": "kWh",
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
+            "assumptions-rev-c",
+            "model-rev-c"
+          ]
+        },
+        "rejectedHeatScreen": {
+          "value": 112.04,
+          "unit": "kWth",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-c",
+            "model-rev-c"
           ]
         },
         "radiatorEffectiveAreaScreen": {
@@ -641,28 +589,9 @@
           "displayPrecision": 1,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
+            "assumptions-rev-c",
+            "model-rev-c"
           ]
-        },
-        "screeningMass": {
-          "min": 8337.96,
-          "max": 32602.12,
-          "unit": "kg",
-          "displayPrecision": 2,
-          "status": "CALCULATED",
-          "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
-          ],
-          "nominal": 14630.68,
-          "display": {
-            "min": 8.34,
-            "nominal": 14.63,
-            "max": 32.6,
-            "unit": "t",
-            "precision": 2
-          }
         }
       },
       "validation": {
@@ -674,113 +603,114 @@
           "deployable structural and modal analysis",
           "launch-provider compatibility review"
         ]
-      }
+      },
+      "orbitId": null
     },
     {
       "id": "megawatt-orbital-network",
-      "order": 5,
+      "order": 4,
       "publicName": "Megawatt Orbital Network",
-      "legacyCode": "C1000",
+      "legacyCode": "NETWORK / 1 MW",
       "stage": "NETWORK",
       "architecture": "distributed cluster",
       "status": "WORKING_ASSUMPTION",
       "sourceIds": [
-        "assumptions-rev-b"
+        "assumptions-rev-c"
       ],
-      "description": "A ten-module reference cluster, not one monolithic spacecraft or one-launch claim.",
+      "description": "A ten-module reference cluster built from measured 100 kW modules, not one monolithic spacecraft or one-launch claim.",
       "metrics": {
         "continuousCompute": {
-          "value": 1000.0,
+          "value": 1000,
           "unit": "kW",
           "displayPrecision": 0,
           "status": "WORKING_ASSUMPTION",
           "sourceIds": [
-            "assumptions-rev-b"
+            "assumptions-rev-c"
           ],
           "display": {
-            "value": 1.0,
+            "value": 1,
             "unit": "MW",
             "precision": 0
           }
         },
         "totalSpacecraftLoad": {
-          "value": 1155.0,
+          "value": 1155,
           "unit": "kW",
           "displayPrecision": 2,
-          "status": "CALCULATED",
+          "status": "WORKING_ASSUMPTION",
           "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
+            "assumptions-rev-c"
           ]
         },
         "solarBolPower": {
-          "value": 2884.4,
+          "value": 2875.13,
           "unit": "kW",
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
+            "assumptions-rev-c",
+            "model-rev-c"
           ],
           "display": {
-            "value": 2.884,
+            "value": 2.875,
             "unit": "MW",
             "precision": 3
           }
         },
         "activePvEquivalentArea": {
-          "value": 9614.68,
+          "value": 9583.76,
           "unit": "m2",
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
+            "assumptions-rev-c",
+            "model-rev-c"
           ]
         },
-        "batteryRevABase": {
-          "value": 2593.3,
+        "grossSolarPlanformScreen": {
+          "value": 11979.71,
+          "unit": "m2",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-c",
+            "model-rev-c"
+          ]
+        },
+        "batteryEnergyScreen": {
+          "value": 2421.68,
           "unit": "kWh",
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
+            "assumptions-rev-c",
+            "model-rev-c"
           ],
           "display": {
-            "value": 2.593,
+            "value": 2.422,
             "unit": "MWh",
             "precision": 3
           }
         },
+        "rejectedHeatScreen": {
+          "value": 1120.35,
+          "unit": "kWth",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-c",
+            "model-rev-c"
+          ]
+        },
         "radiatorEffectiveAreaScreen": {
-          "value": 3201.0,
+          "value": 3201,
           "unit": "m2",
           "displayPrecision": 0,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
+            "assumptions-rev-c",
+            "model-rev-c"
           ]
-        },
-        "screeningMass": {
-          "min": 83379.59,
-          "max": 326021.17,
-          "unit": "kg",
-          "displayPrecision": 2,
-          "status": "CALCULATED",
-          "sourceIds": [
-            "assumptions-rev-b",
-            "model-rev-b"
-          ],
-          "nominal": 146306.76,
-          "display": {
-            "min": 83.38,
-            "nominal": 146.31,
-            "max": 326.02,
-            "unit": "t",
-            "precision": 2
-          }
         }
       },
       "validation": {
@@ -795,21 +725,22 @@
       },
       "moduleArchitecture": {
         "moduleCount": 10,
-        "modulePublicName": "Industrial Orbital Module",
+        "modulePublicName": "100 kW Orbital Module",
         "continuousComputePerModule": {
-          "value": 100.0,
+          "value": 100,
           "unit": "kW",
           "displayPrecision": 0,
           "status": "WORKING_ASSUMPTION",
           "sourceIds": [
-            "assumptions-rev-b"
+            "assumptions-rev-c"
           ]
         },
         "status": "WORKING_ASSUMPTION",
         "sourceIds": [
-          "assumptions-rev-b"
+          "assumptions-rev-c"
         ]
-      }
+      },
+      "orbitId": null
     }
   ],
   "launchReferences": [
@@ -821,7 +752,7 @@
         "spacex-rideshare"
       ],
       "baseMass": {
-        "value": 50.0,
+        "value": 50,
         "unit": "kg",
         "displayPrecision": 0,
         "status": "EXTERNAL_REFERENCE",
@@ -830,7 +761,7 @@
         ]
       },
       "basePrice": {
-        "value": 350000.0,
+        "value": 350000,
         "unit": "USD",
         "displayPrecision": 0,
         "status": "EXTERNAL_REFERENCE",
@@ -839,7 +770,7 @@
         ]
       },
       "incrementalPrice": {
-        "value": 7000.0,
+        "value": 7000,
         "unit": "USD/kg",
         "displayPrecision": 0,
         "status": "EXTERNAL_REFERENCE",
@@ -859,5 +790,21 @@
       "publicDesignStatement": "Designed to carry more than 100 metric tonnes to orbit in a fully reusable configuration",
       "commercialPriceStatus": "No standard public commercial per-kg tariff used in this model"
     }
-  ]
+  ],
+  "program": {
+    "name": "Satellite Inference",
+    "currentFinancingTargetUsd": 7000000,
+    "financingTargetStatus": "PLANNING_TARGET",
+    "groundTileContinuousComputeKw": 1,
+    "firstOrbitalSystemContinuousComputeKw": 10,
+    "baselineOrbitId": "leo-550",
+    "geoRole": "COMPARISON_ONLY",
+    "genericCloudStage": "LATER",
+    "initialMarkets": [
+      "Defense and sovereign missions",
+      "Earth observation",
+      "Maritime domain awareness",
+      "Disaster response"
+    ]
+  }
 }

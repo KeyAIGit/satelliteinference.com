@@ -1,81 +1,51 @@
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
-import { ArrowUpRight, BatteryCharging, Box, Maximize2, Sun, ThermometerSun } from "lucide-react";
-
-type ViewKey = "deployed" | "stowed" | "deployment";
-
-const views: Record<ViewKey, { label: string; image: string; alt: string; note: string }> = {
-  deployed: {
-    label: "Deployed",
-    image: "./assets/cad/flight-demonstrator-deployed.png",
-    alt: "Notional Flight Demonstrator in its deployed solar-array configuration",
-    note: "Operational concept view. Array geometry communicates area and packaging intent, not a released mechanism.",
-  },
-  stowed: {
-    label: "Stowed",
-    image: "./assets/cad/flight-demonstrator-stowed.png",
-    alt: "Notional Flight Demonstrator in its stowed launch configuration",
-    note: "Packaging screen against a 2.8 x 2.8 x 3.2 m working envelope. Launch interface remains supplier TBD.",
-  },
-  deployment: {
-    label: "Deployment",
-    image: "./assets/cad/flight-demonstrator-deployment.png",
-    alt: "Notional sequence showing the Flight Demonstrator solar-array deployment states",
-    note: "Kinematic communication sequence only. Hinges, latches, drives, clearances and modal response are not yet selected.",
-  },
-};
+import {
+  ArrowUpRight,
+  BatteryCharging,
+  Box,
+  Cpu,
+  Maximize2,
+  Sun,
+  ThermometerSun,
+} from "lucide-react";
 
 const metricCards = [
-  { icon: Sun, label: "Installed BOL target", value: "10.0 kW", status: "WORKING ASSUMPTION" },
-  { icon: Sun, label: "Required BOL screen", value: "4.12 kW", status: "CALCULATED" },
-  { icon: Maximize2, label: "Active-PV equivalent", value: "33.333 m²", status: "CALCULATED" },
-  { icon: BatteryCharging, label: "Battery planning", value: "4-8 kWh", status: "WORKING ASSUMPTION" },
-  { icon: ThermometerSun, label: "Radiator effective-area screen", value: "4.57 m²", status: "CALCULATED" },
+  { icon: Cpu, label: "Payload electrical input", value: "10 kW", status: "PROGRAM TARGET" },
+  { icon: Sun, label: "BOL solar, nominal", value: "33.61 kW", status: "CALCULATED" },
+  { icon: Maximize2, label: "Gross solar planform, nominal", value: "140.02 m²", status: "CALCULATED" },
+  { icon: BatteryCharging, label: "Eclipse battery, nominal", value: "28.31 kWh", status: "CALCULATED" },
+  { icon: ThermometerSun, label: "Equivalent radiator, nominal", value: "37.41 m²", status: "CALCULATED" },
 ];
 
 export function FlightNodeConcept() {
-  const [view, setView] = useState<ViewKey>("deployed");
-  const activeView = views[view];
-
   return (
-    <div className="flight-concept-shell">
+    <div className="flight-concept-shell flight-concept-rev-c">
       <div className="flight-concept-visual">
         <div className="concept-toolbar">
-          <div><span>CONCEPT CAD / REV B</span><strong>NOT FOR MANUFACTURING</strong></div>
-          <div className="concept-tabs" aria-label="Select concept view">
-            {(Object.keys(views) as ViewKey[]).map((key) => (
-              <button
-                type="button"
-                className={view === key ? "active" : ""}
-                aria-pressed={view === key}
-                onClick={() => setView(key)}
-                key={key}
-              >
-                {views[key].label}
-              </button>
-            ))}
-          </div>
+          <div><span>CONCEPT RENDER / REV C</span><strong>NOT FLIGHT CAD</strong></div>
+          <span className="concept-orbit-tag">500-600 KM LEO</span>
         </div>
-        <figure className="concept-image-frame">
+        <figure className="concept-image-frame concept-image-frame-rev-c">
           <Image
-            src={activeView.image}
-            alt={activeView.alt}
+            src="./assets/concepts/orbital-node-10kw-concept-v01.png"
+            alt="Notional 10 kilowatt orbital compute node with large deployed solar wings and radiator panels above Earth"
             fill
             sizes="(max-width: 860px) 100vw, 65vw"
             className="concept-image"
             priority={false}
           />
-          <figcaption><span>ACTIVE VIEW / {activeView.label.toUpperCase()}</span>{activeView.note}</figcaption>
+          <figcaption>
+            <span>NOTIONAL CONFIGURATION</span>
+            The image communicates functional scale and subsystem separation. Structure, mechanisms, interfaces and final geometry remain open trades.
+          </figcaption>
         </figure>
       </div>
 
-      <aside className="flight-concept-data" aria-label="Flight Demonstrator working baseline">
+      <aside className="flight-concept-data" aria-label="10 kilowatt orbital node working baseline">
         <div className="concept-data-title">
-          <span>MISSION 1 / OWNED FREE-FLYER</span>
-          <h3>Flight Demonstrator</h3>
-          <p>First owned spacecraft targeting 1 kW continuous compute in a 550 km reference LEO.</p>
+          <span>FIRST ORBITAL SYSTEM / OWNED NODE</span>
+          <h3>10 kW Orbital Node</h3>
+          <p>Continuous payload electrical input in a 500-600 km LEO baseline, with a 12-15 kW total-load range and 13.5 kW nominal screen.</p>
         </div>
         <div className="concept-metrics">
           {metricCards.map(({ icon: Icon, label, value, status }) => (
@@ -88,20 +58,18 @@ export function FlightNodeConcept() {
         <div className="concept-envelope">
           <Box aria-hidden="true" />
           <div>
-            <span>LAUNCH ENVELOPE SCREEN</span>
-            <strong>2.8 x 2.8 x 3.2 m</strong>
-            <p>Notional geometry. Interface, loads and compatibility are TBD by launch and spacecraft suppliers.</p>
+            <span>PUBLIC PLANNING ENVELOPE</span>
+            <strong>3-7 t / 25-40 m span</strong>
+            <p>30-38 kW BOL solar, 125-156 m² gross solar planform, 25-32 kWh battery and 35-60 m² physical radiator planning range.</p>
           </div>
         </div>
         <p className="concept-clarifier">
-          The <strong>10 kW</strong> installed BOL target is intentionally above the <strong>4.12 kW</strong> required-power screen.
-          The <strong>33.333 m²</strong> value is active-PV equivalent area, not gross array planform.
-          Rev B analytical battery base: <strong>3.70 kWh</strong>; planning range: <strong>4-8 kWh</strong>.
-          Radiator: <strong>4.57 m² idealized effective area</strong> at a 0.97 heat-load factor,
-          <strong> 4.71 m²</strong> at full electrical load, and <strong>6.0 m² notional gross planform</strong>.
+          <strong>10 kW</strong> is the target continuous electrical input available to the compute payload, not GPU nameplate power and not delivered customer FLOPS.
+          The model calculates <strong>33.61 kW</strong> required BOL solar at the <strong>13.5 kW</strong> nominal total spacecraft-load screen.
+          Every range is pre-SRR and must be replaced by supplier data, coupled analysis and test evidence.
         </p>
-        <a className="concept-ga-link" href="./assets/cad/flight-demonstrator-general-arrangement.png">
-          Open dimensioned general arrangement <ArrowUpRight aria-hidden="true" />
+        <a className="concept-ga-link" href="./data/model-assumptions.json">
+          Open the Rev C assumptions <ArrowUpRight aria-hidden="true" />
         </a>
       </aside>
     </div>

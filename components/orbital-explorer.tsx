@@ -159,7 +159,7 @@ export function OrbitalExplorer() {
         <div className="orbit-readout-title">
           <span>{regime} / CALCULATED</span>
           <h3>{isLeoPreset ? "Reference LEO" : isGeoPreset ? "Geostationary orbit" : "Circular orbit screen"}</h3>
-          <p>{isLeoPreset ? "Program baseline for the first owned node." : isGeoPreset ? "Comparison case, not the v0.1 mission." : "Explore geometry between the first LEO mission and GEO."}</p>
+          <p>{isLeoPreset ? "Program baseline for the first 10 kW orbital node." : isGeoPreset ? "Comparison case only, not the baseline mission." : "Explore geometry between the first LEO mission and GEO."}</p>
         </div>
         <div className="metric-stack">
           <div className="metric-row"><Clock3 aria-hidden="true" /><span><small>Orbital period</small><strong>{formatPeriod(metrics.periodMinutes)}</strong></span></div>
@@ -194,8 +194,8 @@ export function OrbitalExplorer() {
           <a href="https://ssd.jpl.nasa.gov/astro_par.html">NASA JPL parameters</a>
           <a href="https://www.nist.gov/pml/owm/si-units-length">NIST speed of light</a>
           <a href="https://www.ospo.noaa.gov/operations/goes/eclipse.html">NOAA GEO eclipse</a>
-          <a href="./data/model-assumptions.json">Rev B assumptions</a>
-          <a href="./model/engineering-screen.mjs">Rev B equations</a>
+          <a href="./data/model-assumptions.json">Rev C assumptions</a>
+          <a href="./model/engineering-screen.mjs">Rev C equations</a>
         </div>
       </details>
     </div>
@@ -225,11 +225,10 @@ type PublicMission = {
 const missions = siteModel.missions as unknown as PublicMission[];
 
 const missionProof: Record<string, string> = {
-  "hosted-pathfinder": "Compute recovery, memory behavior, signed workload packaging and traceable telemetry in the flight environment.",
-  "flight-demonstrator": "Owned deployable power, eclipse continuity, thermal rejection, autonomy, customer workload and disposal.",
-  "commercial-orbital-node": "Commercial utilization, payload data flow, scheduling and repeatable service economics.",
-  "industrial-orbital-module": "Large deployable dynamics, modular integration, demand and launch architecture at scale.",
-  "megawatt-orbital-network": "Aggregate economics and operations across ten measured 100 kW modules, not a monolithic spacecraft claim.",
+  "ground-engineering-tile": "One reusable 1 kW unit proves compute, power, cooling, runtime recovery and telemetry on the ground.",
+  "orbital-node-10kw": "First owned flight system proves continuous 10 kW payload operation, deployables, eclipse continuity and customer data flow.",
+  "industrial-orbital-module": "100 kW scale follows only after measured performance, demand and launch architecture are validated.",
+  "megawatt-orbital-network": "Ten measured 100 kW modules create a 1 MW network without claiming one monolithic spacecraft.",
 };
 
 function metricValue(metric: Metric | undefined, fallback = "TBD") {
@@ -241,20 +240,22 @@ function metricValue(metric: Metric | undefined, fallback = "TBD") {
 }
 
 function MissionGraphic({ mission }: { mission: PublicMission }) {
-  if (mission.id === "hosted-pathfinder") {
+  if (mission.id === "ground-engineering-tile") {
     return (
-      <div className="hosted-graphic" aria-label="Hosted payload interface diagram">
-        <div className="host-bus"><span>HOST SPACECRAFT</span><strong>POWER / THERMAL / ADCS / LINK</strong></div>
-        <div className="host-payload"><span>SI PAYLOAD</span><strong>0.2-1.0 kW compute</strong></div>
+      <div className="ground-tile-graphic" aria-label="Ground engineering tile architecture">
+        <div><span>COMPUTE</span><strong>1 kW tile</strong></div>
+        <i aria-hidden="true" />
+        <div><span>FACILITY LOOP</span><strong>power + cooling</strong></div>
+        <p>GROUND ONLY / REUSABLE ENGINEERING BUILDING BLOCK</p>
       </div>
     );
   }
 
-  if (mission.id === "flight-demonstrator") {
+  if (mission.id === "orbital-node-10kw") {
     return (
       <div className="cad-mission-graphic">
-        <Image src="./assets/cad/flight-demonstrator-deployed.png" alt="Flight Demonstrator notional deployed concept" fill sizes="(max-width: 860px) 100vw, 45vw" />
-        <span>REV B / NOTIONAL GEOMETRY</span>
+        <Image src="./assets/concepts/orbital-node-10kw-concept-v01.png" alt="10 kW Orbital Node notional deployed concept" fill sizes="(max-width: 860px) 100vw, 45vw" />
+        <span>REV C / NOTIONAL CONFIGURATION</span>
       </div>
     );
   }
@@ -279,18 +280,23 @@ function MissionGraphic({ mission }: { mission: PublicMission }) {
 }
 
 function missionMetrics(mission: PublicMission) {
-  if (mission.id === "hosted-pathfinder") {
-    return { compute: metricValue(mission.metrics.continuousCompute), solar: "Host-provided", battery: "Host-provided", radiator: "Host interface" };
-  }
-  if (mission.id === "flight-demonstrator") {
+  if (mission.id === "ground-engineering-tile") {
     return {
       compute: metricValue(mission.metrics.continuousCompute),
-      solar: `${metricValue(mission.metrics.solarBolPower)} target / ${metricValue(mission.metrics.solarBolRequiredScreen)} screen`,
-      battery: metricValue(mission.metrics.batteryPlanningRange),
-      radiator: `${metricValue(mission.metrics.radiatorEffectiveAreaScreen)} effective`,
+      solar: "Facility supply",
+      battery: "Eclipse emulator",
+      radiator: "Facility cooling loop",
     };
   }
-  return { compute: metricValue(mission.metrics.continuousCompute), solar: metricValue(mission.metrics.solarBolPower), battery: metricValue(mission.metrics.batteryRevABase), radiator: `${metricValue(mission.metrics.radiatorEffectiveAreaScreen)} effective` };
+  if (mission.id === "orbital-node-10kw") {
+    return {
+      compute: metricValue(mission.metrics.continuousCompute),
+      solar: `${metricValue(mission.metrics.solarBolPlanningRange)} planning`,
+      battery: `${metricValue(mission.metrics.batteryPlanningRange)} planning`,
+      radiator: `${metricValue(mission.metrics.radiatorPlanningRange)} planning`,
+    };
+  }
+  return { compute: metricValue(mission.metrics.continuousCompute), solar: metricValue(mission.metrics.solarBolPower), battery: metricValue(mission.metrics.batteryEnergyScreen), radiator: `${metricValue(mission.metrics.radiatorEffectiveAreaScreen)} effective` };
 }
 
 export function ScaleJourney() {
@@ -309,7 +315,7 @@ export function ScaleJourney() {
             aria-pressed={active === index}
             onClick={() => setActive(index)}
           >
-            <span>{String(index).padStart(2, "0")} / {item.stage}</span>
+            <span>{String(index + 1).padStart(2, "0")} / {item.stage}</span>
             <strong>{item.publicName}</strong>
             <small>{missionProof[item.id]}</small>
           </button>
@@ -329,7 +335,7 @@ export function ScaleJourney() {
           <span><ThermometerSun aria-hidden="true" /><small>Radiator</small><strong>{metrics.radiator}</strong></span>
           <span><Gauge aria-hidden="true" /><small>Architecture</small><strong>{mission.architecture}</strong></span>
         </div>
-        <p className="scale-status-note">MODEL STATUS / Working assumptions plus calculated Rev B screening values. Solar area is active-PV equivalent, radiator area is idealized effective area, and visuals do not share a physical scale.</p>
+        <p className="scale-status-note">MODEL STATUS / Working assumptions plus calculated Rev C screening values. The 1 kW tile is ground-only. Solar area is active-PV equivalent, radiator area is idealized effective area, and visuals do not share a physical scale.</p>
       </div>
     </div>
   );

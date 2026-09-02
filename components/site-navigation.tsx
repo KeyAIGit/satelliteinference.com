@@ -9,6 +9,7 @@ const navigation = [
   { href: "#model", label: "Orbit model" },
   { href: "#roadmap", label: "Roadmap" },
   { href: "#evidence", label: "Evidence" },
+  { href: "#financing", label: "Financing" },
   { href: "#documents", label: "Documents" },
   { href: "#contact", label: "Contact" },
 ];

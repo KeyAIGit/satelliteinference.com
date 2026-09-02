@@ -29,7 +29,7 @@ export function LegalDocument({ eyebrow, title, updated, children }: LegalDocume
       </article>
 
       <footer className="legal-footer">
-        <span>Satellite Inference is currently operated by RFID INC.</span>
+        <span>Satellite Inference™ is currently operated by RFID INC, a Delaware corporation.</span>
         <a href="mailto:legal@satelliteinference.com">legal@satelliteinference.com</a>
       </footer>
     </main>

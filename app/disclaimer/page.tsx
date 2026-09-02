@@ -13,8 +13,9 @@ export default function DisclaimerPage() {
       <section>
         <h2>Preliminary program</h2>
         <p>
-          Satellite Inference is an early-stage program currently operated by RFID INC. Public
-          materials describe proposed reference missions and preliminary analytical assumptions.
+          Satellite Inference™ is currently operated by RFID INC, a Delaware corporation. Public
+          materials describe an early-stage program, proposed reference missions and preliminary
+          analytical assumptions.
         </p>
       </section>
       <section>

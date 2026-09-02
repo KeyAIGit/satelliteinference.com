@@ -4,23 +4,22 @@ Public website and publication layer for Satellite Inference™, currently opera
 
 > Compute where space data begins.
 
-The site explains a staged path from a hosted compute flight test to independently operated orbital nodes. Its interactive Orbit Lab moves from 200 km to GEO using deterministic, client-side calculations for orbital period, worst-case beta-0 eclipse, and vacuum propagation delay. The orbit visual uses one linear physical radial scale; the altitude control is logarithmic.
+The site explains a staged path from a 1 kW ground engineering tile to a first 10 kW continuous-compute node in low Earth orbit. Its interactive Orbit Lab moves from 200 km to GEO using deterministic, client-side calculations for orbital period, worst-case beta-0 eclipse, and vacuum propagation delay. LEO is the mission baseline; GEO remains a comparison case.
 
 ## Public mission names
 
 | Name | Identifier | Continuous compute |
 |---|---|---:|
-| Hosted Pathfinder | Hosted-1 | 0.2-1.0 kW allocation |
-| Flight Demonstrator | Solar-10 | 1 kW |
-| Commercial Orbital Node | Compute-10 | 10 kW |
-| Industrial Orbital Module | C100 | 100 kW |
-| Megawatt Orbital Network | C1000 | 1 MW aggregate |
+| Ground Engineering Tile | Ground / 1 kW | 1 kW, ground only |
+| 10 kW Orbital Node | LEO / 10 kW | 10 kW |
+| 100 kW Orbital Module | Scale / 100 kW | 100 kW |
+| Megawatt Orbital Network | Network / 1 MW | 1 MW aggregate |
 
 Continuous compute, solar generation and aggregate network capacity are stated separately. The Megawatt Orbital Network is exactly a ten-module reference architecture: 10 x 100 kW continuous compute = 1 MW aggregate.
 
 ## Public model contract
 
-`public/data/site-model.json` publishes the Rev B screening outputs. The inputs and generic equations needed to reproduce the power and thermal screens are also public:
+`public/data/site-model.json` publishes the Rev C screening outputs. The inputs and generic equations needed to reproduce the power and thermal screens are also public:
 
 - `public/data/model-assumptions.json`
 - `public/model/engineering-screen.mjs`
@@ -35,10 +34,15 @@ Equation-based tests recompute the published values from those files. Important 
 
 ## Publications
 
-- `public/documents/Satellite_Inference_Whitepaper_v0.1.pdf`
-- `public/documents/Node_1kW_Public_Mission_Definition_v0.1.pdf`
+- `public/documents/Satellite_Inference_Whitepaper_v0.2.pdf`
+- `public/documents/Node_10kW_Public_Mission_Definition_v0.2.pdf`
+- `public/documents/Satellite_Inference_Fundraising_Roadmap_v0.1.pdf`
 
 These are public concept documents. They are not flight-release data, manufacturing CAD, supplier quotations, launch reservations, regulatory determinations, or offers to sell securities.
+
+## Development capital
+
+The current development-capital target is $7 million. The public planning allocation funds the core engineering team, a 1 kW ground tile, a 10 kW ground breadboard, supplier-backed mission definition, SRR/PDR readiness, software, customer pilots, regulatory work and reserve. It is not represented as sufficient to manufacture and launch the full first node. Larger flight-development and first-node financing stages are conditional on engineering and commercial gates.
 
 ## Physics model
 

@@ -8,6 +8,6 @@ The MIT terms in `LICENSE-CODE` apply only to website source code and the public
 - website copy, diagrams, generated artwork, or other brand assets;
 - the whitepaper or mission definition publication;
 - spacecraft concepts, product architecture, technical data, CAD, or future engineering material;
-- any RFID INC or KeyAI Research trademark, service mark, or trade dress.
+- any RFID INC trademark, service mark, or trade dress.
 
 Public availability on GitHub does not create a license beyond GitHub's platform terms and the express code license above.
