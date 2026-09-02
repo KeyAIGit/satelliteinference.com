@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "1.0.0",
+  "dataVersion": "2026-09-02.rev-b.1",
+  "modelRevision": "Rev B",
+  "status": "PRELIMINARY",
+  "asOf": "2026-09-02",
+  "referenceOrbit": {
+    "altitudeKm": 550.0,
+    "betaDeg": 0.0,
+    "earthEquatorialRadiusKm": 6378.137,
+    "earthGravitationalParameterKm3s2": 398600.4418
+  },
+  "powerThermalScreen": {
+    "solarLossAndMarginFactor": 1.56754,
+    "batterySizingFactor": 3.78296,
+    "solarBolArealPowerWm2": 300.0,
+    "radiatorNetRejectionWm2": 350.0,
+    "radiatorHeatLoadFraction": 0.97
+  },
+  "missionInputs": [
+    {
+      "id": "flight-demonstrator",
+      "continuousComputeKw": 1.0,
+      "totalSpacecraftLoadKw": 1.65,
+      "installedBolTargetKw": 10.0
+    },
+    {
+      "id": "commercial-orbital-node",
+      "continuousComputeKw": 10.0,
+      "totalSpacecraftLoadKw": 12.0
+    },
+    {
+      "id": "industrial-orbital-module",
+      "continuousComputeKw": 100.0,
+      "totalSpacecraftLoadKw": 115.5
+    }
+  ],
+  "equations": {
+    "orbitalPeriod": "T = 2 * pi * sqrt(r^3 / mu)",
+    "betaZeroEclipse": "te = T * asin(RE / r) / pi",
+    "requiredBolSolar": "Pbol = Pload * solarLossAndMarginFactor / sunlitFraction",
+    "activePvEquivalentArea": "Apv = selectedBolPower * 1000 / solarBolArealPower",
+    "batteryEnergy": "Ebatt = Pload * eclipseHours * batterySizingFactor",
+    "radiatorEffectiveArea": "Arad = Pload * 1000 * radiatorHeatLoadFraction / radiatorNetRejection"
+  },
+  "limitations": [
+    "The combined solar factor groups preliminary electrical losses and design margin; it is not supplier performance data.",
+    "The battery factor is a combined preliminary sizing factor; cell chemistry, depth of discharge, aging and thermal limits remain unselected.",
+    "Active-PV equivalent area excludes packing, gaps, structure, mechanisms, harness and pointing losses, so it is not gross array planform.",
+    "Radiator area is an idealized effective-area screen. View factors, sink temperature, coatings, orientation, degradation and two-sided geometry are not modeled.",
+    "All results are pre-SRR screening values and require supplier data, coupled analysis and test validation."
+  ]
+}

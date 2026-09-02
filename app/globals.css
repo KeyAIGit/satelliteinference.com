@@ -3307,6 +3307,50 @@ footer {
   align-items: center;
 }
 
+.evidence-model-links {
+  display: flex;
+  margin-top: 34px;
+  padding-top: 22px;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  border-top: 1px solid rgba(212, 242, 249, 0.12);
+}
+
+.evidence-model-links > span {
+  margin-right: 8px;
+  color: #7893a4;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+
+.evidence-model-links a {
+  display: inline-flex;
+  min-height: 38px;
+  padding: 0 12px;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid rgba(79, 229, 255, 0.24);
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.evidence-model-links a:hover {
+  border-color: var(--cyan);
+  background: rgba(79, 229, 255, 0.05);
+}
+
+.evidence-model-links svg {
+  width: 14px;
+  height: 14px;
+}
+
 .evidence-gates span {
   flex: 0 0 auto;
   color: #91a8b7;

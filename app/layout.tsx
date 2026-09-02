@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Satellite Inference | Orbital Computing Infrastructure",
     description: "Compute where space data begins.",
-    images: ["/og.png"],
+    images: [{ url: "/og.png", alt: "Satellite Inference orbital computing infrastructure" }],
   },
   robots: { index: true, follow: true },
   icons: {
@@ -55,7 +55,28 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "RFID INC",
+              alternateName: "Satellite Inference",
+              url: "https://satelliteinference.com",
+              logo: "https://satelliteinference.com/logo-mark.svg",
+              email: "contact@satelliteinference.com",
+              brand: {
+                "@type": "Brand",
+                name: "Satellite Inference",
+                slogan: "Orbital Computing Infrastructure",
+              },
+            }),
+          }}
+        />
+        {children}
+      </body>
     </html>
   );
 }

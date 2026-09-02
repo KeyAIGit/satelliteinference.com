@@ -28,10 +28,11 @@ const views: Record<ViewKey, { label: string; image: string; alt: string; note: 
 };
 
 const metricCards = [
-  { icon: Sun, label: "BOL solar", value: "10.0 kW", status: "CALCULATED" },
-  { icon: Maximize2, label: "Solar area", value: "33.333 m²", status: "CALCULATED" },
+  { icon: Sun, label: "Installed BOL target", value: "10.0 kW", status: "WORKING ASSUMPTION" },
+  { icon: Sun, label: "Required BOL screen", value: "4.12 kW", status: "CALCULATED" },
+  { icon: Maximize2, label: "Active-PV equivalent", value: "33.333 m²", status: "CALCULATED" },
   { icon: BatteryCharging, label: "Battery planning", value: "4-8 kWh", status: "WORKING ASSUMPTION" },
-  { icon: ThermometerSun, label: "Radiator", value: "4.57 m² min", status: "CALCULATED" },
+  { icon: ThermometerSun, label: "Radiator effective-area screen", value: "4.57 m²", status: "CALCULATED" },
 ];
 
 export function FlightNodeConcept() {
@@ -93,8 +94,11 @@ export function FlightNodeConcept() {
           </div>
         </div>
         <p className="concept-clarifier">
-          Rev A analytical battery base: <strong>3.70 kWh</strong>. Public planning range: <strong>4-8 kWh</strong>.
-          Radiator: <strong>4.57 m² modeled minimum</strong> versus <strong>6.0 m² notional gross planform</strong>.
+          The <strong>10 kW</strong> installed BOL target is intentionally above the <strong>4.12 kW</strong> required-power screen.
+          The <strong>33.333 m²</strong> value is active-PV equivalent area, not gross array planform.
+          Rev B analytical battery base: <strong>3.70 kWh</strong>; planning range: <strong>4-8 kWh</strong>.
+          Radiator: <strong>4.57 m² idealized effective area</strong> at a 0.97 heat-load factor,
+          <strong> 4.71 m²</strong> at full electrical load, and <strong>6.0 m² notional gross planform</strong>.
         </p>
         <a className="concept-ga-link" href="./assets/cad/flight-demonstrator-general-arrangement.png">
           Open dimensioned general arrangement <ArrowUpRight aria-hidden="true" />

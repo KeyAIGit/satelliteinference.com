@@ -17,8 +17,8 @@
 - [x] Make 1 MW exactly ten repeated 100 kW modules.
 - [x] Replace arbitrary LEO/GEO orbit sizing with one linear physical radial scale.
 - [x] Disclose the logarithmic altitude control and animation time compression.
-- [x] Separate 4-8 kWh planning range from the 3.70 kWh Rev A battery base.
-- [x] Separate the 4.57 m2 radiator model minimum from 6.0 m2 notional gross planform.
+- [x] Separate 4-8 kWh planning range from the 3.70 kWh Rev B battery base.
+- [x] Label 4.57 m2 as an idealized effective-area screen, disclose the 0.97 heat-load factor and 4.71 m2 full-load equivalent, and separate both from 6.0 m2 notional gross planform.
 - [x] Add a 44 x 44 px mobile navigation control and no-hover mission selection.
 - [x] Raise meaningful technical labels to readable sizes and add a skip link.
 - [x] Replace the oversized generic social image with a branded 1200 x 630 image under 300 KB.

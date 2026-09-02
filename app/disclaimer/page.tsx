@@ -4,7 +4,7 @@ import { LegalDocument } from "@/components/legal-document";
 export const metadata: Metadata = {
   title: "Disclaimer",
   description: "Technical and commercial disclaimer for Satellite Inference public materials.",
-  alternates: { canonical: "/disclaimer/" },
+  alternates: { canonical: "/disclaimer" },
 };
 
 export default function DisclaimerPage() {

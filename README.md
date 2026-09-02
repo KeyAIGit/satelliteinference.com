@@ -20,7 +20,12 @@ Continuous compute, solar generation and aggregate network capacity are stated s
 
 ## Public model contract
 
-`public/data/site-model.json` is generated deterministically from the internal Rev A screening model. Important public values include unit, status and source identifiers. The status vocabulary is:
+`public/data/site-model.json` publishes the Rev B screening outputs. The inputs and generic equations needed to reproduce the power and thermal screens are also public:
+
+- `public/data/model-assumptions.json`
+- `public/model/engineering-screen.mjs`
+
+Equation-based tests recompute the published values from those files. Important public values include unit, status and source identifiers. The status vocabulary is:
 
 - `CALCULATED`
 - `WORKING_ASSUMPTION`
@@ -37,7 +42,7 @@ These are public concept documents. They are not flight-release data, manufactur
 
 ## Physics model
 
-The model is implemented as pure functions in `lib/orbital-physics.ts` and tested independently of the visual layer.
+The orbit model is implemented as pure functions in `lib/orbital-physics.ts`. The public power-thermal screen is implemented in `public/model/engineering-screen.mjs`. Both are tested independently of the visual layer.
 
 - WGS-84 equatorial Earth radius: 6,378.137 km
 - WGS-84 Earth gravitational parameter: 398,600.4418 km^3/s^2
@@ -59,7 +64,7 @@ npm test
 
 - `npm run build:pages` creates the static GitHub Pages output in `out/`.
 - `npm run lint` checks the source.
-- `npm test` runs the orbital-physics checks independently of the visual layer.
+- `npm test` runs orbital-physics checks and recomputes published power-thermal values from public assumptions.
 
 ## Deployment
 

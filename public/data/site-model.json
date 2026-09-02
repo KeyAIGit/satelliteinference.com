@@ -1,10 +1,10 @@
 {
   "schemaVersion": "1.0.0",
-  "dataVersion": "2026-09-01.rev-a.1",
+  "dataVersion": "2026-09-02.rev-b.1",
   "model": {
     "name": "Orbital Compute Parametric Model",
-    "revision": "Rev A",
-    "asOf": "2026-09-01",
+    "revision": "Rev B",
+    "asOf": "2026-09-02",
     "status": "PRELIMINARY",
     "deterministic": true,
     "disclaimer": "Preliminary engineering screen. Supplier and launch-provider validation required."
@@ -12,7 +12,7 @@
   "statusDefinitions": [
     {
       "code": "CALCULATED",
-      "definition": "Derived by the Rev A screening equations from disclosed assumptions."
+      "definition": "Derived by the public Rev B screening equations from disclosed assumptions."
     },
     {
       "code": "WORKING_ASSUMPTION",
@@ -33,18 +33,20 @@
   ],
   "sources": [
     {
-      "id": "assumptions-rev-a",
+      "id": "assumptions-rev-b",
       "type": "internal",
-      "title": "Orbital Compute Parametric Model assumptions, Rev A",
-      "locator": "work/model/assumptions.yaml",
-      "asOf": "2026-09-01"
+      "title": "Orbital Compute Parametric Model assumptions, Rev B",
+      "locator": "/data/model-assumptions.json",
+      "url": "https://satelliteinference.com/data/model-assumptions.json",
+      "asOf": "2026-09-02"
     },
     {
-      "id": "model-rev-a",
+      "id": "model-rev-b",
       "type": "internal",
-      "title": "Orbital Compute Parametric Model equations, Rev A",
-      "locator": "work/model/model_rev_a.py",
-      "asOf": "2026-09-01"
+      "title": "Orbital Compute Parametric Model equations, Rev B",
+      "locator": "/model/engineering-screen.mjs",
+      "url": "https://satelliteinference.com/model/engineering-screen.mjs",
+      "asOf": "2026-09-02"
     },
     {
       "id": "spacex-rideshare",
@@ -68,7 +70,7 @@
       "displayPrecision": 3,
       "status": "WORKING_ASSUMPTION",
       "sourceIds": [
-        "assumptions-rev-a"
+        "assumptions-rev-b"
       ]
     },
     "earthGravitationalParameter": {
@@ -77,7 +79,7 @@
       "displayPrecision": 4,
       "status": "WORKING_ASSUMPTION",
       "sourceIds": [
-        "assumptions-rev-a"
+        "assumptions-rev-b"
       ]
     },
     "speedOfLight": {
@@ -86,7 +88,7 @@
       "displayPrecision": 3,
       "status": "WORKING_ASSUMPTION",
       "sourceIds": [
-        "assumptions-rev-a"
+        "assumptions-rev-b"
       ]
     },
     "siderealDay": {
@@ -95,7 +97,7 @@
       "displayPrecision": 4,
       "status": "WORKING_ASSUMPTION",
       "sourceIds": [
-        "assumptions-rev-a"
+        "assumptions-rev-b"
       ]
     },
     "solarBolArealPower": {
@@ -104,7 +106,7 @@
       "displayPrecision": 0,
       "status": "WORKING_ASSUMPTION",
       "sourceIds": [
-        "assumptions-rev-a"
+        "assumptions-rev-b"
       ]
     },
     "radiatorNetRejection": {
@@ -113,7 +115,7 @@
       "displayPrecision": 0,
       "status": "WORKING_ASSUMPTION",
       "sourceIds": [
-        "assumptions-rev-a"
+        "assumptions-rev-b"
       ]
     }
   },
@@ -124,8 +126,8 @@
       "regime": "LEO",
       "status": "CALCULATED",
       "sourceIds": [
-        "assumptions-rev-a",
-        "model-rev-a"
+        "assumptions-rev-b",
+        "model-rev-b"
       ],
       "metrics": {
         "altitude": {
@@ -134,7 +136,7 @@
           "displayPrecision": 0,
           "status": "WORKING_ASSUMPTION",
           "sourceIds": [
-            "assumptions-rev-a"
+            "assumptions-rev-b"
           ]
         },
         "orbitalRadiusEarthRadii": {
@@ -143,8 +145,8 @@
           "displayPrecision": 5,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         },
         "period": {
@@ -153,8 +155,8 @@
           "displayPrecision": 3,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         },
         "worstCaseCylindricalShadow": {
@@ -163,8 +165,8 @@
           "displayPrecision": 3,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         },
         "zenithVacuumOneWayLatency": {
@@ -173,8 +175,8 @@
           "displayPrecision": 3,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         }
       },
@@ -189,8 +191,8 @@
       "regime": "GEO",
       "status": "CALCULATED",
       "sourceIds": [
-        "assumptions-rev-a",
-        "model-rev-a"
+        "assumptions-rev-b",
+        "model-rev-b"
       ],
       "metrics": {
         "altitude": {
@@ -199,8 +201,8 @@
           "displayPrecision": 3,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         },
         "orbitalRadiusEarthRadii": {
@@ -209,8 +211,8 @@
           "displayPrecision": 5,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         },
         "period": {
@@ -219,8 +221,8 @@
           "displayPrecision": 3,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         },
         "worstCaseCylindricalShadow": {
@@ -229,8 +231,8 @@
           "displayPrecision": 3,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         },
         "zenithVacuumOneWayLatency": {
@@ -239,8 +241,8 @@
           "displayPrecision": 3,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         }
       },
@@ -261,7 +263,7 @@
       "architecture": "hosted payload",
       "status": "WORKING_ASSUMPTION",
       "sourceIds": [
-        "assumptions-rev-a"
+        "assumptions-rev-b"
       ],
       "description": "A compute payload integrated on a host spacecraft. The host provides solar power, eclipse energy, attitude control, propulsion and the primary link.",
       "metrics": {
@@ -272,7 +274,7 @@
           "displayPrecision": 1,
           "status": "WORKING_ASSUMPTION",
           "sourceIds": [
-            "assumptions-rev-a"
+            "assumptions-rev-b"
           ],
           "nominal": 0.5
         },
@@ -283,8 +285,8 @@
           "displayPrecision": 3,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ],
           "nominal": 0.675
         },
@@ -295,8 +297,8 @@
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ],
           "nominal": 44.29
         }
@@ -328,9 +330,9 @@
       "architecture": "free-flyer",
       "status": "WORKING_ASSUMPTION",
       "sourceIds": [
-        "assumptions-rev-a"
+        "assumptions-rev-b"
       ],
-      "description": "First owned 10 kW BOL solar spacecraft targeting 1 kW continuous compute in 550 km LEO.",
+      "description": "First owned spacecraft targeting 1 kW continuous compute in 550 km LEO, with a 10 kW installed BOL solar target that remains a working assumption.",
       "metrics": {
         "continuousCompute": {
           "value": 1.0,
@@ -338,7 +340,7 @@
           "displayPrecision": 0,
           "status": "WORKING_ASSUMPTION",
           "sourceIds": [
-            "assumptions-rev-a"
+            "assumptions-rev-b"
           ]
         },
         "totalSpacecraftLoad": {
@@ -347,8 +349,8 @@
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         },
         "solarBolPower": {
@@ -357,17 +359,27 @@
           "displayPrecision": 1,
           "status": "WORKING_ASSUMPTION",
           "sourceIds": [
-            "assumptions-rev-a"
+            "assumptions-rev-b"
           ]
         },
-        "deployedSolarArea": {
+        "solarBolRequiredScreen": {
+          "value": 4.12,
+          "unit": "kW",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-b",
+            "model-rev-b"
+          ]
+        },
+        "activePvEquivalentArea": {
           "value": 33.333,
           "unit": "m2",
           "displayPrecision": 3,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         },
         "batteryRevABase": {
@@ -376,18 +388,18 @@
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         },
-        "radiatorModeledMinimum": {
+        "radiatorEffectiveAreaScreen": {
           "value": 4.57,
           "unit": "m2",
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         },
         "screeningMass": {
@@ -397,8 +409,8 @@
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ],
           "nominal": 479.38,
           "display": {
@@ -416,7 +428,7 @@
           "displayPrecision": 0,
           "status": "WORKING_ASSUMPTION",
           "sourceIds": [
-            "assumptions-rev-a"
+            "assumptions-rev-b"
           ]
         },
         "radiatorNotionalGross": {
@@ -425,7 +437,17 @@
           "displayPrecision": 1,
           "status": "NOTIONAL_GEOMETRY",
           "sourceIds": [
-            "assumptions-rev-a"
+            "assumptions-rev-b"
+          ]
+        },
+        "radiatorFullLoadEquivalent": {
+          "value": 4.71,
+          "unit": "m2",
+          "displayPrecision": 2,
+          "status": "CALCULATED",
+          "sourceIds": [
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         }
       },
@@ -441,9 +463,11 @@
       },
       "notes": [
         "The 4 to 8 kWh battery value is a preliminary planning range.",
-        "The 3.70 kWh Rev A base is an analytical screening result, not a selected battery.",
-        "The 4.57 m2 radiator value is a modeled minimum at 350 W/m2 assumed net rejection.",
-        "The 6.0 m2 radiator value is notional gross planform; orientation is not validated."
+        "The 3.70 kWh Rev B base is an analytical screening result, not a selected battery.",
+        "The 10 kW BOL value is an installed generation target and working assumption; the Rev B required-power screen is 4.12 kW.",
+        "The 33.333 m2 solar value is active-PV equivalent area at 300 W/m2, not gross deployed planform.",
+        "The 4.57 m2 radiator value is an idealized effective-area screen at 350 W/m2 and a 0.97 heat-load factor; the corresponding 100% electrical-load equivalent is 4.71 m2.",
+        "The 6.0 m2 radiator value is notional gross planform; orientation, view factors and usable two-sided area are not validated."
       ]
     },
     {
@@ -455,7 +479,7 @@
       "architecture": "free-flyer",
       "status": "WORKING_ASSUMPTION",
       "sourceIds": [
-        "assumptions-rev-a"
+        "assumptions-rev-b"
       ],
       "description": "A later free-flyer sized for 10 kW continuous orbital compute.",
       "metrics": {
@@ -465,7 +489,7 @@
           "displayPrecision": 0,
           "status": "WORKING_ASSUMPTION",
           "sourceIds": [
-            "assumptions-rev-a"
+            "assumptions-rev-b"
           ]
         },
         "totalSpacecraftLoad": {
@@ -474,8 +498,8 @@
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         },
         "solarBolPower": {
@@ -484,18 +508,18 @@
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         },
-        "deployedSolarArea": {
+        "activePvEquivalentArea": {
           "value": 99.89,
           "unit": "m2",
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         },
         "batteryRevABase": {
@@ -504,18 +528,18 @@
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         },
-        "radiatorModeledMinimum": {
+        "radiatorEffectiveAreaScreen": {
           "value": 33.26,
           "unit": "m2",
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         },
         "screeningMass": {
@@ -525,8 +549,8 @@
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ],
           "nominal": 1661.96,
           "display": {
@@ -558,7 +582,7 @@
       "architecture": "free-flyer",
       "status": "WORKING_ASSUMPTION",
       "sourceIds": [
-        "assumptions-rev-a"
+        "assumptions-rev-b"
       ],
       "description": "A 100 kW continuous-compute module requiring large deployable power and thermal systems.",
       "metrics": {
@@ -568,7 +592,7 @@
           "displayPrecision": 0,
           "status": "WORKING_ASSUMPTION",
           "sourceIds": [
-            "assumptions-rev-a"
+            "assumptions-rev-b"
           ]
         },
         "totalSpacecraftLoad": {
@@ -577,8 +601,8 @@
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         },
         "solarBolPower": {
@@ -587,18 +611,18 @@
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         },
-        "deployedSolarArea": {
+        "activePvEquivalentArea": {
           "value": 961.47,
           "unit": "m2",
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         },
         "batteryRevABase": {
@@ -607,18 +631,18 @@
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         },
-        "radiatorModeledMinimum": {
+        "radiatorEffectiveAreaScreen": {
           "value": 320.1,
           "unit": "m2",
           "displayPrecision": 1,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         },
         "screeningMass": {
@@ -628,8 +652,8 @@
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ],
           "nominal": 14630.68,
           "display": {
@@ -661,7 +685,7 @@
       "architecture": "distributed cluster",
       "status": "WORKING_ASSUMPTION",
       "sourceIds": [
-        "assumptions-rev-a"
+        "assumptions-rev-b"
       ],
       "description": "A ten-module reference cluster, not one monolithic spacecraft or one-launch claim.",
       "metrics": {
@@ -671,7 +695,7 @@
           "displayPrecision": 0,
           "status": "WORKING_ASSUMPTION",
           "sourceIds": [
-            "assumptions-rev-a"
+            "assumptions-rev-b"
           ],
           "display": {
             "value": 1.0,
@@ -685,8 +709,8 @@
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         },
         "solarBolPower": {
@@ -695,8 +719,8 @@
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ],
           "display": {
             "value": 2.884,
@@ -704,24 +728,24 @@
             "precision": 3
           }
         },
-        "deployedSolarArea": {
-          "value": 9614.66,
+        "activePvEquivalentArea": {
+          "value": 9614.68,
           "unit": "m2",
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         },
         "batteryRevABase": {
-          "value": 2593.25,
+          "value": 2593.3,
           "unit": "kWh",
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ],
           "display": {
             "value": 2.593,
@@ -729,14 +753,14 @@
             "precision": 3
           }
         },
-        "radiatorModeledMinimum": {
+        "radiatorEffectiveAreaScreen": {
           "value": 3201.0,
           "unit": "m2",
           "displayPrecision": 0,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ]
         },
         "screeningMass": {
@@ -746,8 +770,8 @@
           "displayPrecision": 2,
           "status": "CALCULATED",
           "sourceIds": [
-            "assumptions-rev-a",
-            "model-rev-a"
+            "assumptions-rev-b",
+            "model-rev-b"
           ],
           "nominal": 146306.76,
           "display": {
@@ -778,12 +802,12 @@
           "displayPrecision": 0,
           "status": "WORKING_ASSUMPTION",
           "sourceIds": [
-            "assumptions-rev-a"
+            "assumptions-rev-b"
           ]
         },
         "status": "WORKING_ASSUMPTION",
         "sourceIds": [
-          "assumptions-rev-a"
+          "assumptions-rev-b"
         ]
       }
     }

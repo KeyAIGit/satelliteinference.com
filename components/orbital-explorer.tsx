@@ -58,7 +58,7 @@ export function OrbitalExplorer() {
   const metrics = useMemo(() => calculateOrbit(altitudeKm), [altitudeKm]);
   const isLeoPreset = Math.abs(altitudeKm - 550) < 1;
   const isGeoPreset = Math.abs(altitudeKm - MAX_ALTITUDE_KM) < 2;
-  const regime = altitudeKm < 2000 ? "LEO" : altitudeKm > 34000 ? "GEO" : "TRANSFER RANGE";
+  const regime = altitudeKm < 2000 ? "LEO" : isGeoPreset ? "GEO" : "MEO";
   const earthRadiusPx = 38;
   const orbitRadiusPx = earthRadiusPx * metrics.earthRadii;
   const centerX = 360;
@@ -169,10 +169,10 @@ export function OrbitalExplorer() {
           <div className="metric-row"><BatteryCharging aria-hidden="true" /><span><small>Sunlit fraction, beta 0</small><strong>{metrics.sunlitPercent.toFixed(1)}%</strong></span></div>
         </div>
         <div className="orbit-interpretation">
-          <strong>{altitudeKm < 2000 ? "Inference fit: strong" : isGeoPreset ? "Inference fit: workload-dependent" : "Inference fit: evaluate links"}</strong>
+          <strong>{altitudeKm < 2000 ? "Propagation screen: favorable" : "Propagation screen: workload-dependent"}</strong>
           <p>
             {altitudeKm < 2000
-              ? "Propagation is small compared with typical sensing, model execution and network queues. LEO supports inference on data already created in orbit."
+              ? "Vacuum propagation is small versus many network and processing delays. Workload fitness still depends on the radio, compute, thermal, operations and model-quality evidence."
               : "The number shown is propagation through vacuum only. End-to-end inference also includes radio, routing, queue and compute time."}
           </p>
         </div>
@@ -190,10 +190,12 @@ export function OrbitalExplorer() {
         </div>
         <div className="model-sources">
           <span>EXTERNAL REFERENCES</span>
-          <a href="https://www.ngs.noaa.gov/PUBS_LIB/DevelopmentOfTheWorldGeodeticSystem1984.pdf">NOAA WGS-84</a>
+          <a href="https://gwg.nga.mil/gwg/focus-groups/World_Geodetic_System_%26_Geomatics_%28WGSG%29_Focus_Gro.html">NGA WGS-84</a>
           <a href="https://ssd.jpl.nasa.gov/astro_par.html">NASA JPL parameters</a>
-          <a href="https://physics.nist.gov/cgi-bin/cuu/Value?c=">NIST speed of light</a>
+          <a href="https://www.nist.gov/pml/owm/si-units-length">NIST speed of light</a>
           <a href="https://www.ospo.noaa.gov/operations/goes/eclipse.html">NOAA GEO eclipse</a>
+          <a href="./data/model-assumptions.json">Rev B assumptions</a>
+          <a href="./model/engineering-screen.mjs">Rev B equations</a>
         </div>
       </details>
     </div>
@@ -270,7 +272,7 @@ function MissionGraphic({ mission }: { mission: PublicMission }) {
   return (
     <div className={isIndustrial ? "capacity-graphic industrial" : "capacity-graphic"} aria-label={`${mission.publicName} capacity diagram, physical geometry not selected`}>
       <div><span>COMPUTE ENVELOPE</span><strong>{metricValue(mission.metrics.continuousCompute)}</strong></div>
-      <div><span>SOLAR AREA SCREEN</span><strong>{metricValue(mission.metrics.deployedSolarArea)}</strong></div>
+      <div><span>ACTIVE-PV EQUIVALENT</span><strong>{metricValue(mission.metrics.activePvEquivalentArea)}</strong></div>
       <p>PHYSICAL GEOMETRY / TBD BY SUPPLIER</p>
     </div>
   );
@@ -281,9 +283,14 @@ function missionMetrics(mission: PublicMission) {
     return { compute: metricValue(mission.metrics.continuousCompute), solar: "Host-provided", battery: "Host-provided", radiator: "Host interface" };
   }
   if (mission.id === "flight-demonstrator") {
-    return { compute: metricValue(mission.metrics.continuousCompute), solar: metricValue(mission.metrics.solarBolPower), battery: metricValue(mission.metrics.batteryPlanningRange), radiator: `${metricValue(mission.metrics.radiatorModeledMinimum)} min` };
+    return {
+      compute: metricValue(mission.metrics.continuousCompute),
+      solar: `${metricValue(mission.metrics.solarBolPower)} target / ${metricValue(mission.metrics.solarBolRequiredScreen)} screen`,
+      battery: metricValue(mission.metrics.batteryPlanningRange),
+      radiator: `${metricValue(mission.metrics.radiatorEffectiveAreaScreen)} effective`,
+    };
   }
-  return { compute: metricValue(mission.metrics.continuousCompute), solar: metricValue(mission.metrics.solarBolPower), battery: metricValue(mission.metrics.batteryRevABase), radiator: metricValue(mission.metrics.radiatorModeledMinimum) };
+  return { compute: metricValue(mission.metrics.continuousCompute), solar: metricValue(mission.metrics.solarBolPower), battery: metricValue(mission.metrics.batteryRevABase), radiator: `${metricValue(mission.metrics.radiatorEffectiveAreaScreen)} effective` };
 }
 
 export function ScaleJourney() {
@@ -322,7 +329,7 @@ export function ScaleJourney() {
           <span><ThermometerSun aria-hidden="true" /><small>Radiator</small><strong>{metrics.radiator}</strong></span>
           <span><Gauge aria-hidden="true" /><small>Architecture</small><strong>{mission.architecture}</strong></span>
         </div>
-        <p className="scale-status-note">MODEL STATUS / Working assumption plus calculated Rev A screening values. Visuals do not share a physical scale.</p>
+        <p className="scale-status-note">MODEL STATUS / Working assumptions plus calculated Rev B screening values. Solar area is active-PV equivalent, radiator area is idealized effective area, and visuals do not share a physical scale.</p>
       </div>
     </div>
   );

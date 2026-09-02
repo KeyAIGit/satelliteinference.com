@@ -115,7 +115,7 @@ export default function Home() {
           <div className="hero-proof" aria-label="Program baseline">
             <div><strong>500-600 km</strong><span>LEO baseline</span></div>
             <div><strong>1 kW</strong><span>first owned node</span></div>
-            <div><strong>10 kW</strong><span>BOL solar</span></div>
+            <div><strong>10 kW</strong><span>installed BOL target</span></div>
           </div>
         </div>
         <figure className="hero-visual hero-node-figure reveal-up delay-one">
@@ -192,8 +192,9 @@ export default function Home() {
             <h2>One geometry.<br />Every unknown visible.</h2>
           </div>
           <p>
-            Rev B connects the current 1 kW compute target to a 10 kW BOL solar concept,
-            eclipse energy storage, radiator area and a bounded launch envelope. It is
+            Rev B connects the current 1 kW compute target to a 10 kW installed BOL solar
+            target, a 4.12 kW required-power screen, eclipse energy storage, radiator area
+            and a bounded launch envelope. It is
             communication CAD for supplier conversations, not manufacturing data.
           </p>
         </div>
@@ -283,7 +284,7 @@ export default function Home() {
           </p>
         </div>
         <div className="evidence-grid">
-          <article><span>CALCULATED</span><h3>Reproducible model output</h3><p>Derived by disclosed Rev A equations from versioned assumptions and checked by deterministic tests.</p></article>
+          <article><span>CALCULATED</span><h3>Reproducible model output</h3><p>Derived by published Rev B equations from versioned assumptions and checked by equation-based deterministic tests.</p></article>
           <article><span>WORKING ASSUMPTION</span><h3>Planning input</h3><p>A target or early input that remains subject to trade studies, mission definition and validation.</p></article>
           <article><span>NOTIONAL GEOMETRY</span><h3>Packaging communication</h3><p>Concept geometry for scale, deployment and interface conversations. It is not flight CAD.</p></article>
           <article><span>TBD BY SUPPLIER</span><h3>Evidence still required</h3><p>Interface data, mass, loads, deployment dynamics, thermal performance and launch compatibility.</p></article>
@@ -294,6 +295,12 @@ export default function Home() {
           <span>COUPLED ANALYSIS</span><i />
           <span>HARDWARE TEST</span><i />
           <span>FLIGHT EVIDENCE</span>
+        </div>
+        <div className="evidence-model-links" aria-label="Public model files">
+          <span>REPRODUCE THE SCREEN</span>
+          <a href="./data/model-assumptions.json">Assumptions JSON <ArrowUpRight aria-hidden="true" /></a>
+          <a href="./model/engineering-screen.mjs">Equation source <ArrowUpRight aria-hidden="true" /></a>
+          <a href="./data/site-model.json">Published outputs <ArrowUpRight aria-hidden="true" /></a>
         </div>
       </section>
 
@@ -370,8 +377,8 @@ export default function Home() {
         </div>
         <div className="footer-links">
           <a href="mailto:contact@satelliteinference.com">Contact</a>
-          <a href="/privacy/">Privacy</a>
-          <a href="/disclaimer/">Disclaimer</a>
+          <a href="/privacy">Privacy</a>
+          <a href="/disclaimer">Disclaimer</a>
           <a href="/.well-known/security.txt">Security</a>
         </div>
         <p className="footer-legal">

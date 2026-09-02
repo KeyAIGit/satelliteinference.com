@@ -11,13 +11,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     {
-      url: "https://satelliteinference.com/privacy/",
+      url: "https://satelliteinference.com/privacy",
       lastModified: new Date("2026-09-02T00:00:00Z"),
       changeFrequency: "yearly",
       priority: 0.2,
     },
     {
-      url: "https://satelliteinference.com/disclaimer/",
+      url: "https://satelliteinference.com/disclaimer",
       lastModified: new Date("2026-09-02T00:00:00Z"),
       changeFrequency: "yearly",
       priority: 0.2,

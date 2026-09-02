@@ -4,7 +4,7 @@ import { LegalDocument } from "@/components/legal-document";
 export const metadata: Metadata = {
   title: "Privacy",
   description: "Privacy notice for the Satellite Inference public website.",
-  alternates: { canonical: "/privacy/" },
+  alternates: { canonical: "/privacy" },
 };
 
 export default function PrivacyPage() {
