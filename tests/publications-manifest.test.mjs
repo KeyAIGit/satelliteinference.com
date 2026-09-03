@@ -10,8 +10,13 @@ const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
 
 const copy = () => structuredClone(manifest);
 
-test("validates every current publication against its exact public PDF", async () => {
-  assert.deepEqual(await validatePublicationManifest(manifest, publicRoot), { valid: true, documentCount: 3 });
+test("validates the two-purpose public reading set against its exact PDFs", async () => {
+  assert.deepEqual(await validatePublicationManifest(manifest, publicRoot), { valid: true, documentCount: 2 });
+  assert.deepEqual(manifest.documents.map(({ id }) => id), [
+    "public-whitepaper-v0-3",
+    "mission-definition-10kw-v0-2",
+  ]);
+  assert.ok(manifest.documents.every(({ filename }) => !/fundrais|capital|investor/i.test(filename)));
 });
 
 test("rejects duplicate publication IDs and unsafe paths", async () => {

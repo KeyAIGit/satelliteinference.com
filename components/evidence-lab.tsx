@@ -9,11 +9,14 @@ type Workload = {
   id: string;
   shortLabel: string;
   name: string;
+  programRole: "PRIMARY_BENCHMARK_CANDIDATE" | "SECONDARY_BENCHMARK_CANDIDATE" | "CONTROL_WORKLOAD";
+  plainLanguage: string;
+  roleExplanation: string;
   signal: string;
   decision: string;
   customerQuestion: string;
   evidenceStatus: "PENDING_MEASUREMENT";
-  candidateOnly: boolean;
+  firstFlightCandidate: boolean;
 };
 
 type ScenarioInput = {
@@ -62,7 +65,7 @@ export function EvidenceLab({ workloads, scenarioInputs, measurementFields }: Ev
   return (
     <div className={styles.labShell}>
       <div className={styles.workloadRail}>
-        <p className={styles.railLabel}>CANDIDATE WORKLOAD</p>
+        <p className={styles.railLabel}>BENCHMARK PRIORITY</p>
         <div className={styles.tabs} role="group" aria-label="Candidate workload selector">
           {workloads.map((workload, index) => (
             <button
@@ -80,14 +83,15 @@ export function EvidenceLab({ workloads, scenarioInputs, measurementFields }: Ev
           <article
             className={styles.workloadCard}
           >
-            <div className={styles.statusLine}><span /> {active.evidenceStatus}</div>
+            <div className={styles.statusLine}><span /> {active.programRole.replaceAll("_", " ")} / NOT MEASURED YET</div>
             <h3>{active.name}</h3>
+            <p className={styles.workloadPlainLanguage}>{active.plainLanguage}</p>
             <dl>
-              <div><dt>LIVE SIGNAL</dt><dd>{active.signal}</dd></div>
-              <div><dt>DECISION</dt><dd>{active.decision}</dd></div>
-              <div><dt>CUSTOMER QUESTION</dt><dd>{active.customerQuestion}</dd></div>
+              <div><dt>INPUT DATA</dt><dd>{active.signal}</dd></div>
+              <div><dt>OPERATIONAL OUTPUT</dt><dd>{active.decision}</dd></div>
+              <div><dt>POTENTIAL BUYER QUESTION</dt><dd>{active.customerQuestion}</dd></div>
             </dl>
-            <p className={styles.candidateNote}><AlertTriangle size={15} /> Candidate only. No flight workload has been selected.</p>
+            <p className={styles.candidateNote}><AlertTriangle size={15} /> {active.roleExplanation}</p>
           </article>
         )}
       </div>

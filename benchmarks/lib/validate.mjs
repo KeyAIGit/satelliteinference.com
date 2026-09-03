@@ -139,6 +139,7 @@ export function validateWorkloadConfig(value) {
       "configVersion",
       "workloadId",
       "title",
+      "programRole",
       "inputModality",
       "task",
       "decisionOutput",
@@ -159,6 +160,9 @@ export function validateWorkloadConfig(value) {
   }
   if (!WORKLOAD_IDS.has(value.workloadId)) invalid("config.workloadId", "unknown workload ID");
   string(value.title, "config.title");
+  if (!["PRIMARY_BENCHMARK_CANDIDATE", "SECONDARY_BENCHMARK_CANDIDATE", "CONTROL_WORKLOAD"].includes(value.programRole)) {
+    invalid("config.programRole", "unsupported program role");
+  }
   if (!["OPTICAL_IMAGERY", "SAR_IMAGERY"].includes(value.inputModality)) {
     invalid("config.inputModality", "unsupported modality");
   }
@@ -169,7 +173,15 @@ export function validateWorkloadConfig(value) {
   if (value.evidenceState !== "PENDING_MEASUREMENT") {
     invalid("config.evidenceState", "must remain PENDING_MEASUREMENT before a real run");
   }
-  if (value.firstFlightCandidate !== true) invalid("config.firstFlightCandidate", "must be true");
+  if (typeof value.firstFlightCandidate !== "boolean") {
+    invalid("config.firstFlightCandidate", "must be boolean");
+  }
+  if (value.programRole === "CONTROL_WORKLOAD" && value.firstFlightCandidate) {
+    invalid("config.firstFlightCandidate", "must be false for a control workload");
+  }
+  if (value.programRole !== "CONTROL_WORKLOAD" && !value.firstFlightCandidate) {
+    invalid("config.firstFlightCandidate", "must be true for a flight candidate");
+  }
 
   validatePendingDependency(
     value.dataset,

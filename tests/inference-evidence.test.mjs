@@ -7,13 +7,25 @@ import { calculateDownlinkScenario } from "../public/model/inference-evidence.mj
 const dataPath = fileURLToPath(new URL("../public/data/inference-workloads.v1.json", import.meta.url));
 const data = JSON.parse(await readFile(dataPath, "utf8"));
 
-test("publishes exactly the three stable ground-candidate workload IDs", () => {
+test("publishes the three workloads in program-priority order", () => {
   assert.deepEqual(data.workloads.map(({ id }) => id), [
-    "optical-quality",
-    "wildfire-change",
     "sar-vessel-detection",
+    "wildfire-change",
+    "optical-quality",
   ]);
-  assert.ok(data.workloads.every(({ candidateOnly }) => candidateOnly === true));
+  assert.deepEqual(data.workloads.map(({ programRole }) => programRole), [
+    "PRIMARY_BENCHMARK_CANDIDATE",
+    "SECONDARY_BENCHMARK_CANDIDATE",
+    "CONTROL_WORKLOAD",
+  ]);
+  assert.deepEqual(data.workloads.map(({ firstFlightCandidate }) => firstFlightCandidate), [true, true, false]);
+});
+
+test("keeps the primary SAR claim within a defensible public boundary", () => {
+  const primary = data.workloads[0];
+  assert.equal(primary.name, "SAR maritime vessel detection and scene prioritization");
+  assert.match(primary.roleExplanation, /does not establish identity, intent, or illegal activity/i);
+  assert.match(primary.roleExplanation, /temporal, AIS, RF/i);
 });
 
 test("uses the same workload IDs in the evidence lab and benchmark configs", async () => {

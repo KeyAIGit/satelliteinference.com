@@ -3896,7 +3896,7 @@ footer {
   margin-top: 78px;
   border-top: 1px solid var(--line);
   border-left: 1px solid var(--line);
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
 }
 
 .market-wedge-grid article {
@@ -3916,10 +3916,20 @@ footer {
 }
 
 .market-wedge-grid h3 {
-  margin: 76px 0 12px;
+  margin: 10px 0 12px;
   font-size: 22px;
   font-weight: 570;
   letter-spacing: -0.035em;
+}
+
+.market-wedge-grid small {
+  display: block;
+  margin-top: 62px;
+  color: #7a8991;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.11em;
 }
 
 .market-wedge-grid p {
@@ -4160,6 +4170,21 @@ footer {
 .section-documents {
   grid-template-columns: minmax(260px, 0.42fr) minmax(0, 1.58fr);
   gap: 52px;
+}
+
+.document-action-stack {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+}
+
+.document-action-stack > .button {
+  width: fit-content;
+}
+
+.document-action-stack .method-note {
+  margin-top: 0;
+  grid-column: auto;
 }
 
 .document-grid {

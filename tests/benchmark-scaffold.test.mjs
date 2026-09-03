@@ -39,7 +39,7 @@ function clone(value) {
   return structuredClone(value);
 }
 
-test("publishes exactly three versioned workload configs with stable IDs", async () => {
+test("publishes one primary, one secondary, and one control workload", async () => {
   const workloads = await loadWorkloads();
   assert.deepEqual(
     workloads.map(({ filename }) => filename),
@@ -49,10 +49,18 @@ test("publishes exactly three versioned workload configs with stable IDs", async
     workloads.map(({ value }) => value.workloadId).sort(),
     ["optical-quality", "sar-vessel-detection", "wildfire-change"],
   );
+  assert.deepEqual(
+    Object.fromEntries(workloads.map(({ value }) => [value.workloadId, value.programRole])),
+    {
+      "optical-quality": "CONTROL_WORKLOAD",
+      "sar-vessel-detection": "PRIMARY_BENCHMARK_CANDIDATE",
+      "wildfire-change": "SECONDARY_BENCHMARK_CANDIDATE",
+    },
+  );
   for (const { value } of workloads) {
     assert.equal(validateWorkloadConfig(value), true);
     assert.equal(value.evidenceState, "PENDING_MEASUREMENT");
-    assert.equal(value.firstFlightCandidate, true);
+    assert.equal(value.firstFlightCandidate, value.programRole !== "CONTROL_WORKLOAD");
     assert.equal(value.configVersion, "1.0.0");
   }
 });

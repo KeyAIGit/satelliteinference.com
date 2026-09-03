@@ -26,7 +26,7 @@ const capabilities = [
   {
     icon: Radio,
     label: "Downlink reduction",
-    text: "Transmit prioritized results and evidence instead of every raw byte generated on orbit.",
+    text: "Transmit prioritized results and selected evidence before bulk raw data that still matters.",
   },
   {
     icon: ThermometerSun,
@@ -47,33 +47,22 @@ const markets = [
   "Disaster response",
 ];
 
-const marketWedges = [
+const workloadPriorities = [
   {
-    label: "Defense and sovereign",
-    text: "Time-sensitive detection and decision support when data sovereignty, resilience and controlled tasking matter.",
+    role: "PRIMARY BENCHMARK CANDIDATE",
+    label: "SAR maritime vessel detection and scene prioritization",
+    text: "Locate vessels in synthetic-aperture radar imagery and prioritize scenes for review before the full image reaches Earth.",
   },
   {
-    label: "Earth observation",
-    text: "Filter, classify and prioritize optical, radar or RF-derived data before scarce downlink capacity is consumed.",
+    role: "SECONDARY WORKLOAD",
+    label: "Wildfire and rapid change",
+    text: "Use optical imagery to flag new fires and meaningful changes, then send coordinates and priority regions first.",
   },
   {
-    label: "Maritime domain awareness",
-    text: "Fuse detections and behavioral signals close to collection for faster vessel-level alerts and smaller result packages.",
+    role: "CONTROL WORKLOAD",
+    label: "Optical image quality",
+    text: "Identify cloud-covered, blurred, or otherwise unusable imagery. This tests the complete data path without pretending it needs 10 kW by itself.",
   },
-  {
-    label: "Disaster response",
-    text: "Turn new imagery into priority maps and machine-readable alerts while the response window is still open.",
-  },
-];
-
-const seedAllocation = [
-  ["Core team and specialist engineering", "$3.40M"],
-  ["Ground tile and integrated hardware", "$1.35M"],
-  ["Environmental and radiation testing", "$0.75M"],
-  ["Supplier studies and interfaces", "$0.45M"],
-  ["Regulatory, legal, security and export", "$0.35M"],
-  ["Software, data, facilities and operations", "$0.25M"],
-  ["Program reserve", "$0.45M"],
 ];
 
 const contactChannels = [
@@ -97,22 +86,22 @@ export default function Home() {
           <p className="eyebrow"><span /> Operated by RFID INC</p>
           <h1 id="hero-title">Compute where<br />space data begins.</h1>
           <p className="hero-lead">
-            A 10 kW continuous-compute node in low Earth orbit for defense,
-            Earth-observation, maritime and disaster-response data, built from
-            a planned 1 kW ground-validation tile.
+            A planned 10 kW continuous-compute node in low Earth orbit. Its leading
+            benchmark candidate is SAR maritime vessel detection, developed through
+            a 1 kW ground-validation tile.
           </p>
           <div className="hero-actions">
-            <a className="button button-primary" href="#model">
-              Explore the orbital model <ArrowDown aria-hidden="true" size={17} />
+            <a className="button button-primary" href="/demo">
+              Explore the evidence lab <ArrowUpRight aria-hidden="true" size={17} />
             </a>
-            <a className="button button-ghost" href="/documents/Satellite_Inference_Whitepaper_v0.2.pdf">
-              Read Whitepaper v0.2 <FileText aria-hidden="true" size={16} />
+            <a className="button button-ghost" href="/documents/Satellite_Inference_Public_Whitepaper_v0.3.pdf">
+              Read Whitepaper v0.3 <FileText aria-hidden="true" size={16} />
             </a>
           </div>
           <div className="hero-proof" aria-label="Program baseline">
             <div><strong>10 kW</strong><span>continuous payload input</span></div>
             <div><strong>500-600 km</strong><span>LEO baseline</span></div>
-            <div><strong>$7M</strong><span>development capital target</span></div>
+            <div><strong>SAR</strong><span>radar maritime primary</span></div>
           </div>
         </div>
         <figure className="hero-visual hero-node-figure reveal-up delay-one">
@@ -134,8 +123,8 @@ export default function Home() {
         </a>
       </section>
 
-      <section className="signal-strip" aria-label="Target markets">
-        <span className="signal-strip-label">BUILT FOR</span>
+      <section className="signal-strip" aria-label="Potential user sectors">
+        <span className="signal-strip-label">POTENTIAL USERS</span>
         <span className="sr-only">{markets.join(", ")}</span>
         <div className="signal-strip-track" aria-hidden="true">
           {[...markets, ...markets].map((market, index) => (
@@ -160,7 +149,7 @@ export default function Home() {
         </div>
         <ol className="flow-line" aria-label="Data reduction flow">
           <li className="flow-node">
-            <span>01</span><Satellite aria-hidden="true" /><strong>Sense</strong><small>Raw orbital data</small>
+            <span>01</span><Satellite aria-hidden="true" /><strong>Partner sensor</strong><small>Raw orbital data</small>
           </li>
           <li className="flow-arrow" aria-hidden="true"><span>HIGH VOLUME</span></li>
           <li className="flow-node flow-node-accent">
@@ -181,15 +170,17 @@ export default function Home() {
             </article>
           ))}
         </div>
-        <div className="market-wedge-grid" aria-label="Initial customer markets">
-          {marketWedges.map((market, index) => (
-            <article key={market.label}>
+        <div className="market-wedge-grid" aria-label="Ground workload priorities">
+          {workloadPriorities.map((workload, index) => (
+            <article key={workload.label}>
               <span>0{index + 1}</span>
-              <h3>{market.label}</h3>
-              <p>{market.text}</p>
+              <small>{workload.role}</small>
+              <h3>{workload.label}</h3>
+              <p>{workload.text}</p>
             </article>
           ))}
         </div>
+        <p className="market-later-note"><strong>CURRENT STATUS</strong> These are benchmark priorities, not customer commitments. The first flight workload still requires measured performance, lawful data access, and a paying mission partner. A single image does not establish a vessel&apos;s identity, intent, or illegal activity; any activity cue requires temporal, AIS, RF, or other corroborating context.</p>
         <p className="market-later-note"><strong>LATER MARKET</strong> Generic cloud inference follows after flight economics, network utilization and service reliability are measured.</p>
       </section>
 
@@ -255,7 +246,7 @@ export default function Home() {
             <h3>Integrated orbital compute</h3>
             <p>Compute module, storage, PMAD, battery, deployable solar, thermal transport, communications, ADCS, propulsion, and disposal.</p>
             <div className="stack-diagram" aria-label="Simplified orbital compute architecture">
-              <span>Sensor</span><i />
+              <span>Partner sensor</span><i />
               <span>Runtime</span><i />
               <span>Compute</span><i />
               <span>Result</span>
@@ -311,72 +302,22 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="section section-financing" id="financing">
-        <div className="section-heading split-heading inverse">
-          <div>
-            <p className="kicker">07 / DEVELOPMENT CAPITAL</p>
-            <h2>$7M to turn a thesis<br />into an investable program.</h2>
-          </div>
-          <p>
-            The current target funds the engineering team, 1 kW ground tile, 10 kW ground
-            breadboard, supplier-backed mission baseline, SRR/PDR package and customer pilots.
-            It is not presented as sufficient capital to manufacture and launch the full node.
-          </p>
-        </div>
-        <div className="financing-layout">
-          <article className="financing-target-card">
-            <span>CURRENT DEVELOPMENT CAPITAL TARGET</span>
-            <strong>$7,000,000</strong>
-            <p>Planning target, subject to legal structuring, technical diligence and commercial validation.</p>
-          </article>
-          <div className="financing-allocation" aria-label="Illustrative use of funds">
-            {seedAllocation.map(([label, amount]) => (
-              <div key={label}><span>{label}</span><strong>{amount}</strong></div>
-            ))}
-          </div>
-        </div>
-        <div className="capital-gates" aria-label="Illustrative staged financing path">
-          <div><span>NOW</span><strong>$7M</strong><p>Team, ground proof, SRR/PDR and customer evidence</p></div>
-          <div><span>AFTER PDR</span><strong>$25-40M</strong><p>Flight development, qualification and long-lead hardware</p></div>
-          <div><span>AFTER CONTRACTS + CDR</span><strong>$100-150M</strong><p>First-node manufacturing, launch and operations program</p></div>
-          <div><span>AFTER FLIGHT PROOF</span><strong>$200M+</strong><p>Fleet replication and industrial capacity</p></div>
-        </div>
-        <p className="financing-disclaimer">The $7M development target is current; later financing ranges are illustrative, conditional planning placeholders, not executable financing asks or vendor-quoted budgets. Information only; not an offer to sell or a solicitation to purchase securities.</p>
-      </section>
-
       <section className="section section-documents" id="documents">
         <div className="document-intro">
-          <p className="kicker">08 / PUBLIC BASELINE</p>
-          <h2>Read the engineering case.</h2>
+          <p className="kicker">07 / PUBLIC BASELINE</p>
+          <h2>Choose the document<br />for your question.</h2>
           <p>
-            Version 0.2 Rev C is a transparent, pre-SRR working baseline. It exposes assumptions,
-            separates known facts from model outputs, and states which supplier and customer
-            evidence must replace early estimates.
+            The whitepaper explains why the company should exist. The mission definition states
+            what the first 10 kW flight must prove. Detailed financing and diligence materials are
+            shared privately with approved counterparties.
           </p>
         </div>
-        <div className="document-grid">
-          <a className="document-card document-card-primary" href="/documents/Satellite_Inference_Whitepaper_v0.2.pdf">
-            <span className="document-type">WHITEPAPER / ENGLISH / PDF</span>
-            <h3>Orbital Computing Infrastructure</h3>
-            <p>10 kW LEO thesis, initial markets, development architecture, parametric model, capital gates and public risk register.</p>
-            <div><span>Version 0.2 / Rev C</span><ArrowUpRight aria-hidden="true" /></div>
-          </a>
-          <a className="document-card" href="/documents/Node_10kW_Public_Mission_Definition_v0.2.pdf">
-            <span className="document-type">MISSION SUMMARY / ENGLISH / PDF</span>
-            <h3>10 kW Orbital Node Mission Definition</h3>
-            <p>Mission purpose, success criteria, preliminary architecture, public requirement categories, risks and review gates.</p>
-            <div><span>Pre-SRR baseline</span><ArrowUpRight aria-hidden="true" /></div>
-          </a>
-          <a className="document-card" href="/documents/Satellite_Inference_Fundraising_Roadmap_v0.1.pdf">
-            <span className="document-type">CAPITAL ROADMAP / ENGLISH / PDF</span>
-            <h3>From $7M Development Capital to First Node</h3>
-            <p>Illustrative use of funds, milestone gates and the conditional path to flight-development and first-node financing.</p>
-            <div><span>Planning baseline</span><ArrowUpRight aria-hidden="true" /></div>
-          </a>
-        </div>
-        <div className="method-note">
-          <strong>What v0.2 is not</strong>
-          <p>Not flight-release data, not manufacturing CAD, not a launch reservation, not a supplier quotation, and not an offer to sell securities.</p>
+        <div className="document-action-stack">
+          <a className="button button-primary" href="/publications">Open the public document library <ArrowUpRight aria-hidden="true" size={16} /></a>
+          <div className="method-note">
+            <strong>Public and controlled material stay separate</strong>
+            <p>Supplier responses, customer correspondence, detailed budgets, security-sensitive engineering, and investor diligence do not belong in the public library.</p>
+          </div>
         </div>
       </section>
 
@@ -394,7 +335,7 @@ export default function Home() {
       <section className="section section-contact" id="contact">
         <div className="section-heading split-heading inverse contact-heading">
           <div>
-            <p className="kicker">09 / CONTACT DIRECTORY</p>
+            <p className="kicker">08 / CONTACT DIRECTORY</p>
             <h2>Reach the right channel<br />on the first transmission.</h2>
           </div>
           <p>
@@ -430,7 +371,7 @@ export default function Home() {
         </div>
         <p className="footer-legal">
           Satellite Inference™ is currently operated by RFID INC, a Delaware corporation. © 2026 RFID INC. All rights reserved.<br />
-          Public working concept, 2 September 2026. Preliminary assumptions require supplier, regulatory and customer validation.
+          Public working concept, 3 September 2026. Preliminary assumptions require supplier, regulatory and customer validation.
         </p>
       </footer>
       </div>

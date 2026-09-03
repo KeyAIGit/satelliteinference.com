@@ -3,11 +3,12 @@
   "configVersion": "1.0.0",
   "workloadId": "optical-quality",
   "title": "Optical cloud and quality screening",
+  "programRole": "CONTROL_WORKLOAD",
   "inputModality": "OPTICAL_IMAGERY",
   "task": "QUALITY_SCREENING",
   "decisionOutput": "Scene-level quality flags and a keep, defer, or reject decision for downstream processing.",
   "evidenceState": "PENDING_MEASUREMENT",
-  "firstFlightCandidate": true,
+  "firstFlightCandidate": false,
   "dataset": {
     "manifestTemplate": "../templates/dataset-manifest.template.json",
     "selectionStatus": "PENDING_MEASUREMENT"

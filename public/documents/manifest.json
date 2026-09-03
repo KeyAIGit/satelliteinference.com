@@ -1,21 +1,21 @@
 {
   "schemaVersion": "1.0.0",
   "asOf": "2026-09-03",
-  "evidenceBoundary": "Public concept documents only. None is flight-release material, a supplier quotation, a launch reservation, or a regulatory determination.",
+  "evidenceBoundary": "Two public concept documents only. Neither is flight-release material, a supplier quotation, a launch reservation, a regulatory determination, or financing material.",
   "documents": [
     {
-      "id": "whitepaper-rev-c-v0-2",
-      "title": "Orbital Computing Infrastructure",
-      "subtitle": "Whitepaper",
-      "filename": "Satellite_Inference_Whitepaper_v0.2.pdf",
-      "version": "0.2 / Rev C",
+      "id": "public-whitepaper-v0-3",
+      "title": "Satellite Inference Public Whitepaper",
+      "subtitle": "Company thesis",
+      "filename": "Satellite_Inference_Public_Whitepaper_v0.3.pdf",
+      "version": "0.3",
       "status": "CONCEPT_DOCUMENT",
-      "pageCount": 17,
-      "byteSize": 773004,
-      "sha256": "64c4b4d1973508a35456712b92532f601f18a72c6f732b296fffdd6428ba3097",
-      "publishedOn": "2026-09-02",
-      "url": "/documents/Satellite_Inference_Whitepaper_v0.2.pdf",
-      "description": "The 10 kW LEO thesis, initial markets, development architecture, parametric screen, capital gates, and public risk register.",
+      "pageCount": 13,
+      "byteSize": 633644,
+      "sha256": "63ce03ae0b4582b136414aa6ff459c2d917430a859c2bb4fea10552699857437",
+      "publishedOn": "2026-09-03",
+      "url": "/documents/Satellite_Inference_Public_Whitepaper_v0.3.pdf",
+      "description": "Start here. The company thesis, SAR maritime vessel detection and scene prioritization, the 10 kW LEO concept, the public engineering screen, and the evidence path from ground tests to flight.",
       "disclaimer": "Concept document only. Not flight-release data, manufacturing instruction, supplier acceptance, a launch reservation, or an offer to sell securities."
     },
     {
@@ -32,21 +32,6 @@
       "url": "/documents/Node_10kW_Public_Mission_Definition_v0.2.pdf",
       "description": "Mission purpose, success criteria, preliminary architecture, requirement categories, risks, and formal review gates.",
       "disclaimer": "Concept document only. Not flight-release data, manufacturing instruction, supplier acceptance, a launch reservation, or a regulatory determination."
-    },
-    {
-      "id": "fundraising-roadmap-v0-1",
-      "title": "From $7M Development Capital to First Node",
-      "subtitle": "Capital roadmap",
-      "filename": "Satellite_Inference_Fundraising_Roadmap_v0.1.pdf",
-      "version": "0.1 / Planning baseline",
-      "status": "CONCEPT_DOCUMENT",
-      "pageCount": 9,
-      "byteSize": 334290,
-      "sha256": "7492070e05ec89952082eb041101122c2f799338feb3b36470501d0aa8aefc34",
-      "publishedOn": "2026-09-02",
-      "url": "/documents/Satellite_Inference_Fundraising_Roadmap_v0.1.pdf",
-      "description": "Illustrative use of funds, milestone gates, and the conditional path to flight-development and first-node financing.",
-      "disclaimer": "Concept document only. Not an offer to sell or a solicitation to purchase securities, a financing commitment, or a representation that flight is funded."
     }
   ]
 }

@@ -9,7 +9,7 @@ const navigation = [
   { href: "/#concept", label: "Flight node" },
   { href: "/#model", label: "Orbit model" },
   { href: "/demo", label: "Evidence lab" },
-  { href: "/publications", label: "Publications" },
+  { href: "/publications", label: "Documents" },
   { href: "/#contact", label: "Contact" },
 ];
 
@@ -77,9 +77,9 @@ export function SiteNavigation() {
         {navigation.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}
       </nav>
 
-      <Link className="header-cta" href="/publications">
-        Whitepaper <ArrowUpRight aria-hidden="true" size={15} />
-      </Link>
+      <a className="header-cta" href="mailto:procurement@satelliteinference.com">
+        Work with us <ArrowUpRight aria-hidden="true" size={15} />
+      </a>
 
       <button
         ref={menuButtonRef}

@@ -6,18 +6,18 @@ import styles from "./publications.module.css";
 
 export const metadata: Metadata = {
   title: "Publications",
-  description: "Versioned Satellite Inference concept documents with page counts, file hashes, and explicit evidence boundaries.",
+  description: "Two versioned Satellite Inference concept documents with distinct reading purposes and explicit evidence boundaries.",
   alternates: { canonical: "/publications" },
   openGraph: {
     url: "/publications",
     title: "Publications | Satellite Inference",
-    description: "Versioned concept documents with file integrity and explicit evidence boundaries.",
+    description: "Start with the company thesis, then inspect the first-flight requirements.",
     images: [{ url: "/og.png", width: 1200, height: 630, alt: "Satellite Inference publications" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Publications | Satellite Inference",
-    description: "Versioned concept documents with file integrity and explicit evidence boundaries.",
+    description: "Start with the company thesis, then inspect the first-flight requirements.",
     images: ["/og.png"],
   },
 };
@@ -31,10 +31,10 @@ export default function PublicationsPage() {
       <section className={styles.hero} id="top" aria-labelledby="publications-title">
         <div className={styles.heroCopy}>
           <p className={styles.eyebrow}><FileCheck2 size={14} /> PUBLIC BASELINE / VERSIONED</p>
-          <h1 id="publications-title">Documents you can<br />inspect, hash, and challenge.</h1>
+          <h1 id="publications-title">Two documents.<br />Two different jobs.</h1>
           <p>
-            Current public materials are concept documents. Each file is listed with its version,
-            page count, byte size, SHA-256 digest, and the claims it does not make.
+            Read the whitepaper first for the company thesis. Open the mission definition next
+            for first-flight requirements, success criteria, and unresolved engineering decisions.
           </p>
           <a href="#publication-list">View the current set <ArrowDown size={16} /></a>
         </div>
@@ -50,7 +50,7 @@ export default function PublicationsPage() {
         <header>
           <div>
             <p className={styles.kicker}>01 / CURRENT RELEASE SET</p>
-            <h2 id="library-title">Rev C public package.</h2>
+          <h2 id="library-title">Current public reading path.</h2>
           </div>
           <p>Published files remain stable. A future revision receives a new version and a new integrity record.</p>
         </header>
@@ -61,7 +61,7 @@ export default function PublicationsPage() {
               <div className={styles.cardIndex}>0{index + 1}</div>
               <div className={styles.cardIcon}><FileText aria-hidden="true" /></div>
               <div className={styles.cardCopy}>
-                <span>{document.subtitle} / {document.status.replaceAll("_", " ")}</span>
+                <span>{index === 0 ? "START HERE" : "TECHNICAL COMPANION"} / {document.subtitle} / {document.status.replaceAll("_", " ")}</span>
                 <h3>{document.title}</h3>
                 <p>{document.description}</p>
                 <dl>
@@ -84,13 +84,13 @@ export default function PublicationsPage() {
 
       <section className={styles.method} aria-labelledby="method-title">
         <div>
-          <p className={styles.kicker}>02 / PUBLICATION METHOD</p>
-          <h2 id="method-title">A visible line between<br />a screen and a specification.</h2>
+          <p className={styles.kicker}>02 / WHAT STAYS PRIVATE</p>
+          <h2 id="method-title">A public library,<br />not an open data room.</h2>
         </div>
         <div className={styles.methodGrid}>
-          <article><span>STATUS</span><strong>Concept document</strong><p>Planning logic and requirements that still need customer, supplier, test, and regulatory evidence.</p></article>
-          <article><span>INTEGRITY</span><strong>File-level hash</strong><p>The manifest detects an unexpected change in bytes, pages, path, or release metadata.</p></article>
-          <article><span>NEXT GATE</span><strong>Evidence replaces assumptions</strong><p>Benchmarks, selected interfaces, and formal reviews advance claims one controlled step at a time.</p></article>
+          <article><span>PUBLIC</span><strong>Thesis and mission boundary</strong><p>Enough information to understand the proposed product, calculations, first-flight requirements, and important unknowns.</p></article>
+          <article><span>CONTROLLED</span><strong>Financing and diligence</strong><p>Investor materials, detailed budgets, supplier responses, customer correspondence, and decision records are shared privately.</p></article>
+          <article><span>RESTRICTED</span><strong>Sensitive engineering</strong><p>Detailed CAD, interfaces, security material, and export-controlled technical data require a separate release decision.</p></article>
         </div>
         <div className={styles.methodLinks}>
           <a href="/documents/manifest.json">Download manifest <ArrowUpRight size={15} /></a>

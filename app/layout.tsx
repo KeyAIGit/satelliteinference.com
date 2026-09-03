@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     template: "%s | Satellite Inference",
   },
   description:
-    "A 10 kW continuous-compute node in low Earth orbit for defense, Earth-observation, maritime, and disaster-response data.",
+    "A proposed 10 kW orbital compute node for processing time-sensitive SAR and Earth-observation data in low Earth orbit.",
   applicationName: "Satellite Inference",
   authors: [{ name: "RFID INC" }],
   keywords: [
@@ -25,13 +25,13 @@ export const metadata: Metadata = {
     url: "https://satelliteinference.com",
     siteName: "Satellite Inference",
     title: "Satellite Inference | Orbital Computing Infrastructure",
-    description: "A 10 kW continuous-compute node in low Earth orbit, developed through a planned 1 kW ground-validation tile.",
+    description: "A proposed 10 kW orbital compute node for time-sensitive SAR and Earth-observation data in low Earth orbit.",
     images: [{ url: "/og.png", width: 1200, height: 630, alt: "Satellite Inference orbital computing infrastructure" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Satellite Inference | Orbital Computing Infrastructure",
-    description: "A 10 kW continuous-compute node in low Earth orbit, developed through a planned 1 kW ground-validation tile.",
+    description: "A proposed 10 kW orbital compute node for time-sensitive SAR and Earth-observation data in low Earth orbit.",
     images: [{ url: "/og.png", alt: "Satellite Inference orbital computing infrastructure" }],
   },
   robots: { index: true, follow: true },

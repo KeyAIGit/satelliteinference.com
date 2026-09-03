@@ -1,11 +1,11 @@
 # Satellite Inference benchmark scaffold
 
 This directory defines the public, reproducible contract for evaluating three
-candidate first-flight inference workloads:
+workloads with distinct program roles:
 
-1. Optical cloud and quality screening
-2. Optical wildfire, burn-scar, and change detection
-3. SAR vessel detection
+1. Primary flight candidate: SAR maritime vessel detection and scene prioritization
+2. Secondary flight candidate: wildfire, burn-scar, and change detection
+3. Control workload: optical cloud and quality screening
 
 The scaffold is not a benchmark claim. No throughput, latency, accuracy,
 energy, temperature, or data-reduction number is published until a real run is
@@ -13,9 +13,12 @@ executed and its data, model, software, hardware, and timing provenance are
 captured. Generated pre-run records use `PENDING_MEASUREMENT`, and every numeric
 measurement value is `null`.
 
-Only one live sensor or data-path family will be selected for the first flight
-after customer evidence, dataset rights, integration feasibility, and measured
-ground results support the choice.
+SAR maritime is the current program priority, not a validated customer selection.
+A single SAR image does not establish identity, intent, or illegal activity. Any activity cue requires temporal, AIS, RF, or other corroborating context.
+It advances only if customer evidence, dataset rights, integration feasibility,
+and measured ground results support it. Wildfire and change remains the secondary
+application. Optical quality remains a control for the ingest, preprocessing,
+telemetry, and measurement chain.
 
 ## Directory contract
 

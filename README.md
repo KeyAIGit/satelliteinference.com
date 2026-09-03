@@ -35,30 +35,25 @@ Equation-based tests recompute the published values from those files. Important 
 
 ## Publications
 
-- `public/documents/Satellite_Inference_Whitepaper_v0.2.pdf`
+- `public/documents/Satellite_Inference_Public_Whitepaper_v0.3.pdf`
 - `public/documents/Node_10kW_Public_Mission_Definition_v0.2.pdf`
-- `public/documents/Satellite_Inference_Fundraising_Roadmap_v0.1.pdf`
 - `public/documents/manifest.json`
 
-These are public concept documents. They are not flight-release data, manufacturing CAD, supplier quotations, launch reservations, regulatory determinations, or offers to sell securities.
+These two PDFs have distinct jobs. The whitepaper is the starting point for the product and program thesis. The mission definition is the technical companion for first-flight requirements and success criteria. They are public concept documents, not flight-release data, manufacturing CAD, supplier quotations, launch reservations, regulatory determinations, or financing material.
 
 The `/publications` route renders this release set from the manifest and exposes exact page counts, byte sizes, SHA-256 digests, and document-level disclaimers.
 
 ## Inference evidence lab
 
-The `/demo` route presents exactly three ground candidates:
+The `/demo` route presents three ground workloads in a deliberate order:
 
-- optical cloud and quality screening;
-- optical wildfire, burn-scar, and change detection;
-- SAR vessel detection.
+- primary: SAR maritime vessel detection and scene prioritization;
+- secondary: wildfire, burn-scar, and change detection;
+- control: optical cloud and quality screening.
 
 Its data-volume calculator is deterministic scenario arithmetic, not measured downlink reduction. Throughput, latency, task quality, energy, and operational reduction remain `PENDING_MEASUREMENT` until a reproducible ground run captures complete provenance.
 
 The `benchmarks/` scaffold defines strict dataset, model, workload, telemetry, and result contracts. Pending result generation is deterministic and leaves all numeric measurement fields null.
-
-## Development capital
-
-The current development-capital target is $7 million. The public planning allocation funds the core engineering team, a 1 kW ground tile, a 10 kW ground breadboard, supplier-backed mission definition, SRR/PDR readiness, software, customer pilots, regulatory work and reserve. It is not represented as sufficient to manufacture and launch the full first node. Larger flight-development and first-node financing stages are conditional on engineering and commercial gates.
 
 ## Physics model
 
@@ -92,7 +87,7 @@ GitHub Actions publishes the `out/` directory to GitHub Pages. The canonical dom
 
 ## Public and private boundary
 
-This repository is intentionally a clean public publication layer. Detailed engineering data, CAD, supplier work, facility planning, export-control analysis, security architecture, procurement material, and internal decision logs do not belong here.
+This repository is intentionally a clean public publication layer. Detailed financing, investor diligence, engineering data, CAD, supplier work, facility planning, export-control analysis, security architecture, procurement material, customer correspondence, and internal decision logs do not belong here.
 
 The only currently verified public email route is `procurement@satelliteinference.com`. Additional role addresses must not be advertised before configuration and delivery testing.
 

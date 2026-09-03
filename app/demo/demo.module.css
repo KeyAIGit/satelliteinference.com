@@ -265,11 +265,18 @@
 }
 
 .workloadCard h3 {
-  margin: 15px 0 25px;
+  margin: 15px 0 12px;
   font-size: 31px;
   font-weight: 560;
   letter-spacing: -0.04em;
   line-height: 1.05;
+}
+
+.workloadPlainLanguage {
+  margin: 0 0 25px;
+  color: #52636d;
+  font-size: 12px;
+  line-height: 1.65;
 }
 
 .workloadCard dl {

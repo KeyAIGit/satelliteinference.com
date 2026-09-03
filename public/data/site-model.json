@@ -793,8 +793,6 @@
   ],
   "program": {
     "name": "Satellite Inference",
-    "currentFinancingTargetUsd": 7000000,
-    "financingTargetStatus": "PLANNING_TARGET",
     "groundTileContinuousComputeKw": 1,
     "firstOrbitalSystemContinuousComputeKw": 10,
     "baselineOrbitId": "leo-550",
