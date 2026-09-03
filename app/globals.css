@@ -1804,9 +1804,10 @@ main {
 
 .contact-grid {
   display: grid;
+  max-width: 720px;
   border-top: 1px solid var(--line-light);
   border-left: 1px solid var(--line-light);
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: 1fr;
 }
 
 .contact-card {

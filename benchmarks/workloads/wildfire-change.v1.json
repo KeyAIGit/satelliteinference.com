@@ -1,0 +1,36 @@
+{
+  "schemaVersion": "1.0.0",
+  "configVersion": "1.0.0",
+  "workloadId": "wildfire-change",
+  "title": "Optical wildfire, burn-scar, and change detection",
+  "inputModality": "OPTICAL_IMAGERY",
+  "task": "WILDFIRE_AND_CHANGE_DETECTION",
+  "decisionOutput": "Georeferenced candidate change regions for prioritized review and downlink.",
+  "evidenceState": "PENDING_MEASUREMENT",
+  "firstFlightCandidate": true,
+  "dataset": {
+    "manifestTemplate": "../templates/dataset-manifest.template.json",
+    "selectionStatus": "PENDING_MEASUREMENT"
+  },
+  "model": {
+    "manifestTemplate": "../templates/model-manifest.template.json",
+    "selectionStatus": "PENDING_MEASUREMENT"
+  },
+  "adapter": {
+    "contract": "../lib/workload-adapter.mjs",
+    "implementationStatus": "PENDING_MEASUREMENT"
+  },
+  "metrics": {
+    "elapsedTime": { "label": "End-to-end workload elapsed time", "unit": "ms", "evidenceState": "PENDING_MEASUREMENT" },
+    "inputBytes": { "label": "Input bytes consumed", "unit": "byte", "evidenceState": "PENDING_MEASUREMENT" },
+    "outputBytes": { "label": "Output bytes produced", "unit": "byte", "evidenceState": "PENDING_MEASUREMENT" },
+    "energy": { "label": "Workload energy", "unit": "J", "evidenceState": "PENDING_MEASUREMENT" },
+    "temperature": { "label": "Reported device temperature", "unit": "degC", "evidenceState": "PENDING_MEASUREMENT" },
+    "taskScore": { "label": "Intersection over union for declared change classes", "unit": "ratio", "evidenceState": "PENDING_MEASUREMENT" }
+  },
+  "prohibitedClaims": [
+    "No customer traction is implied.",
+    "No measured accelerator performance is implied.",
+    "No flight heritage or flight readiness is implied."
+  ]
+}

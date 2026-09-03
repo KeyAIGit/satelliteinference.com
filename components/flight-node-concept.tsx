@@ -27,7 +27,7 @@ export function FlightNodeConcept() {
         </div>
         <figure className="concept-image-frame concept-image-frame-rev-c">
           <Image
-            src="./assets/concepts/orbital-node-10kw-concept-v01.png"
+            src="/assets/concepts/orbital-node-10kw-concept-v01.png"
             alt="Notional 10 kilowatt orbital compute node with large deployed solar wings and radiator panels above Earth"
             fill
             sizes="(max-width: 860px) 100vw, 65vw"
@@ -68,7 +68,7 @@ export function FlightNodeConcept() {
           The model calculates <strong>33.61 kW</strong> required BOL solar at the <strong>13.5 kW</strong> nominal total spacecraft-load screen.
           Every range is pre-SRR and must be replaced by supplier data, coupled analysis and test evidence.
         </p>
-        <a className="concept-ga-link" href="./data/model-assumptions.json">
+        <a className="concept-ga-link" href="/data/model-assumptions.json">
           Open the Rev C assumptions <ArrowUpRight aria-hidden="true" />
         </a>
       </aside>

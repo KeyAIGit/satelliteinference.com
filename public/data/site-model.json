@@ -499,7 +499,7 @@
         "At the nominal point the model calculates 33.61 kW required BOL solar, 112.02 m2 active-PV equivalent, 140.02 m2 gross solar planform, 28.31 kWh battery and 37.41 m2 equivalent radiator area.",
         "Physical radiator planform remains a 35 to 60 m2 working envelope because orientation, view factors and one-sided versus two-sided rejection are not selected.",
         "The 3 to 7 t mass range is a conservative pre-SRR planning envelope. Supplier-validated mass, propellant and launch interfaces remain open.",
-        "Single-spacecraft versus distributed first-node packaging remains an MDR trade."
+        "The first owned 10 kW node is screened as one spacecraft-scale node. Distributed architectures remain a later 100 kW or megawatt-scale trade."
       ]
     },
     {

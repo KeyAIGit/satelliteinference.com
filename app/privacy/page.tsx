@@ -29,7 +29,7 @@ export default function PrivacyPage() {
         <h2>Future changes</h2>
         <p>
           This notice will be updated before forms, accounts, telemetry, analytics, or other data
-          collection features are enabled. Questions may be sent to legal@satelliteinference.com.
+          collection features are enabled. Questions may be sent to procurement@satelliteinference.com.
         </p>
       </section>
     </LegalDocument>

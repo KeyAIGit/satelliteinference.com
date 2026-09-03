@@ -1,0 +1,85 @@
+{
+  "schemaVersion": "1.0.0",
+  "dataVersion": "2026-09-03.candidate-screen.1",
+  "evidenceBoundary": "Ground candidates only. One live sensor or data-path family may advance to the first flight after customer and benchmark evidence.",
+  "workloads": [
+    {
+      "id": "optical-quality",
+      "shortLabel": "Optical quality",
+      "name": "Optical cloud and quality screening",
+      "signal": "Multispectral or panchromatic imagery",
+      "decision": "Keep, reprioritize, or discard a scene before raw-data downlink",
+      "customerQuestion": "Can this scene support the intended downstream analysis?",
+      "evidenceStatus": "PENDING_MEASUREMENT",
+      "candidateOnly": true
+    },
+    {
+      "id": "wildfire-change",
+      "shortLabel": "Wildfire and change",
+      "name": "Wildfire, burn-scar, and change detection",
+      "signal": "Optical or thermal imagery from a live mission data path",
+      "decision": "Prioritize detections and changed areas for time-sensitive delivery",
+      "customerQuestion": "Which new scenes and regions warrant immediate analyst attention?",
+      "evidenceStatus": "PENDING_MEASUREMENT",
+      "candidateOnly": true
+    },
+    {
+      "id": "sar-vessel-detection",
+      "shortLabel": "SAR vessels",
+      "name": "SAR vessel detection",
+      "signal": "Synthetic-aperture radar imagery",
+      "decision": "Return compact vessel detections and priority chips before full-scene delivery",
+      "customerQuestion": "Where are vessels or dark-activity candidates in the collected scene?",
+      "evidenceStatus": "PENDING_MEASUREMENT",
+      "candidateOnly": true
+    }
+  ],
+  "scenarioInputs": [
+    {
+      "id": "sceneCount",
+      "label": "Scenes in the contact window",
+      "value": 24,
+      "min": 1,
+      "max": 10000,
+      "step": 1,
+      "unit": "scene/window",
+      "evidenceStatus": "USER_INPUT"
+    },
+    {
+      "id": "rawBytesPerSceneMb",
+      "label": "Raw data per scene",
+      "value": 1600,
+      "min": 1,
+      "max": 1000000,
+      "step": 10,
+      "unit": "MB/scene",
+      "evidenceStatus": "USER_INPUT"
+    },
+    {
+      "id": "priorityFraction",
+      "label": "Scenes returned as priority products",
+      "value": 0.2,
+      "min": 0.001,
+      "max": 1,
+      "step": 0.01,
+      "unit": "fraction",
+      "evidenceStatus": "USER_INPUT"
+    },
+    {
+      "id": "resultBytesPerPrioritySceneMb",
+      "label": "Result package per priority scene",
+      "value": 18,
+      "min": 0.001,
+      "max": 1000000,
+      "step": 1,
+      "unit": "MB/priority-scene",
+      "evidenceStatus": "USER_INPUT"
+    }
+  ],
+  "measurementFields": [
+    { "id": "throughput", "label": "Throughput", "unit": "scene/s", "value": null, "evidenceStatus": "PENDING_MEASUREMENT" },
+    { "id": "latency", "label": "End-to-end latency", "unit": "s/scene", "value": null, "evidenceStatus": "PENDING_MEASUREMENT" },
+    { "id": "accuracy", "label": "Task-quality metric", "unit": "workload-defined", "value": null, "evidenceStatus": "PENDING_MEASUREMENT" },
+    { "id": "energy", "label": "Compute energy", "unit": "Wh/scene", "value": null, "evidenceStatus": "PENDING_MEASUREMENT" }
+  ]
+}

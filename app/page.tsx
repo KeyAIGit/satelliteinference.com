@@ -78,39 +78,9 @@ const seedAllocation = [
 
 const contactChannels = [
   {
-    label: "General",
-    email: "contact@satelliteinference.com",
-    description: "General inquiries and the right starting point when you are not sure which team to contact.",
-  },
-  {
     label: "Procurement",
     email: "procurement@satelliteinference.com",
-    description: "Components, quotations, lead times, supplier qualification, and technical interface data.",
-  },
-  {
-    label: "Partnerships",
-    email: "partnerships@satelliteinference.com",
-    description: "Spacecraft operators, sensor owners, compute, thermal, launch, and mission integration partners.",
-  },
-  {
-    label: "Investors",
-    email: "investors@satelliteinference.com",
-    description: "Investor relations, financing conversations, and company information requests.",
-  },
-  {
-    label: "Billing",
-    email: "billing@satelliteinference.com",
-    description: "Invoices, payments, vendor onboarding, tax forms, and remittance questions.",
-  },
-  {
-    label: "Legal",
-    email: "legal@satelliteinference.com",
-    description: "Contracts, corporate matters, intellectual property, and formal legal notices.",
-  },
-  {
-    label: "Security",
-    email: "security@satelliteinference.com",
-    description: "Responsible disclosure, suspected abuse, privacy, and information security matters.",
+    description: "The currently verified public channel for supplier, technical, partner, and general program inquiries.",
   },
 ];
 
@@ -129,13 +99,13 @@ export default function Home() {
           <p className="hero-lead">
             A 10 kW continuous-compute node in low Earth orbit for defense,
             Earth-observation, maritime and disaster-response data, built from
-            a ground-validated 1 kW modular tile.
+            a planned 1 kW ground-validation tile.
           </p>
           <div className="hero-actions">
             <a className="button button-primary" href="#model">
               Explore the orbital model <ArrowDown aria-hidden="true" size={17} />
             </a>
-            <a className="button button-ghost" href="./documents/Satellite_Inference_Whitepaper_v0.2.pdf">
+            <a className="button button-ghost" href="/documents/Satellite_Inference_Whitepaper_v0.2.pdf">
               Read Whitepaper v0.2 <FileText aria-hidden="true" size={16} />
             </a>
           </div>
@@ -148,7 +118,7 @@ export default function Home() {
         <figure className="hero-visual hero-node-figure reveal-up delay-one">
           <div className="hero-node-frame">
             <Image
-              src="./assets/concepts/orbital-node-10kw-concept-v01.png"
+              src="/assets/concepts/orbital-node-10kw-concept-v01.png"
               alt="Notional 10 kilowatt orbital compute node with large solar wings and radiator panels above Earth"
               fill
               sizes="(max-width: 820px) 100vw, 48vw"
@@ -335,9 +305,9 @@ export default function Home() {
         </div>
         <div className="evidence-model-links" aria-label="Public model files">
           <span>REPRODUCE THE SCREEN</span>
-          <a href="./data/model-assumptions.json">Assumptions JSON <ArrowUpRight aria-hidden="true" /></a>
-          <a href="./model/engineering-screen.mjs">Equation source <ArrowUpRight aria-hidden="true" /></a>
-          <a href="./data/site-model.json">Published outputs <ArrowUpRight aria-hidden="true" /></a>
+          <a href="/data/model-assumptions.json">Assumptions JSON <ArrowUpRight aria-hidden="true" /></a>
+          <a href="/model/engineering-screen.mjs">Equation source <ArrowUpRight aria-hidden="true" /></a>
+          <a href="/data/site-model.json">Published outputs <ArrowUpRight aria-hidden="true" /></a>
         </div>
       </section>
 
@@ -371,7 +341,7 @@ export default function Home() {
           <div><span>AFTER CONTRACTS + CDR</span><strong>$100-150M</strong><p>First-node manufacturing, launch and operations program</p></div>
           <div><span>AFTER FLIGHT PROOF</span><strong>$200M+</strong><p>Fleet replication and industrial capacity</p></div>
         </div>
-        <p className="financing-disclaimer">Information only. These planning ranges are not an offer to sell or a solicitation to purchase securities.</p>
+        <p className="financing-disclaimer">The $7M development target is current; later financing ranges are illustrative, conditional planning placeholders, not executable financing asks or vendor-quoted budgets. Information only; not an offer to sell or a solicitation to purchase securities.</p>
       </section>
 
       <section className="section section-documents" id="documents">
@@ -385,19 +355,19 @@ export default function Home() {
           </p>
         </div>
         <div className="document-grid">
-          <a className="document-card document-card-primary" href="./documents/Satellite_Inference_Whitepaper_v0.2.pdf">
+          <a className="document-card document-card-primary" href="/documents/Satellite_Inference_Whitepaper_v0.2.pdf">
             <span className="document-type">WHITEPAPER / ENGLISH / PDF</span>
             <h3>Orbital Computing Infrastructure</h3>
             <p>10 kW LEO thesis, initial markets, development architecture, parametric model, capital gates and public risk register.</p>
             <div><span>Version 0.2 / Rev C</span><ArrowUpRight aria-hidden="true" /></div>
           </a>
-          <a className="document-card" href="./documents/Node_10kW_Public_Mission_Definition_v0.2.pdf">
+          <a className="document-card" href="/documents/Node_10kW_Public_Mission_Definition_v0.2.pdf">
             <span className="document-type">MISSION SUMMARY / ENGLISH / PDF</span>
             <h3>10 kW Orbital Node Mission Definition</h3>
             <p>Mission purpose, success criteria, preliminary architecture, public requirement categories, risks and review gates.</p>
             <div><span>Pre-SRR baseline</span><ArrowUpRight aria-hidden="true" /></div>
           </a>
-          <a className="document-card" href="./documents/Satellite_Inference_Fundraising_Roadmap_v0.1.pdf">
+          <a className="document-card" href="/documents/Satellite_Inference_Fundraising_Roadmap_v0.1.pdf">
             <span className="document-type">CAPITAL ROADMAP / ENGLISH / PDF</span>
             <h3>From $7M Development Capital to First Node</h3>
             <p>Illustrative use of funds, milestone gates and the conditional path to flight-development and first-node financing.</p>
@@ -417,7 +387,7 @@ export default function Home() {
         </div>
         <div className="closing-actions">
           <p>We are looking for mission-data customers, spacecraft and subsystem suppliers, compute and thermal partners, and U.S. mission integrators.</p>
-          <a className="button button-primary" href="mailto:partnerships@satelliteinference.com">Start a technical conversation <ArrowUpRight size={16} /></a>
+          <a className="button button-primary" href="mailto:procurement@satelliteinference.com">Start a technical conversation <ArrowUpRight size={16} /></a>
         </div>
       </section>
 
@@ -428,9 +398,9 @@ export default function Home() {
             <h2>Reach the right channel<br />on the first transmission.</h2>
           </div>
           <p>
-            These role addresses define the intended routing for supplier, partner, investor,
-            financial, legal and security conversations. Alias availability is verified as each
-            channel enters active use; procurement is the current supplier channel.
+            Procurement is the currently verified public channel for supplier, partner,
+            technical, and general program conversations. Additional role addresses will be
+            published only after they are configured and tested.
           </p>
         </div>
         <div className="contact-grid">
@@ -449,11 +419,11 @@ export default function Home() {
 
       <footer>
         <div className="footer-brand">
-          <Image src="./logo-mark.svg" alt="" width={34} height={34} />
+          <Image src="/logo-mark.svg" alt="" width={34} height={34} />
           <div><strong>Satellite Inference</strong><span>Orbital Computing Infrastructure</span></div>
         </div>
         <div className="footer-links">
-          <a href="mailto:contact@satelliteinference.com">Contact</a>
+          <a href="mailto:procurement@satelliteinference.com">Contact</a>
           <a href="/privacy">Privacy</a>
           <a href="/disclaimer">Disclaimer</a>
           <a href="/.well-known/security.txt">Security</a>

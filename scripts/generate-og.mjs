@@ -30,7 +30,7 @@ const overlay = Buffer.from(`
     <text x="62" y="148" class="mono" fill="#4fe5ff" font-size="12" font-weight="700" letter-spacing="2">ORBITAL COMPUTING INFRASTRUCTURE</text>
     <text x="61" y="254" class="sans" fill="#f3fbff" font-size="58" font-weight="500">10 kW continuous</text>
     <text x="61" y="326" class="sans" fill="#f3fbff" font-size="58" font-weight="500">compute in LEO.</text>
-    <text x="63" y="397" class="sans" fill="#9db2c0" font-size="22">Built one ground-validated 1 kW tile at a time.</text>
+    <text x="63" y="397" class="sans" fill="#9db2c0" font-size="22">Planned 1 kW ground tile: first validation step.</text>
     <text x="63" y="565" class="mono" fill="#ffbd4a" font-size="12" font-weight="700" letter-spacing="1">10 KW ORBITAL NODE / REV C CONCEPT</text>
     <text x="63" y="590" class="mono" fill="#6f899a" font-size="11" letter-spacing="1">SATELLITEINFERENCE.COM</text>
   </svg>

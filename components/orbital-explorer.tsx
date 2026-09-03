@@ -194,8 +194,8 @@ export function OrbitalExplorer() {
           <a href="https://ssd.jpl.nasa.gov/astro_par.html">NASA JPL parameters</a>
           <a href="https://www.nist.gov/pml/owm/si-units-length">NIST speed of light</a>
           <a href="https://www.ospo.noaa.gov/operations/goes/eclipse.html">NOAA GEO eclipse</a>
-          <a href="./data/model-assumptions.json">Rev C assumptions</a>
-          <a href="./model/engineering-screen.mjs">Rev C equations</a>
+          <a href="/data/model-assumptions.json">Rev C assumptions</a>
+          <a href="/model/engineering-screen.mjs">Rev C equations</a>
         </div>
       </details>
     </div>
@@ -225,10 +225,10 @@ type PublicMission = {
 const missions = siteModel.missions as unknown as PublicMission[];
 
 const missionProof: Record<string, string> = {
-  "ground-engineering-tile": "One reusable 1 kW unit proves compute, power, cooling, runtime recovery and telemetry on the ground.",
-  "orbital-node-10kw": "First owned flight system proves continuous 10 kW payload operation, deployables, eclipse continuity and customer data flow.",
-  "industrial-orbital-module": "100 kW scale follows only after measured performance, demand and launch architecture are validated.",
-  "megawatt-orbital-network": "Ten measured 100 kW modules create a 1 MW network without claiming one monolithic spacecraft.",
+  "ground-engineering-tile": "One reusable 1 kW unit is intended to test compute, power, cooling, runtime recovery and telemetry on the ground.",
+  "orbital-node-10kw": "The first owned flight system will be required to demonstrate continuous 10 kW payload operation, deployables, eclipse continuity and customer data flow.",
+  "industrial-orbital-module": "100 kW scale is considered only after measured performance, demand and launch architecture are validated.",
+  "megawatt-orbital-network": "The 1 MW reference is modeled as ten measured 100 kW modules; it is not a claim for one monolithic spacecraft.",
 };
 
 function metricValue(metric: Metric | undefined, fallback = "TBD") {
@@ -254,7 +254,7 @@ function MissionGraphic({ mission }: { mission: PublicMission }) {
   if (mission.id === "orbital-node-10kw") {
     return (
       <div className="cad-mission-graphic">
-        <Image src="./assets/concepts/orbital-node-10kw-concept-v01.png" alt="10 kW Orbital Node notional deployed concept" fill sizes="(max-width: 860px) 100vw, 45vw" />
+        <Image src="/assets/concepts/orbital-node-10kw-concept-v01.png" alt="10 kW Orbital Node notional deployed concept" fill sizes="(max-width: 860px) 100vw, 45vw" />
         <span>REV C / NOTIONAL CONFIGURATION</span>
       </div>
     );

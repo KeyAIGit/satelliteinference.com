@@ -4,7 +4,7 @@ Public website and publication layer for Satellite Inference™, currently opera
 
 > Compute where space data begins.
 
-The site explains a staged path from a 1 kW ground engineering tile to a first 10 kW continuous-compute node in low Earth orbit. Its interactive Orbit Lab moves from 200 km to GEO using deterministic, client-side calculations for orbital period, worst-case beta-0 eclipse, and vacuum propagation delay. LEO is the mission baseline; GEO remains a comparison case.
+The site explains a staged path from a 1 kW ground engineering tile to a first 10 kW continuous-compute node in low Earth orbit. Its interactive Orbit Lab moves from 200 km to GEO using deterministic, client-side calculations for orbital period, worst-case beta-0 eclipse, and vacuum propagation delay. LEO is the mission baseline; GEO remains a comparison case. The public Inference Evidence Lab screens three ground workload candidates without inventing benchmark results.
 
 ## Public mission names
 
@@ -31,14 +31,30 @@ Equation-based tests recompute the published values from those files. Important 
 - `NOTIONAL_GEOMETRY`
 - `EXTERNAL_REFERENCE`
 - `TBD_BY_SUPPLIER`
+- `PENDING_MEASUREMENT`
 
 ## Publications
 
 - `public/documents/Satellite_Inference_Whitepaper_v0.2.pdf`
 - `public/documents/Node_10kW_Public_Mission_Definition_v0.2.pdf`
 - `public/documents/Satellite_Inference_Fundraising_Roadmap_v0.1.pdf`
+- `public/documents/manifest.json`
 
 These are public concept documents. They are not flight-release data, manufacturing CAD, supplier quotations, launch reservations, regulatory determinations, or offers to sell securities.
+
+The `/publications` route renders this release set from the manifest and exposes exact page counts, byte sizes, SHA-256 digests, and document-level disclaimers.
+
+## Inference evidence lab
+
+The `/demo` route presents exactly three ground candidates:
+
+- optical cloud and quality screening;
+- optical wildfire, burn-scar, and change detection;
+- SAR vessel detection.
+
+Its data-volume calculator is deterministic scenario arithmetic, not measured downlink reduction. Throughput, latency, task quality, energy, and operational reduction remain `PENDING_MEASUREMENT` until a reproducible ground run captures complete provenance.
+
+The `benchmarks/` scaffold defines strict dataset, model, workload, telemetry, and result contracts. Pending result generation is deterministic and leaves all numeric measurement fields null.
 
 ## Development capital
 
@@ -68,7 +84,7 @@ npm test
 
 - `npm run build:pages` creates the static GitHub Pages output in `out/`.
 - `npm run lint` checks the source.
-- `npm test` runs orbital-physics checks and recomputes published power-thermal values from public assumptions.
+- `npm test` runs orbital-physics checks, recomputes published power-thermal values, validates the publication manifest, and enforces the benchmark evidence boundary.
 
 ## Deployment
 
@@ -77,6 +93,8 @@ GitHub Actions publishes the `out/` directory to GitHub Pages. The canonical dom
 ## Public and private boundary
 
 This repository is intentionally a clean public publication layer. Detailed engineering data, CAD, supplier work, facility planning, export-control analysis, security architecture, procurement material, and internal decision logs do not belong here.
+
+The only currently verified public email route is `procurement@satelliteinference.com`. Additional role addresses must not be advertised before configuration and delivery testing.
 
 ## Rights and notices
 

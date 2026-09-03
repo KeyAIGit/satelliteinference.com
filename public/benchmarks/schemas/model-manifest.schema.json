@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://satelliteinference.com/benchmarks/schemas/model-manifest.schema.json",
+  "title": "Satellite Inference model manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "modelManifestId", "version", "status", "title", "framework", "architecture", "weights", "preprocessing", "postprocessing", "notes"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "modelManifestId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9.-]+$" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-template)?$" },
+    "status": { "enum": ["PENDING_MEASUREMENT", "VERIFIED_INPUT"] },
+    "title": { "type": "string", "minLength": 1 },
+    "framework": { "type": ["string", "null"] },
+    "architecture": { "type": ["string", "null"] },
+    "weights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["uri", "sha256", "license"],
+      "properties": {
+        "uri": { "type": ["string", "null"], "format": "uri" },
+        "sha256": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" },
+        "license": { "type": ["string", "null"] }
+      }
+    },
+    "preprocessing": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "postprocessing": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+    "notes": { "type": "array", "items": { "type": "string" } }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "status": { "const": "PENDING_MEASUREMENT" } }, "required": ["status"] },
+      "then": {
+        "properties": {
+          "framework": { "type": "null" },
+          "architecture": { "type": "null" },
+          "weights": {
+            "properties": {
+              "uri": { "type": "null" },
+              "sha256": { "type": "null" },
+              "license": { "type": "null" }
+            }
+          },
+          "preprocessing": { "maxItems": 0 },
+          "postprocessing": { "maxItems": 0 }
+        }
+      }
+    }
+  ]
+}

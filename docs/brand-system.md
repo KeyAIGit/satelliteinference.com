@@ -5,7 +5,7 @@
 - Name: Satellite Inference
 - Category: Orbital Computing Infrastructure
 - Tagline: Compute where space data begins.
-- Supporting line: A 10 kW continuous-compute node in low Earth orbit, developed one ground-validated 1 kW tile at a time.
+- Supporting line: A 10 kW continuous-compute node in low Earth orbit, developed through a planned 1 kW ground-validation tile.
 
 The category line is descriptive and broad. The tagline states the advantage: move useful processing closer to space-originated data.
 

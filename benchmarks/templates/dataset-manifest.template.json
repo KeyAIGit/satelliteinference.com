@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "1.0.0",
+  "datasetManifestId": "pending-dataset.template",
+  "version": "0.0.0-template",
+  "status": "PENDING_MEASUREMENT",
+  "title": "Pending dataset selection",
+  "description": "Template only. Dataset rights, content, splits, labels, and artifact hashes remain unselected.",
+  "modality": null,
+  "source": {
+    "uri": null,
+    "license": null,
+    "acquiredAt": null,
+    "sha256": null
+  },
+  "artifacts": [],
+  "labels": {
+    "taxonomyUri": null,
+    "annotationProtocol": null,
+    "reviewStatus": "PENDING_MEASUREMENT"
+  },
+  "notes": [
+    "Do not use a dataset for a benchmark until usage rights and file hashes are recorded."
+  ]
+}

@@ -2,16 +2,15 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 
 const navigation = [
-  { href: "#concept", label: "Flight node" },
-  { href: "#model", label: "Orbit model" },
-  { href: "#roadmap", label: "Roadmap" },
-  { href: "#evidence", label: "Evidence" },
-  { href: "#financing", label: "Financing" },
-  { href: "#documents", label: "Documents" },
-  { href: "#contact", label: "Contact" },
+  { href: "/#concept", label: "Flight node" },
+  { href: "/#model", label: "Orbit model" },
+  { href: "/demo", label: "Evidence lab" },
+  { href: "/publications", label: "Publications" },
+  { href: "/#contact", label: "Contact" },
 ];
 
 export function SiteNavigation() {
@@ -66,21 +65,21 @@ export function SiteNavigation() {
 
   return (
     <header className="site-header">
-      <a className="brand-lockup" href="#top" aria-label="Satellite Inference home" onClick={() => setOpen(false)}>
-        <Image src="./logo-mark.svg" alt="" className="brand-mark" width={37} height={37} priority />
+      <Link className="brand-lockup" href="/" aria-label="Satellite Inference home" onClick={() => setOpen(false)}>
+        <Image src="/logo-mark.svg" alt="" className="brand-mark" width={37} height={37} priority />
         <span>
           <strong>Satellite Inference</strong>
           <small>Orbital Computing Infrastructure</small>
         </span>
-      </a>
+      </Link>
 
       <nav className="desktop-nav" aria-label="Primary navigation">
-        {navigation.map((item) => <a href={item.href} key={item.href}>{item.label}</a>)}
+        {navigation.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}
       </nav>
 
-      <a className="header-cta" href="#documents">
+      <Link className="header-cta" href="/publications">
         Whitepaper <ArrowUpRight aria-hidden="true" size={15} />
-      </a>
+      </Link>
 
       <button
         ref={menuButtonRef}
@@ -106,11 +105,11 @@ export function SiteNavigation() {
       >
         <nav aria-label="Mobile navigation">
           {navigation.map((item, index) => (
-            <a href={item.href} key={item.href} onClick={closeMenu}>
+            <Link href={item.href} key={item.href} onClick={closeMenu}>
               <span>{String(index + 1).padStart(2, "0")}</span>{item.label}
-            </a>
+            </Link>
           ))}
-          <a className="mobile-menu-contact" href="mailto:partnerships@satelliteinference.com" onClick={closeMenu}>
+          <a className="mobile-menu-contact" href="mailto:procurement@satelliteinference.com" onClick={closeMenu}>
             Start a technical conversation <ArrowUpRight aria-hidden="true" />
           </a>
         </nav>
