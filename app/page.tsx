@@ -51,7 +51,7 @@ const markets = [
 const workloadPriorities = [
   {
     role: "PRIMARY BENCHMARK CANDIDATE",
-    label: "SAR maritime vessel detection — first priority",
+    label: "SAR maritime vessel detection: first priority",
     text: "Locate vessels in synthetic-aperture radar imagery and prioritize scenes for review before the full image reaches Earth.",
   },
   {

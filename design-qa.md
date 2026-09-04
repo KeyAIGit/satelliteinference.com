@@ -45,3 +45,9 @@ Reviewed: 2026-09-04
 The new routes are present only on the working branch until review and merge. Before release, capture a true mobile-viewport review and verify the deployed `/demo`, `/publications`, and `/benchmarks/schemas/` responses.
 
 Final status: automated checks, desktop visual layout, hydration, and core desktop interactions pass for pull-request review. Merge and production announcement remain gated on mobile QA and post-deploy route checks.
+
+## Follow-up responsive and publication checks
+
+The 4 September follow-up repairs narrow-view carousel overflow and mobile menu typography, checks mouse/keyboard navigation in real narrow CSS viewports, and extends exact publication validation to the two retained archives. Local checks pass: 45 tests, lint, static build and diff whitespace validation. See [the scoped QA record and screenshots](docs/qa/2026-09-04-followup.md).
+
+This is additional responsive evidence. Physical touch, Safari/device behavior and post-deployment checks remain open; the earlier mobile release checkbox stays unchecked.

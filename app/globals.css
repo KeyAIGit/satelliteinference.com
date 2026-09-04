@@ -3433,7 +3433,7 @@ footer {
     border-top: 1px solid var(--line-light);
   }
 
-  .mobile-menu nav a {
+  .site-header .mobile-menu nav a {
     display: flex;
     min-height: 67px;
     padding: 0 8px;
@@ -3453,7 +3453,7 @@ footer {
     letter-spacing: 0.12em;
   }
 
-  .mobile-menu nav .mobile-menu-contact {
+  .site-header .mobile-menu nav .mobile-menu-contact {
     margin-top: 20px;
     justify-content: space-between;
     color: var(--ink);
@@ -3687,6 +3687,13 @@ footer {
   }
 
   .section {
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+
+  .mission-selector {
+    margin-right: -18px;
+    margin-left: -18px;
     padding-right: 18px;
     padding-left: 18px;
   }
