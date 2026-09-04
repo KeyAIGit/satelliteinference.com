@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://satelliteinference.com/benchmarks/schemas/d0-smoke-config.schema.json",
+  "title": "Satellite Inference SAR D0 smoke configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "configVersion",
+    "protocolId",
+    "status",
+    "workloadId",
+    "scope",
+    "inputState",
+    "measurementState",
+    "manifests",
+    "adapter",
+    "scoring",
+    "execution",
+    "prohibitedClaims"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "configVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "protocolId": { "const": "sar-d0-smoke" },
+    "status": { "const": "PENDING_INPUT" },
+    "workloadId": { "const": "sar-vessel-detection" },
+    "scope": { "type": "string", "minLength": 1 },
+    "inputState": { "const": "PENDING_INPUT" },
+    "measurementState": { "const": "PENDING_MEASUREMENT" },
+    "manifests": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dataset", "model", "hardware"],
+      "properties": {
+        "dataset": { "const": "../manifests/xview3-d0-smoke.dataset.pending.json" },
+        "model": { "const": "../manifests/xview3-reference.model.pending.json" },
+        "hardware": { "const": "../manifests/local-nvidia-gpu.hardware.pending.json" }
+      }
+    },
+    "adapter": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "implementationState"],
+      "properties": {
+        "id": { "type": "null" },
+        "implementationState": { "const": "PENDING_INPUT" }
+      }
+    },
+    "scoring": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["primaryMetric", "matching", "groundTruthConfidence", "scorerState", "evidenceState"],
+      "properties": {
+        "primaryMetric": { "const": "localizationF1" },
+        "matching": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["method", "tolerance", "unit"],
+          "properties": {
+            "method": { "const": "GEODESIC_DISTANCE" },
+            "tolerance": { "const": 200 },
+            "unit": { "const": "m" }
+          }
+        },
+        "groundTruthConfidence": {
+          "type": "array",
+          "prefixItems": [{ "const": "HIGH" }, { "const": "MEDIUM" }],
+          "items": false,
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "scorerState": { "const": "PENDING_INPUT" },
+        "evidenceState": { "const": "PENDING_MEASUREMENT" }
+      }
+    },
+    "execution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["plannedSceneCount", "sceneSelectionState", "resultState"],
+      "properties": {
+        "plannedSceneCount": { "const": 3 },
+        "sceneSelectionState": { "const": "PENDING_INPUT" },
+        "resultState": { "const": "PENDING_MEASUREMENT" }
+      }
+    },
+    "prohibitedClaims": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

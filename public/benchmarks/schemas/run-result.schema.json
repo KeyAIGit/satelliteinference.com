@@ -1,0 +1,177 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://satelliteinference.com/benchmarks/schemas/run-result.schema.json",
+  "title": "Satellite Inference benchmark run result",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "resultVersion", "runId", "workloadId", "workloadConfigVersion", "status", "inputs", "measurements", "provenance", "error"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "resultVersion": { "const": "1.0.0" },
+    "runId": { "type": "string", "pattern": "^(pending|run)-[a-z0-9-]+$" },
+    "workloadId": { "enum": ["optical-quality", "wildfire-change", "sar-vessel-detection"] },
+    "workloadConfigVersion": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "status": { "enum": ["PENDING_MEASUREMENT", "MEASURED", "FAILED"] },
+    "inputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["datasetManifestId", "modelManifestId", "adapterId"],
+      "properties": {
+        "datasetManifestId": { "type": ["string", "null"] },
+        "modelManifestId": { "type": ["string", "null"] },
+        "adapterId": { "type": ["string", "null"] }
+      }
+    },
+    "measurements": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["elapsedTime", "inputBytes", "outputBytes", "energy", "temperature", "taskScore"],
+      "properties": {
+        "elapsedTime": { "$ref": "#/$defs/measurement" },
+        "inputBytes": { "$ref": "#/$defs/measurement" },
+        "outputBytes": { "$ref": "#/$defs/measurement" },
+        "energy": { "$ref": "#/$defs/measurement" },
+        "temperature": { "$ref": "#/$defs/measurement" },
+        "taskScore": { "$ref": "#/$defs/measurement" }
+      }
+    },
+    "provenance": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/provenance" }
+      ]
+    },
+    "error": {
+      "oneOf": [
+        { "type": "null" },
+        { "$ref": "#/$defs/error" }
+      ]
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "status": { "const": "PENDING_MEASUREMENT" } }, "required": ["status"] },
+      "then": {
+        "properties": {
+          "runId": { "pattern": "^pending-[a-z0-9-]+$" },
+          "measurements": {
+            "properties": {
+              "elapsedTime": { "$ref": "#/$defs/pendingMeasurement" },
+              "inputBytes": { "$ref": "#/$defs/pendingMeasurement" },
+              "outputBytes": { "$ref": "#/$defs/pendingMeasurement" },
+              "energy": { "$ref": "#/$defs/pendingMeasurement" },
+              "temperature": { "$ref": "#/$defs/pendingMeasurement" },
+              "taskScore": { "$ref": "#/$defs/pendingMeasurement" }
+            }
+          },
+          "provenance": { "type": "null" },
+          "error": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "status": { "const": "MEASURED" } }, "required": ["status"] },
+      "then": {
+        "properties": {
+          "runId": { "pattern": "^run-[a-z0-9-]+$" },
+          "inputs": {
+            "properties": {
+              "datasetManifestId": { "type": "string", "minLength": 1 },
+              "modelManifestId": { "type": "string", "minLength": 1 },
+              "adapterId": { "type": "string", "minLength": 1 }
+            }
+          },
+          "measurements": {
+            "properties": {
+              "elapsedTime": { "$ref": "#/$defs/measuredMeasurement" },
+              "inputBytes": { "$ref": "#/$defs/measuredMeasurement" },
+              "outputBytes": { "$ref": "#/$defs/measuredMeasurement" },
+              "energy": { "$ref": "#/$defs/optionalMeasuredMeasurement" },
+              "temperature": { "$ref": "#/$defs/optionalMeasuredMeasurement" },
+              "taskScore": { "$ref": "#/$defs/measuredMeasurement" }
+            }
+          },
+          "provenance": { "$ref": "#/$defs/provenance" },
+          "error": { "type": "null" }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "status": { "const": "FAILED" } }, "required": ["status"] },
+      "then": {
+        "properties": {
+          "runId": { "pattern": "^run-[a-z0-9-]+$" },
+          "measurements": {
+            "properties": {
+              "elapsedTime": { "$ref": "#/$defs/notCollectedMeasurement" },
+              "inputBytes": { "$ref": "#/$defs/notCollectedMeasurement" },
+              "outputBytes": { "$ref": "#/$defs/notCollectedMeasurement" },
+              "energy": { "$ref": "#/$defs/notCollectedMeasurement" },
+              "temperature": { "$ref": "#/$defs/notCollectedMeasurement" },
+              "taskScore": { "$ref": "#/$defs/notCollectedMeasurement" }
+            }
+          },
+          "error": { "$ref": "#/$defs/error" }
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "measurement": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["value", "unit", "evidenceState"],
+      "properties": {
+        "value": { "type": ["number", "null"] },
+        "unit": { "type": "string", "minLength": 1 },
+        "evidenceState": { "enum": ["PENDING_MEASUREMENT", "MEASURED", "NOT_COLLECTED"] }
+      }
+    },
+    "pendingMeasurement": {
+      "allOf": [
+        { "$ref": "#/$defs/measurement" },
+        { "properties": { "value": { "type": "null" }, "evidenceState": { "const": "PENDING_MEASUREMENT" } } }
+      ]
+    },
+    "measuredMeasurement": {
+      "allOf": [
+        { "$ref": "#/$defs/measurement" },
+        { "properties": { "value": { "type": "number" }, "evidenceState": { "const": "MEASURED" } } }
+      ]
+    },
+    "notCollectedMeasurement": {
+      "allOf": [
+        { "$ref": "#/$defs/measurement" },
+        { "properties": { "value": { "type": "null" }, "evidenceState": { "const": "NOT_COLLECTED" } } }
+      ]
+    },
+    "optionalMeasuredMeasurement": {
+      "oneOf": [
+        { "$ref": "#/$defs/measuredMeasurement" },
+        { "$ref": "#/$defs/notCollectedMeasurement" }
+      ]
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["datasetSha256", "modelSha256", "softwareCommit", "hardwareDescriptorSha256", "startedAt", "completedAt"],
+      "properties": {
+        "datasetSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "modelSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "softwareCommit": { "type": "string", "pattern": "^[a-f0-9]{7,64}$" },
+        "hardwareDescriptorSha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "startedAt": { "type": "string", "format": "date-time" },
+        "completedAt": { "type": "string", "format": "date-time" }
+      }
+    },
+    "error": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "message"],
+      "properties": {
+        "code": { "type": "string", "minLength": 1 },
+        "message": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}

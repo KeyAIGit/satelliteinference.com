@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "1.1.0",
+  "asOf": "2026-09-04",
+  "evidenceBoundary": "This manifest records two current public concept documents and two superseded archives. Public Whitepaper v0.3 and Mission Definition v0.2 remain at their original URLs as superseded archives and are not current. None of these files is flight-release material, a supplier quotation, a launch reservation, a regulatory determination, or financing material.",
+  "documents": [
+    {
+      "id": "public-whitepaper-v0-4",
+      "title": "Satellite Inference Public Whitepaper",
+      "subtitle": "Company thesis",
+      "filename": "Satellite_Inference_Public_Whitepaper_v0.4.pdf",
+      "version": "0.4",
+      "status": "CONCEPT_DOCUMENT",
+      "pageCount": 13,
+      "byteSize": 633713,
+      "sha256": "d00667f88fae6719512d7de96d5f22709b22e6b2b39e21aa8c232765e2eb1c36",
+      "publishedOn": "2026-09-04",
+      "url": "/documents/Satellite_Inference_Public_Whitepaper_v0.4.pdf",
+      "description": "Start here. The company thesis, SAR maritime vessel detection and scene prioritization, the 10 kW LEO concept, the public engineering screen, and the evidence path from ground tests to flight.",
+      "disclaimer": "Concept document only. Not flight-release data, manufacturing instruction, supplier acceptance, a launch reservation, or an offer to sell securities."
+    },
+    {
+      "id": "mission-definition-10kw-v0-3",
+      "title": "10 kW Orbital Node Mission Definition",
+      "subtitle": "Mission summary",
+      "filename": "Node_10kW_Public_Mission_Definition_v0.3.pdf",
+      "version": "0.3 / Pre-SRR",
+      "status": "CONCEPT_DOCUMENT",
+      "pageCount": 10,
+      "byteSize": 488204,
+      "sha256": "31b1218e33d9cf41e102d16440ccb283316d948c6a9946c6cd3299c544367324",
+      "publishedOn": "2026-09-04",
+      "url": "/documents/Node_10kW_Public_Mission_Definition_v0.3.pdf",
+      "description": "Mission purpose, success criteria, preliminary architecture, requirement categories, risks, and formal review gates.",
+      "disclaimer": "Concept document only. Not flight-release data, manufacturing instruction, supplier acceptance, a launch reservation, or a regulatory determination."
+    }
+  ],
+  "archivedDocuments": [
+    {
+      "id": "public-whitepaper-v0-3",
+      "title": "Satellite Inference Public Whitepaper",
+      "filename": "Satellite_Inference_Public_Whitepaper_v0.3.pdf",
+      "version": "0.3",
+      "status": "CONCEPT_DOCUMENT",
+      "archiveStatus": "SUPERSEDED_ARCHIVE",
+      "supersededBy": "public-whitepaper-v0-4",
+      "pageCount": 13,
+      "byteSize": 633644,
+      "sha256": "63ce03ae0b4582b136414aa6ff459c2d917430a859c2bb4fea10552699857437",
+      "publishedOn": "2026-09-03",
+      "url": "/documents/Satellite_Inference_Public_Whitepaper_v0.3.pdf",
+      "disclaimer": "Superseded concept document retained for existing citations. Refer to the current public whitepaper for the current program baseline. Not flight-release data, supplier acceptance, a launch reservation, or financing material."
+    },
+    {
+      "id": "mission-definition-10kw-v0-2",
+      "title": "10 kW Orbital Node Mission Definition",
+      "filename": "Node_10kW_Public_Mission_Definition_v0.2.pdf",
+      "version": "0.2 / Pre-SRR",
+      "status": "CONCEPT_DOCUMENT",
+      "archiveStatus": "SUPERSEDED_ARCHIVE",
+      "supersededBy": "mission-definition-10kw-v0-3",
+      "pageCount": 10,
+      "byteSize": 488406,
+      "sha256": "8231104b5ff1953423cecea47c66cf5a0e57259bfd517c82a1691d18f87fbaad",
+      "publishedOn": "2026-09-02",
+      "url": "/documents/Node_10kW_Public_Mission_Definition_v0.2.pdf",
+      "disclaimer": "Superseded concept document retained for existing citations. Refer to the current mission definition for the current program baseline. Not flight-release data, supplier acceptance, a launch reservation, or a regulatory determination."
+    }
+  ]
+}

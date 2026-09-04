@@ -4,18 +4,18 @@ Public website and publication layer for Satellite Inference™, currently opera
 
 > Compute where space data begins.
 
-The site explains a staged path from a 1 kW ground engineering tile to a first 10 kW continuous-compute node in low Earth orbit. Its interactive Orbit Lab moves from 200 km to GEO using deterministic, client-side calculations for orbital period, worst-case beta-0 eclipse, and vacuum propagation delay. LEO is the mission baseline; GEO remains a comparison case.
+The site explains a staged path from a 1 kW ground engineering tile to a first low Earth orbit node delivering 10 kW of continuous electrical input to a compute payload. Its interactive Orbit Lab moves from 200 km to GEO using deterministic, client-side calculations for orbital period, worst-case beta-0 eclipse, and vacuum propagation delay. LEO is the mission baseline; GEO remains a comparison case. The public Inference Evidence Lab screens three ground workload candidates without inventing benchmark results.
 
 ## Public mission names
 
-| Name | Identifier | Continuous compute |
+| Name | Identifier | Continuous compute-payload electrical input |
 |---|---|---:|
 | Ground Engineering Tile | Ground / 1 kW | 1 kW, ground only |
 | 10 kW Orbital Node | LEO / 10 kW | 10 kW |
 | 100 kW Orbital Module | Scale / 100 kW | 100 kW |
 | Megawatt Orbital Network | Network / 1 MW | 1 MW aggregate |
 
-Continuous compute, solar generation and aggregate network capacity are stated separately. The Megawatt Orbital Network is exactly a ten-module reference architecture: 10 x 100 kW continuous compute = 1 MW aggregate.
+Compute-payload electrical input, solar generation and aggregate network capacity are stated separately. The Megawatt Orbital Network is a future ten-module reference architecture, conditional on validating each 100 kW module: 10 x 100 kW = 1 MW aggregate.
 
 ## Public model contract
 
@@ -31,18 +31,31 @@ Equation-based tests recompute the published values from those files. Important 
 - `NOTIONAL_GEOMETRY`
 - `EXTERNAL_REFERENCE`
 - `TBD_BY_SUPPLIER`
+- `PENDING_MEASUREMENT`
 
 ## Publications
 
-- `public/documents/Satellite_Inference_Whitepaper_v0.2.pdf`
-- `public/documents/Node_10kW_Public_Mission_Definition_v0.2.pdf`
-- `public/documents/Satellite_Inference_Fundraising_Roadmap_v0.1.pdf`
+- `public/documents/Satellite_Inference_Public_Whitepaper_v0.4.pdf`
+- `public/documents/Node_10kW_Public_Mission_Definition_v0.3.pdf`
+- `public/documents/manifest.json`
 
-These are public concept documents. They are not flight-release data, manufacturing CAD, supplier quotations, launch reservations, regulatory determinations, or offers to sell securities.
+These two PDFs have distinct jobs. The whitepaper is the starting point for the product and program thesis. The mission definition is the technical companion for first-flight requirements and success criteria. They are public concept documents, not flight-release data, manufacturing CAD, supplier quotations, launch reservations, regulatory determinations, or financing material.
 
-## Development capital
+Only the two files listed in the manifest are current. Public Whitepaper v0.3 and Mission Definition v0.2 remain available at their original URLs as superseded archives so existing citations do not silently change.
 
-The current development-capital target is $7 million. The public planning allocation funds the core engineering team, a 1 kW ground tile, a 10 kW ground breadboard, supplier-backed mission definition, SRR/PDR readiness, software, customer pilots, regulatory work and reserve. It is not represented as sufficient to manufacture and launch the full first node. Larger flight-development and first-node financing stages are conditional on engineering and commercial gates.
+The `/publications` route renders this release set from the manifest and exposes exact page counts, byte sizes, SHA-256 digests, and document-level disclaimers.
+
+## Inference evidence lab
+
+The `/demo` route presents three ground workloads in a deliberate order:
+
+- primary: SAR maritime vessel detection and scene prioritization;
+- secondary: wildfire, burn-scar, and change detection;
+- control: optical cloud and quality screening.
+
+Its data-volume calculator is deterministic scenario arithmetic, not measured downlink reduction. Throughput, latency, task quality, energy, and operational reduction remain `PENDING_MEASUREMENT` until a reproducible ground run captures complete provenance.
+
+The `benchmarks/` scaffold defines strict dataset, model, workload, telemetry, and result contracts. Pending result generation is deterministic and leaves all numeric measurement fields null.
 
 ## Physics model
 
@@ -68,7 +81,7 @@ npm test
 
 - `npm run build:pages` creates the static GitHub Pages output in `out/`.
 - `npm run lint` checks the source.
-- `npm test` runs orbital-physics checks and recomputes published power-thermal values from public assumptions.
+- `npm test` runs orbital-physics checks, recomputes published power-thermal values, validates the publication manifest, and enforces the benchmark evidence boundary.
 
 ## Deployment
 
@@ -76,7 +89,9 @@ GitHub Actions publishes the `out/` directory to GitHub Pages. The canonical dom
 
 ## Public and private boundary
 
-This repository is intentionally a clean public publication layer. Detailed engineering data, CAD, supplier work, facility planning, export-control analysis, security architecture, procurement material, and internal decision logs do not belong here.
+This repository is intentionally a clean public publication layer. Detailed financing, investor diligence, engineering data, CAD, supplier work, facility planning, export-control analysis, security architecture, procurement material, customer correspondence, and internal decision logs do not belong here.
+
+The only currently verified public email route is `procurement@satelliteinference.com`. Additional role addresses must not be advertised before configuration and delivery testing.
 
 ## Rights and notices
 

@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "1.0.0",
+  "hardwareManifestId": "local-nvidia-gpu.pending",
+  "version": "0.1.0",
+  "status": "PENDING_INPUT",
+  "title": "Pending local NVIDIA GPU execution target",
+  "intendedTarget": "LOCAL_NVIDIA_GPU",
+  "observed": {
+    "hostOperatingSystem": null,
+    "cpu": null,
+    "systemMemoryBytes": null,
+    "acceleratorVendor": null,
+    "acceleratorModel": null,
+    "acceleratorMemoryBytes": null,
+    "driverVersion": null,
+    "cudaRuntime": null,
+    "computeCapability": null
+  },
+  "source": {
+    "diagnostic": null,
+    "capturedAt": null,
+    "sha256": null
+  },
+  "notes": [
+    "The intended local GPU must be observed with read-only diagnostics before this manifest can become VERIFIED_INPUT.",
+    "No clock, power-limit, persistence-mode, driver, or firmware mutation is authorized by this manifest."
+  ]
+}

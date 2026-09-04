@@ -258,7 +258,7 @@
       "id": "ground-engineering-tile",
       "order": 1,
       "publicName": "Ground Engineering Tile",
-      "legacyCode": "GROUND / 1 KW",
+      "legacyCode": "GROUND / 1 kW",
       "stage": "GROUND VALIDATION",
       "architecture": "ground engineering unit",
       "orbitId": null,
@@ -319,14 +319,14 @@
       "id": "orbital-node-10kw",
       "order": 2,
       "publicName": "10 kW Orbital Node",
-      "legacyCode": "LEO / 10 KW",
+      "legacyCode": "LEO / 10 kW",
       "stage": "FIRST FLIGHT",
       "architecture": "owned LEO node",
       "status": "WORKING_ASSUMPTION",
       "sourceIds": [
         "assumptions-rev-c"
       ],
-      "description": "First owned orbital system targeting 10 kW continuous compute-payload electrical input in a 500-600 km LEO baseline.",
+      "description": "First owned orbital system targeting 10 kW of continuous electrical input at the compute-payload interface in a 500-600 km LEO baseline.",
       "metrics": {
         "continuousCompute": {
           "value": 10,
@@ -499,21 +499,21 @@
         "At the nominal point the model calculates 33.61 kW required BOL solar, 112.02 m2 active-PV equivalent, 140.02 m2 gross solar planform, 28.31 kWh battery and 37.41 m2 equivalent radiator area.",
         "Physical radiator planform remains a 35 to 60 m2 working envelope because orientation, view factors and one-sided versus two-sided rejection are not selected.",
         "The 3 to 7 t mass range is a conservative pre-SRR planning envelope. Supplier-validated mass, propellant and launch interfaces remain open.",
-        "Single-spacecraft versus distributed first-node packaging remains an MDR trade."
+        "The first owned 10 kW node is screened as one spacecraft-scale node. Distributed architectures remain a later 100 kW or megawatt-scale trade."
       ]
     },
     {
       "id": "industrial-orbital-module",
       "order": 3,
       "publicName": "100 kW Orbital Module",
-      "legacyCode": "SCALE / 100 KW",
+      "legacyCode": "SCALE / 100 kW",
       "stage": "SCALE",
       "architecture": "free-flyer",
       "status": "WORKING_ASSUMPTION",
       "sourceIds": [
         "assumptions-rev-c"
       ],
-      "description": "A later 100 kW continuous-compute module gated by measured performance, customer demand and a validated heavy-lift architecture.",
+      "description": "A later module with 100 kW of continuous electrical input at the compute-payload interface, gated by measured performance, customer demand and a validated heavy-lift architecture.",
       "metrics": {
         "continuousCompute": {
           "value": 100,
@@ -617,7 +617,7 @@
       "sourceIds": [
         "assumptions-rev-c"
       ],
-      "description": "A ten-module reference cluster built from measured 100 kW modules, not one monolithic spacecraft or one-launch claim.",
+      "description": "A future ten-module reference cluster, conditional on validating each 100 kW module; not one monolithic spacecraft or one-launch claim.",
       "metrics": {
         "continuousCompute": {
           "value": 1000,
@@ -793,8 +793,6 @@
   ],
   "program": {
     "name": "Satellite Inference",
-    "currentFinancingTargetUsd": 7000000,
-    "financingTargetStatus": "PLANNING_TARGET",
     "groundTileContinuousComputeKw": 1,
     "firstOrbitalSystemContinuousComputeKw": 10,
     "baselineOrbitId": "leo-550",

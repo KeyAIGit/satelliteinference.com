@@ -35,8 +35,22 @@ yarn-error.log*
 
 # typescript
 next-env.d.ts
+*.tsbuildinfo
 /dist/
 /.wrangler/
 /.sites-runtime/
 /outputs/
 /work/
+/qa/
+
+# benchmark inputs and local run artifacts
+/benchmarks/**/data/
+/benchmarks/**/runs/
+/benchmarks/**/weights/
+/benchmarks/**/logs/
+/benchmarks/**/*.tif
+/benchmarks/**/*.tiff
+/benchmarks/**/*.pt
+/benchmarks/**/*.pth
+/benchmarks/**/*.onnx
+/benchmarks/**/*gpu-telemetry*.csv

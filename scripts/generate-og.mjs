@@ -28,10 +28,10 @@ const overlay = Buffer.from(`
     <path d="M545 46 h54 M545 46 v54 M1160 551 h-54 M1160 551 v-54" fill="none" stroke="#4fe5ff" stroke-width="2"/>
     <text x="126" y="82" class="sans" fill="#f3fbff" font-size="27" font-weight="700">SATELLITE INFERENCE</text>
     <text x="62" y="148" class="mono" fill="#4fe5ff" font-size="12" font-weight="700" letter-spacing="2">ORBITAL COMPUTING INFRASTRUCTURE</text>
-    <text x="61" y="254" class="sans" fill="#f3fbff" font-size="58" font-weight="500">10 kW continuous</text>
-    <text x="61" y="326" class="sans" fill="#f3fbff" font-size="58" font-weight="500">compute in LEO.</text>
-    <text x="63" y="397" class="sans" fill="#9db2c0" font-size="22">Built one ground-validated 1 kW tile at a time.</text>
-    <text x="63" y="565" class="mono" fill="#ffbd4a" font-size="12" font-weight="700" letter-spacing="1">10 KW ORBITAL NODE / REV C CONCEPT</text>
+    <text x="61" y="246" class="sans" fill="#f3fbff" font-size="52" font-weight="500">10 kW electrical input</text>
+    <text x="61" y="312" class="sans" fill="#f3fbff" font-size="52" font-weight="500">to compute in LEO.</text>
+    <text x="63" y="386" class="sans" fill="#9db2c0" font-size="22">Planned 1 kW ground tile: first validation step.</text>
+    <text x="63" y="565" class="mono" fill="#ffbd4a" font-size="12" font-weight="700" letter-spacing="1">10 kW ORBITAL NODE / REV C CONCEPT</text>
     <text x="63" y="590" class="mono" fill="#6f899a" font-size="11" letter-spacing="1">SATELLITEINFERENCE.COM</text>
   </svg>
 `);

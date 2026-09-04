@@ -1,0 +1,94 @@
+{
+  "schemaVersion": "1.0.0",
+  "dataVersion": "2026-09-03.workload-priority.2",
+  "evidenceBoundary": "Ground benchmarks only. SAR maritime is the primary benchmark candidate, wildfire and change is secondary, and optical quality is a control workload. The flight workload still requires customer and measured benchmark evidence.",
+  "workloads": [
+    {
+      "id": "sar-vessel-detection",
+      "shortLabel": "SAR maritime",
+      "name": "SAR maritime vessel detection and scene prioritization",
+      "programRole": "PRIMARY_BENCHMARK_CANDIDATE",
+      "plainLanguage": "Find vessels in radar imagery and return compact detections plus selected image chips for review.",
+      "roleExplanation": "Program priority. One image does not establish identity, intent, or illegal activity; activity cues require temporal, AIS, RF, or other corroborating context.",
+      "signal": "Synthetic-aperture radar imagery",
+      "decision": "Return georeferenced vessel detections and priority image chips before full-scene delivery",
+      "customerQuestion": "Which vessels or maritime scenes need immediate review?",
+      "evidenceStatus": "PENDING_MEASUREMENT",
+      "firstFlightCandidate": true
+    },
+    {
+      "id": "wildfire-change",
+      "shortLabel": "Wildfire and change",
+      "name": "Wildfire, burn-scar, and change detection",
+      "programRole": "SECONDARY_BENCHMARK_CANDIDATE",
+      "plainLanguage": "Flag new fires and meaningful land changes, then return coordinates and priority regions first.",
+      "roleExplanation": "Secondary application. It remains available if data rights, customer need, and measured performance support it.",
+      "signal": "Optical imagery from a live mission data path",
+      "decision": "Prioritize detections and changed areas for time-sensitive delivery",
+      "customerQuestion": "Which new scenes and regions warrant immediate analyst attention?",
+      "evidenceStatus": "PENDING_MEASUREMENT",
+      "firstFlightCandidate": true
+    },
+    {
+      "id": "optical-quality",
+      "shortLabel": "Optical quality",
+      "name": "Optical cloud and quality screening",
+      "programRole": "CONTROL_WORKLOAD",
+      "plainLanguage": "Identify cloud-covered, blurred, or otherwise unusable optical scenes before bulk delivery.",
+      "roleExplanation": "Control benchmark. It validates ingestion, preprocessing, telemetry, and measurement but does not justify 10 kW by itself.",
+      "signal": "Multispectral or panchromatic imagery",
+      "decision": "Keep, reprioritize, or discard a scene before raw-data downlink",
+      "customerQuestion": "Can this scene support the intended downstream analysis?",
+      "evidenceStatus": "PENDING_MEASUREMENT",
+      "firstFlightCandidate": false
+    }
+  ],
+  "scenarioInputs": [
+    {
+      "id": "sceneCount",
+      "label": "Scenes in the contact window",
+      "value": 24,
+      "min": 1,
+      "max": 10000,
+      "step": 1,
+      "unit": "scene/window",
+      "evidenceStatus": "ILLUSTRATIVE_EDITABLE_INPUT"
+    },
+    {
+      "id": "rawBytesPerSceneMb",
+      "label": "Raw data per scene",
+      "value": 1600,
+      "min": 1,
+      "max": 1000000,
+      "step": 1,
+      "unit": "MB/scene",
+      "evidenceStatus": "ILLUSTRATIVE_EDITABLE_INPUT"
+    },
+    {
+      "id": "priorityFraction",
+      "label": "Scenes returned as priority products",
+      "value": 0.2,
+      "min": 0.001,
+      "max": 1,
+      "step": 0.001,
+      "unit": "fraction",
+      "evidenceStatus": "ILLUSTRATIVE_EDITABLE_INPUT"
+    },
+    {
+      "id": "resultBytesPerPrioritySceneMb",
+      "label": "Result package per priority scene",
+      "value": 18,
+      "min": 0.001,
+      "max": 1000000,
+      "step": 0.001,
+      "unit": "MB/priority-scene",
+      "evidenceStatus": "ILLUSTRATIVE_EDITABLE_INPUT"
+    }
+  ],
+  "measurementFields": [
+    { "id": "throughput", "label": "Throughput", "unit": "scene/s", "value": null, "evidenceStatus": "PENDING_MEASUREMENT" },
+    { "id": "latency", "label": "End-to-end latency", "unit": "s/scene", "value": null, "evidenceStatus": "PENDING_MEASUREMENT" },
+    { "id": "accuracy", "label": "Task-quality metric", "unit": "workload-defined", "value": null, "evidenceStatus": "PENDING_MEASUREMENT" },
+    { "id": "energy", "label": "Compute energy", "unit": "Wh/scene", "value": null, "evidenceStatus": "PENDING_MEASUREMENT" }
+  ]
+}

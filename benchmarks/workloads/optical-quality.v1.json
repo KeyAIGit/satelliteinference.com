@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "1.0.0",
+  "configVersion": "1.0.0",
+  "workloadId": "optical-quality",
+  "title": "Optical cloud and quality screening",
+  "programRole": "CONTROL_WORKLOAD",
+  "inputModality": "OPTICAL_IMAGERY",
+  "task": "QUALITY_SCREENING",
+  "decisionOutput": "Scene-level quality flags and a keep, defer, or reject decision for downstream processing.",
+  "evidenceState": "PENDING_MEASUREMENT",
+  "firstFlightCandidate": false,
+  "dataset": {
+    "manifestTemplate": "../templates/dataset-manifest.template.json",
+    "selectionStatus": "PENDING_INPUT"
+  },
+  "model": {
+    "manifestTemplate": "../templates/model-manifest.template.json",
+    "selectionStatus": "PENDING_INPUT"
+  },
+  "adapter": {
+    "contract": "../lib/workload-adapter.mjs",
+    "implementationStatus": "PENDING_INPUT"
+  },
+  "metrics": {
+    "elapsedTime": { "label": "End-to-end workload elapsed time", "unit": "ms", "evidenceState": "PENDING_MEASUREMENT" },
+    "inputBytes": { "label": "Input bytes consumed", "unit": "byte", "evidenceState": "PENDING_MEASUREMENT" },
+    "outputBytes": { "label": "Output bytes produced", "unit": "byte", "evidenceState": "PENDING_MEASUREMENT" },
+    "energy": { "label": "Workload energy", "unit": "J", "evidenceState": "PENDING_MEASUREMENT" },
+    "temperature": { "label": "Reported device temperature", "unit": "degC", "evidenceState": "PENDING_MEASUREMENT" },
+    "taskScore": { "label": "Macro F1 for declared quality classes", "unit": "ratio", "evidenceState": "PENDING_MEASUREMENT" }
+  },
+  "prohibitedClaims": [
+    "No customer traction is implied.",
+    "No measured accelerator performance is implied.",
+    "No flight heritage or flight readiness is implied."
+  ]
+}

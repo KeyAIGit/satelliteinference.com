@@ -41,7 +41,8 @@ test("publishes the Rev C preliminary model and program contract", () => {
   assert.match(model.model.disclaimer, /Supplier and launch-provider validation required/);
   assert.equal(assumptions.dataVersion, model.dataVersion);
   assert.equal(assumptions.modelRevision, model.model.revision);
-  assert.equal(model.program.currentFinancingTargetUsd, 7_000_000);
+  assert.equal(model.program.currentFinancingTargetUsd, undefined);
+  assert.equal(model.program.financingTargetStatus, undefined);
   assert.equal(model.program.groundTileContinuousComputeKw, 1);
   assert.equal(model.program.firstOrbitalSystemContinuousComputeKw, 10);
   assert.equal(model.program.baselineOrbitId, "leo-550");

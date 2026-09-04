@@ -1,0 +1,19 @@
+{
+  "schemaVersion": "1.0.0",
+  "modelManifestId": "pending-model.template",
+  "version": "0.0.0-template",
+  "status": "PENDING_INPUT",
+  "title": "Pending model selection",
+  "framework": null,
+  "architecture": null,
+  "weights": {
+    "uri": null,
+    "sha256": null,
+    "license": null
+  },
+  "preprocessing": [],
+  "postprocessing": [],
+  "notes": [
+    "Do not publish a measured result until the exact weights, license, preprocessing, and postprocessing are recorded."
+  ]
+}

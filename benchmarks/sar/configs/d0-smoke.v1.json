@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "1.0.0",
+  "configVersion": "0.1.0",
+  "protocolId": "sar-d0-smoke",
+  "status": "PENDING_INPUT",
+  "workloadId": "sar-vessel-detection",
+  "scope": "Three-scene pipeline smoke test only. No generalization, customer, flight, or performance claim.",
+  "inputState": "PENDING_INPUT",
+  "measurementState": "PENDING_MEASUREMENT",
+  "manifests": {
+    "dataset": "../manifests/xview3-d0-smoke.dataset.pending.json",
+    "model": "../manifests/xview3-reference.model.pending.json",
+    "hardware": "../manifests/local-nvidia-gpu.hardware.pending.json"
+  },
+  "adapter": {
+    "id": null,
+    "implementationState": "PENDING_INPUT"
+  },
+  "scoring": {
+    "primaryMetric": "localizationF1",
+    "matching": {
+      "method": "GEODESIC_DISTANCE",
+      "tolerance": 200,
+      "unit": "m"
+    },
+    "groundTruthConfidence": ["HIGH", "MEDIUM"],
+    "scorerState": "PENDING_INPUT",
+    "evidenceState": "PENDING_MEASUREMENT"
+  },
+  "execution": {
+    "plannedSceneCount": 3,
+    "sceneSelectionState": "PENDING_INPUT",
+    "resultState": "PENDING_MEASUREMENT"
+  },
+  "prohibitedClaims": [
+    "The planned 200 m tolerance is not a measured geolocation result.",
+    "A three-scene smoke test does not establish generalization or customer utility.",
+    "An intended local GPU is not verified hardware until a diagnostic record is captured."
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1.0.0",
+  "resultVersion": "1.0.0",
+  "runId": "pending-template-0000000000000000",
+  "workloadId": "optical-quality",
+  "workloadConfigVersion": "1.0.0",
+  "status": "PENDING_MEASUREMENT",
+  "inputs": {
+    "datasetManifestId": null,
+    "modelManifestId": null,
+    "adapterId": null
+  },
+  "measurements": {
+    "elapsedTime": { "value": null, "unit": "ms", "evidenceState": "PENDING_MEASUREMENT" },
+    "inputBytes": { "value": null, "unit": "byte", "evidenceState": "PENDING_MEASUREMENT" },
+    "outputBytes": { "value": null, "unit": "byte", "evidenceState": "PENDING_MEASUREMENT" },
+    "energy": { "value": null, "unit": "J", "evidenceState": "PENDING_MEASUREMENT" },
+    "temperature": { "value": null, "unit": "degC", "evidenceState": "PENDING_MEASUREMENT" },
+    "taskScore": { "value": null, "unit": "ratio", "evidenceState": "PENDING_MEASUREMENT" }
+  },
+  "provenance": null,
+  "error": null
+}
