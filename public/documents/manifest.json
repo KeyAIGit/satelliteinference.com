@@ -1,7 +1,7 @@
 {
-  "schemaVersion": "1.0.0",
+  "schemaVersion": "1.1.0",
   "asOf": "2026-09-04",
-  "evidenceBoundary": "This manifest lists two current public concept documents. Public Whitepaper v0.3 and Mission Definition v0.2 remain at their original URLs as superseded archives and are not current. None of these files is flight-release material, a supplier quotation, a launch reservation, a regulatory determination, or financing material.",
+  "evidenceBoundary": "This manifest records two current public concept documents and two superseded archives. Public Whitepaper v0.3 and Mission Definition v0.2 remain at their original URLs as superseded archives and are not current. None of these files is flight-release material, a supplier quotation, a launch reservation, a regulatory determination, or financing material.",
   "documents": [
     {
       "id": "public-whitepaper-v0-4",
@@ -32,6 +32,38 @@
       "url": "/documents/Node_10kW_Public_Mission_Definition_v0.3.pdf",
       "description": "Mission purpose, success criteria, preliminary architecture, requirement categories, risks, and formal review gates.",
       "disclaimer": "Concept document only. Not flight-release data, manufacturing instruction, supplier acceptance, a launch reservation, or a regulatory determination."
+    }
+  ],
+  "archivedDocuments": [
+    {
+      "id": "public-whitepaper-v0-3",
+      "title": "Satellite Inference Public Whitepaper",
+      "filename": "Satellite_Inference_Public_Whitepaper_v0.3.pdf",
+      "version": "0.3",
+      "status": "CONCEPT_DOCUMENT",
+      "archiveStatus": "SUPERSEDED_ARCHIVE",
+      "supersededBy": "public-whitepaper-v0-4",
+      "pageCount": 13,
+      "byteSize": 633644,
+      "sha256": "63ce03ae0b4582b136414aa6ff459c2d917430a859c2bb4fea10552699857437",
+      "publishedOn": "2026-09-03",
+      "url": "/documents/Satellite_Inference_Public_Whitepaper_v0.3.pdf",
+      "disclaimer": "Superseded concept document retained for existing citations. Refer to the current public whitepaper for the current program baseline. Not flight-release data, supplier acceptance, a launch reservation, or financing material."
+    },
+    {
+      "id": "mission-definition-10kw-v0-2",
+      "title": "10 kW Orbital Node Mission Definition",
+      "filename": "Node_10kW_Public_Mission_Definition_v0.2.pdf",
+      "version": "0.2 / Pre-SRR",
+      "status": "CONCEPT_DOCUMENT",
+      "archiveStatus": "SUPERSEDED_ARCHIVE",
+      "supersededBy": "mission-definition-10kw-v0-3",
+      "pageCount": 10,
+      "byteSize": 488406,
+      "sha256": "8231104b5ff1953423cecea47c66cf5a0e57259bfd517c82a1691d18f87fbaad",
+      "publishedOn": "2026-09-02",
+      "url": "/documents/Node_10kW_Public_Mission_Definition_v0.2.pdf",
+      "disclaimer": "Superseded concept document retained for existing citations. Refer to the current mission definition for the current program baseline. Not flight-release data, supplier acceptance, a launch reservation, or a regulatory determination."
     }
   ]
 }

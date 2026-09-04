@@ -20,7 +20,7 @@ export function SiteNavigation() {
 
   const closeMenu = () => {
     setOpen(false);
-    window.requestAnimationFrame(() => menuButtonRef.current?.focus());
+    window.requestAnimationFrame(() => menuButtonRef.current?.focus({ preventScroll: true }));
   };
 
   useEffect(() => {
@@ -28,6 +28,16 @@ export function SiteNavigation() {
     document.body.classList.toggle("menu-open", open);
     return () => document.body.classList.remove("menu-open");
   }, [open]);
+
+  useEffect(() => {
+    const mobileViewport = window.matchMedia("(max-width: 1100px)");
+    const handleViewportChange = (event: MediaQueryListEvent) => {
+      if (!event.matches) setOpen(false);
+    };
+
+    mobileViewport.addEventListener("change", handleViewportChange);
+    return () => mobileViewport.removeEventListener("change", handleViewportChange);
+  }, []);
 
   useEffect(() => {
     if (!open) return;

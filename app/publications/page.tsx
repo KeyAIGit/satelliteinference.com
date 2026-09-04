@@ -59,7 +59,7 @@ export default function PublicationsPage() {
           <span>EVIDENCE BOUNDARY</span>
           <strong>Concept<br />documents only.</strong>
           <p>{manifest.evidenceBoundary}</p>
-          <div><ShieldCheck aria-hidden="true" /> {manifest.documents.length} current files with SHA-256 fingerprints recorded in the manifest</div>
+          <div><ShieldCheck aria-hidden="true" /> {manifest.documents.length} current files and {manifest.archivedDocuments.length} superseded archives with SHA-256 fingerprints recorded in the manifest</div>
         </aside>
       </section>
 
