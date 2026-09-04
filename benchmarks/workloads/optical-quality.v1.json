@@ -11,15 +11,15 @@
   "firstFlightCandidate": false,
   "dataset": {
     "manifestTemplate": "../templates/dataset-manifest.template.json",
-    "selectionStatus": "PENDING_MEASUREMENT"
+    "selectionStatus": "PENDING_INPUT"
   },
   "model": {
     "manifestTemplate": "../templates/model-manifest.template.json",
-    "selectionStatus": "PENDING_MEASUREMENT"
+    "selectionStatus": "PENDING_INPUT"
   },
   "adapter": {
     "contract": "../lib/workload-adapter.mjs",
-    "implementationStatus": "PENDING_MEASUREMENT"
+    "implementationStatus": "PENDING_INPUT"
   },
   "metrics": {
     "elapsedTime": { "label": "End-to-end workload elapsed time", "unit": "ms", "evidenceState": "PENDING_MEASUREMENT" },

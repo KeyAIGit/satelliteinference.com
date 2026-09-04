@@ -5,7 +5,7 @@
 - Name: Satellite Inference
 - Category: Orbital Computing Infrastructure
 - Tagline: Compute where space data begins.
-- Supporting line: A 10 kW continuous-compute node in low Earth orbit, developed through a planned 1 kW ground-validation tile.
+- Supporting line: A LEO node delivering 10 kW of continuous electrical input to a compute payload, developed through a planned 1 kW ground-validation tile.
 
 The category line is descriptive and broad. The tagline states the advantage: move useful processing closer to space-originated data.
 
@@ -40,6 +40,6 @@ For presentations, use Midnight Ink covers, Instrument Paper content slides, Sig
 
 ## Naming rule
 
-The numeric part of a public mission name always states continuous compute power. Solar generation, storage, radiator area, mass, and launch category remain separate specifications.
+The numeric part of a public mission name always states continuous electrical input available to the compute payload. It is not GPU nameplate power or delivered FLOPS. Solar generation, storage, radiator area, mass, and launch category remain separate specifications.
 
 The current public ladder is Ground Engineering Tile, 10 kW Orbital Node, 100 kW Orbital Module and Megawatt Orbital Network. The ground tile is never described as an orbital product.

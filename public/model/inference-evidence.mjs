@@ -12,11 +12,25 @@ function assertRecord(input, id) {
   if (input.id !== id || input.unit !== EXPECTED_UNITS[id]) {
     throw new RangeError(`${id} has an invalid identifier or unit`);
   }
-  if (input.evidenceStatus !== "USER_INPUT") {
-    throw new RangeError(`${id} must be labeled USER_INPUT`);
+  if (!["ILLUSTRATIVE_EDITABLE_INPUT", "USER_EDITED_INPUT"].includes(input.evidenceStatus)) {
+    throw new RangeError(`${id} must declare an allowed editable-input state`);
   }
   if (!Number.isFinite(input.value) || input.value <= 0) {
     throw new RangeError(`${id} must be a positive finite number`);
+  }
+  if (!Number.isFinite(input.min) || !Number.isFinite(input.max) || input.min <= 0 || input.min > input.max) {
+    throw new RangeError(`${id} must declare valid positive finite min and max bounds`);
+  }
+  if (!Number.isFinite(input.step) || input.step <= 0) {
+    throw new RangeError(`${id} must declare a positive finite step`);
+  }
+  if (input.value < input.min || input.value > input.max) {
+    throw new RangeError(`${id} must be between its declared min and max`);
+  }
+  const latticePosition = (input.value - input.min) / input.step;
+  const tolerance = 1e-9 * Math.max(1, Math.abs(latticePosition));
+  if (Math.abs(latticePosition - Math.round(latticePosition)) > tolerance) {
+    throw new RangeError(`${id} must align with its declared step from min`);
   }
 }
 
@@ -53,6 +67,9 @@ export function calculateDownlinkScenario(inputRecords) {
   const resultVolumeMb = prioritySceneCount * resultBytesPerPrioritySceneMb;
   if (!Number.isFinite(resultVolumeMb) || resultVolumeMb <= 0) {
     throw new RangeError("result volume must be a positive finite number");
+  }
+  if (resultVolumeMb > rawVolumeMb) {
+    throw new RangeError("result volume must be no greater than raw volume");
   }
 
   const avoidedVolumeMb = rawVolumeMb - resultVolumeMb;

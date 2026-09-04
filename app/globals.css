@@ -1479,8 +1479,8 @@ main {
 .scale-step p {
   max-width: 570px;
   margin: 0;
-  color: #61717b;
-  font-size: 12px;
+  color: #52636c;
+  font-size: 14px;
   line-height: 1.65;
 }
 
@@ -3640,8 +3640,7 @@ footer {
   }
 
   .brand-lockup small {
-    font-size: 7px;
-    letter-spacing: 0.1em;
+    display: none;
   }
 
   .hero {
@@ -3934,18 +3933,18 @@ footer {
 
 .market-wedge-grid p {
   margin: 0;
-  color: #63737d;
-  font-size: 12px;
+  color: #52636c;
+  font-size: 14px;
   line-height: 1.65;
 }
 
 .market-later-note {
   margin: 22px 0 0;
   padding: 18px 20px;
-  color: #63737d;
+  color: #52636c;
   border-left: 2px solid var(--amber);
   background: rgba(255, 255, 255, 0.28);
-  font-size: 12px;
+  font-size: 14px;
   line-height: 1.6;
 }
 
@@ -4273,4 +4272,100 @@ footer {
   .capital-gates strong {
     margin-top: 52px;
   }
+}
+
+/* Public text must remain readable at normal browser zoom on desktop and mobile. */
+.site-header nav a,
+.header-cta,
+.eyebrow,
+.kicker,
+.hero-proof span,
+.hero-orbit-label,
+.hero-node-label span,
+.hero-node-label strong,
+.visual-caption,
+.visual-caption span,
+.signal-strip,
+.signal-strip-label,
+.flow-node > span,
+.flow-node small,
+.flow-arrow span,
+.capability-number,
+.orbit-control-head span,
+.orbit-control-head strong,
+.orbit-presets button,
+.altitude-slider-wrap label,
+.orbit-canvas-wrap figcaption,
+.metric-row small,
+.orbit-interpretation strong,
+.model-footnote,
+.model-method summary,
+.model-method-grid span,
+.model-sources > span,
+.model-sources a,
+.scale-display-head span,
+.scale-display-head strong,
+.scale-metrics small,
+.scale-metrics strong,
+.scale-status-note,
+.mission-selector button > span,
+.mission-selector button > small,
+.capacity-graphic span,
+.network-graphic i,
+.network-graphic strong,
+.network-graphic p,
+.scale-title-row > span small,
+.step-index,
+.step-stage,
+.step-spec strong,
+.step-spec span,
+.stack-card-top span,
+.stack-diagram span,
+.document-type,
+.document-card-action,
+.method-note strong,
+.contact-card-top span,
+.footer-brand span,
+.footer-links a,
+.footer-legal,
+.legal-brand small,
+.legal-back,
+.legal-updated,
+.legal-content h2,
+.legal-footer,
+.concept-data-title > span,
+.concept-envelope span,
+.concept-toolbar strong,
+.concept-tabs button,
+.concept-image-frame figcaption,
+.concept-image-frame figcaption span,
+.concept-metrics small,
+.concept-metrics em,
+.concept-ga-link,
+.concept-toolbar,
+.svg-kicker,
+.svg-subtitle,
+.evidence-grid span,
+.evidence-model-links > span,
+.evidence-model-links a,
+.evidence-gates span,
+.market-wedge-grid span,
+.market-wedge-grid small,
+.market-later-note strong,
+.ground-tile-graphic span,
+.ground-tile-graphic > p {
+  font-size: 12px;
+}
+
+.orbit-readout-title p,
+.orbit-interpretation p,
+.model-method-grid p,
+.scale-title-row p,
+.evidence-grid p,
+.document-card p,
+.method-note p,
+.contact-card p,
+.concept-clarifier,
+.concept-envelope p {
+  font-size: 14px;
 }

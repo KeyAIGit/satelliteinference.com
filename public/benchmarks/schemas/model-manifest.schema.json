@@ -9,7 +9,7 @@
     "schemaVersion": { "const": "1.0.0" },
     "modelManifestId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9.-]+$" },
     "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-template)?$" },
-    "status": { "enum": ["PENDING_MEASUREMENT", "VERIFIED_INPUT"] },
+    "status": { "enum": ["PENDING_INPUT", "VERIFIED_INPUT"] },
     "title": { "type": "string", "minLength": 1 },
     "framework": { "type": ["string", "null"] },
     "architecture": { "type": ["string", "null"] },
@@ -29,7 +29,7 @@
   },
   "allOf": [
     {
-      "if": { "properties": { "status": { "const": "PENDING_MEASUREMENT" } }, "required": ["status"] },
+      "if": { "properties": { "status": { "const": "PENDING_INPUT" } }, "required": ["status"] },
       "then": {
         "properties": {
           "framework": { "type": "null" },
@@ -43,6 +43,22 @@
           },
           "preprocessing": { "maxItems": 0 },
           "postprocessing": { "maxItems": 0 }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "status": { "const": "VERIFIED_INPUT" } }, "required": ["status"] },
+      "then": {
+        "properties": {
+          "framework": { "type": "string", "minLength": 1 },
+          "architecture": { "type": "string", "minLength": 1 },
+          "weights": {
+            "properties": {
+              "uri": { "type": "string", "format": "uri" },
+              "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+              "license": { "type": "string", "minLength": 1 }
+            }
+          }
         }
       }
     }

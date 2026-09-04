@@ -16,6 +16,7 @@ import Image from "next/image";
 import { OrbitalExplorer, ScaleJourney } from "@/components/orbital-explorer";
 import { FlightNodeConcept } from "@/components/flight-node-concept";
 import { SiteNavigation } from "@/components/site-navigation";
+import { SiteFooter } from "@/components/site-footer";
 
 const capabilities = [
   {
@@ -50,16 +51,16 @@ const markets = [
 const workloadPriorities = [
   {
     role: "PRIMARY BENCHMARK CANDIDATE",
-    label: "SAR maritime vessel detection and scene prioritization",
+    label: "SAR maritime vessel detection — first priority",
     text: "Locate vessels in synthetic-aperture radar imagery and prioritize scenes for review before the full image reaches Earth.",
   },
   {
-    role: "SECONDARY WORKLOAD",
+    role: "SECONDARY BENCHMARK CANDIDATE",
     label: "Wildfire and rapid change",
     text: "Use optical imagery to flag new fires and meaningful changes, then send coordinates and priority regions first.",
   },
   {
-    role: "CONTROL WORKLOAD",
+    role: "CONTROL BENCHMARK",
     label: "Optical image quality",
     text: "Identify cloud-covered, blurred, or otherwise unusable imagery. This tests the complete data path without pretending it needs 10 kW by itself.",
   },
@@ -86,22 +87,23 @@ export default function Home() {
           <p className="eyebrow"><span /> Operated by RFID INC</p>
           <h1 id="hero-title">Compute where<br />space data begins.</h1>
           <p className="hero-lead">
-            A planned 10 kW continuous-compute node in low Earth orbit. Its leading
-            benchmark candidate is SAR maritime vessel detection, developed through
-            a 1 kW ground-validation tile.
+            We plan a computing spacecraft (node) in low Earth orbit (LEO), with 10 kW
+            continuously available to its onboard computing equipment (payload). The first
+            ground benchmark is maritime vessel detection and scene prioritization in
+            synthetic-aperture radar (SAR) imagery, starting with a 1 kW ground test unit.
           </p>
           <div className="hero-actions">
             <a className="button button-primary" href="/demo">
               Explore the evidence lab <ArrowUpRight aria-hidden="true" size={17} />
             </a>
-            <a className="button button-ghost" href="/documents/Satellite_Inference_Public_Whitepaper_v0.3.pdf">
-              Read Whitepaper v0.3 <FileText aria-hidden="true" size={16} />
+            <a className="button button-ghost" href="/documents/Satellite_Inference_Public_Whitepaper_v0.4.pdf">
+              Read Whitepaper v0.4 <FileText aria-hidden="true" size={16} />
             </a>
           </div>
           <div className="hero-proof" aria-label="Program baseline">
-            <div><strong>10 kW</strong><span>continuous payload input</span></div>
-            <div><strong>500-600 km</strong><span>LEO baseline</span></div>
-            <div><strong>SAR</strong><span>radar maritime primary</span></div>
+            <div><strong>10 kW</strong><span>continuous power for computing</span></div>
+            <div><strong>500-600 km</strong><span>low Earth orbit baseline</span></div>
+            <div><strong>SAR first</strong><span>radar vessel-detection benchmark</span></div>
           </div>
         </div>
         <figure className="hero-visual hero-node-figure reveal-up delay-one">
@@ -116,7 +118,7 @@ export default function Home() {
             />
             <div className="hero-node-reticle" aria-hidden="true" />
           </div>
-          <figcaption className="visual-caption"><span>10 KW NODE / REV C</span> Notional configuration, not flight CAD</figcaption>
+          <figcaption className="visual-caption"><span>10 kW NODE / REV C</span> Notional configuration, not flight CAD</figcaption>
         </figure>
         <a href="#why" className="scroll-cue" aria-label="Continue to the next section">
           <span>Scroll to enter orbit</span><ArrowDown size={15} aria-hidden="true" />
@@ -133,7 +135,7 @@ export default function Home() {
         </div>
       </section>
 
-      <div id="content">
+      <div id="content" tabIndex={-1}>
       <section className="section section-light" id="why">
         <div className="section-heading split-heading">
           <div>
@@ -149,7 +151,7 @@ export default function Home() {
         </div>
         <ol className="flow-line" aria-label="Data reduction flow">
           <li className="flow-node">
-            <span>01</span><Satellite aria-hidden="true" /><strong>Partner sensor</strong><small>Raw orbital data</small>
+            <span>01</span><Satellite aria-hidden="true" /><strong>Candidate data source</strong><small>Raw orbital data</small>
           </li>
           <li className="flow-arrow" aria-hidden="true"><span>HIGH VOLUME</span></li>
           <li className="flow-node flow-node-accent">
@@ -170,7 +172,7 @@ export default function Home() {
             </article>
           ))}
         </div>
-        <div className="market-wedge-grid" aria-label="Ground workload priorities">
+        <div className="market-wedge-grid" aria-label="Ground benchmark priorities, led by SAR maritime vessel detection">
           {workloadPriorities.map((workload, index) => (
             <article key={workload.label}>
               <span>0{index + 1}</span>
@@ -180,15 +182,15 @@ export default function Home() {
             </article>
           ))}
         </div>
-        <p className="market-later-note"><strong>CURRENT STATUS</strong> These are benchmark priorities, not customer commitments. The first flight workload still requires measured performance, lawful data access, and a paying mission partner. A single image does not establish a vessel&apos;s identity, intent, or illegal activity; any activity cue requires temporal, AIS, RF, or other corroborating context.</p>
-        <p className="market-later-note"><strong>LATER MARKET</strong> Generic cloud inference follows after flight economics, network utilization and service reliability are measured.</p>
+        <p className="market-later-note"><strong>CURRENT STATUS</strong> These are benchmark priorities, not customer commitments. The first flight workload still requires measured performance, lawful data access, and a paying mission partner. A single image does not establish a vessel&apos;s identity, intent, or illegal activity; any activity cue requires location history, ship-identification broadcasts, radio signals, or other corroborating context.</p>
+        <p className="market-later-note"><strong>LATER MARKET</strong> Broader cloud-style computing services in orbit come later, after flight economics, network use, and service reliability are measured.</p>
       </section>
 
       <section className="section section-concept" id="concept">
         <div className="section-heading split-heading inverse">
           <div>
             <p className="kicker">02 / FIRST ORBITAL SYSTEM</p>
-            <h2>10 kW continuous.<br />One honest baseline.</h2>
+            <h2>10 kW electrical input.<br />One honest baseline.</h2>
           </div>
           <p>
             Rev C defines the first flight objective as 10 kW continuous electrical input
@@ -202,13 +204,13 @@ export default function Home() {
       <section className="section section-space" id="model">
         <div className="section-heading split-heading inverse">
           <div>
-            <p className="kicker">03 / ORBIT LAB</p>
-            <h2>Place the node.<br />See the physics.</h2>
+            <p className="kicker">03 / ORBIT COMPARISON</p>
+            <h2>Compare altitude.<br />See the physics.</h2>
           </div>
           <p>
-            Move continuously from 200 km to GEO. Orbital radius shares one physical
-            scale with Earth; period, propagation and worst-case eclipse are calculated
-            locally from disclosed constants.
+            The 500-600 km low Earth orbit (LEO) band is the program baseline. Use other
+            altitudes through geostationary orbit (GEO) only as comparisons. Distance shares
+            one scale with Earth; orbit time, signal travel time, and maximum shadow time are calculated.
           </p>
         </div>
         <OrbitalExplorer />
@@ -244,9 +246,9 @@ export default function Home() {
           <article className="stack-card stack-card-large">
             <div className="stack-card-top"><span>FLIGHT NODE</span><Orbit aria-hidden="true" /></div>
             <h3>Integrated orbital compute</h3>
-            <p>Compute module, storage, PMAD, battery, deployable solar, thermal transport, communications, ADCS, propulsion, and disposal.</p>
+            <p>Computing, storage, power management, battery, deployable solar panels, heat removal, communications, pointing control, propulsion, and disposal.</p>
             <div className="stack-diagram" aria-label="Simplified orbital compute architecture">
-              <span>Partner sensor</span><i />
+              <span>Candidate data path</span><i />
               <span>Runtime</span><i />
               <span>Compute</span><i />
               <span>Result</span>
@@ -255,7 +257,7 @@ export default function Home() {
           <article className="stack-card">
             <div className="stack-card-top"><span>SOFTWARE</span><Braces aria-hidden="true" /></div>
             <h3>Radiation-aware runtime</h3>
-            <p>Signed workloads, monitoring, checkpoint, rollback, fault isolation, and reproducible telemetry.</p>
+            <p>Signed software, fault monitoring, saved recovery points, automatic rollback, isolation, and traceable operating data.</p>
           </article>
           <article className="stack-card">
             <div className="stack-card-top"><span>CONTROL</span><Gauge aria-hidden="true" /></div>
@@ -264,7 +266,7 @@ export default function Home() {
           </article>
           <article className="stack-card stack-card-wide">
             <div className="stack-card-top"><span>COMMERCIAL OUTPUT</span><BookOpen aria-hidden="true" /></div>
-            <h3>Evidence, not abstract FLOPS</h3>
+            <h3>Evidence, not processor speed alone</h3>
             <p>Customer value is measured through reduced downlink, time to decision, verified model quality, available processing windows, and a traceable result package.</p>
           </article>
         </div>
@@ -285,11 +287,11 @@ export default function Home() {
           <article><span>CALCULATED</span><h3>Reproducible model output</h3><p>Derived by published Rev C equations from versioned assumptions and checked by equation-based deterministic tests.</p></article>
           <article><span>WORKING ASSUMPTION</span><h3>Planning input</h3><p>A target or early input that remains subject to trade studies, mission definition and validation.</p></article>
           <article><span>NOTIONAL GEOMETRY</span><h3>Packaging communication</h3><p>Concept geometry for scale, deployment and interface conversations. It is not flight CAD.</p></article>
-          <article><span>TBD BY SUPPLIER</span><h3>Evidence still required</h3><p>Interface data, mass, loads, deployment dynamics, thermal performance and launch compatibility.</p></article>
+          <article><span>SUPPLIER DATA NEEDED</span><h3>Evidence still required</h3><p>Interface data, mass, loads, deployment dynamics, thermal performance and launch compatibility.</p></article>
         </div>
         <div className="evidence-gates">
-          <span>PRE-SRR</span><i />
-          <span>SUPPLIER ICD</span><i />
+          <span>BEFORE REQUIREMENTS REVIEW</span><i />
+          <span>SUPPLIER INTERFACE DATA</span><i />
           <span>COUPLED ANALYSIS</span><i />
           <span>HARDWARE TEST</span><i />
           <span>FLIGHT EVIDENCE</span>
@@ -308,7 +310,7 @@ export default function Home() {
           <h2>Choose the document<br />for your question.</h2>
           <p>
             The whitepaper explains why the company should exist. The mission definition states
-            what the first 10 kW flight must prove. Detailed financing and diligence materials are
+            what the proposed 10 kW Orbital Node must prove. Detailed financing and diligence materials are
             shared privately with approved counterparties.
           </p>
         </div>
@@ -358,22 +360,7 @@ export default function Home() {
         </div>
       </section>
 
-      <footer>
-        <div className="footer-brand">
-          <Image src="/logo-mark.svg" alt="" width={34} height={34} />
-          <div><strong>Satellite Inference</strong><span>Orbital Computing Infrastructure</span></div>
-        </div>
-        <div className="footer-links">
-          <a href="mailto:procurement@satelliteinference.com">Contact</a>
-          <a href="/privacy">Privacy</a>
-          <a href="/disclaimer">Disclaimer</a>
-          <a href="/.well-known/security.txt">Security</a>
-        </div>
-        <p className="footer-legal">
-          Satellite Inference™ is currently operated by RFID INC, a Delaware corporation. © 2026 RFID INC. All rights reserved.<br />
-          Public working concept, 3 September 2026. Preliminary assumptions require supplier, regulatory and customer validation.
-        </p>
-      </footer>
+      <SiteFooter />
       </div>
     </main>
   );

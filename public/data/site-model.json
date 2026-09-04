@@ -258,7 +258,7 @@
       "id": "ground-engineering-tile",
       "order": 1,
       "publicName": "Ground Engineering Tile",
-      "legacyCode": "GROUND / 1 KW",
+      "legacyCode": "GROUND / 1 kW",
       "stage": "GROUND VALIDATION",
       "architecture": "ground engineering unit",
       "orbitId": null,
@@ -319,14 +319,14 @@
       "id": "orbital-node-10kw",
       "order": 2,
       "publicName": "10 kW Orbital Node",
-      "legacyCode": "LEO / 10 KW",
+      "legacyCode": "LEO / 10 kW",
       "stage": "FIRST FLIGHT",
       "architecture": "owned LEO node",
       "status": "WORKING_ASSUMPTION",
       "sourceIds": [
         "assumptions-rev-c"
       ],
-      "description": "First owned orbital system targeting 10 kW continuous compute-payload electrical input in a 500-600 km LEO baseline.",
+      "description": "First owned orbital system targeting 10 kW of continuous electrical input at the compute-payload interface in a 500-600 km LEO baseline.",
       "metrics": {
         "continuousCompute": {
           "value": 10,
@@ -506,14 +506,14 @@
       "id": "industrial-orbital-module",
       "order": 3,
       "publicName": "100 kW Orbital Module",
-      "legacyCode": "SCALE / 100 KW",
+      "legacyCode": "SCALE / 100 kW",
       "stage": "SCALE",
       "architecture": "free-flyer",
       "status": "WORKING_ASSUMPTION",
       "sourceIds": [
         "assumptions-rev-c"
       ],
-      "description": "A later 100 kW continuous-compute module gated by measured performance, customer demand and a validated heavy-lift architecture.",
+      "description": "A later module with 100 kW of continuous electrical input at the compute-payload interface, gated by measured performance, customer demand and a validated heavy-lift architecture.",
       "metrics": {
         "continuousCompute": {
           "value": 100,
@@ -617,7 +617,7 @@
       "sourceIds": [
         "assumptions-rev-c"
       ],
-      "description": "A ten-module reference cluster built from measured 100 kW modules, not one monolithic spacecraft or one-launch claim.",
+      "description": "A future ten-module reference cluster, conditional on validating each 100 kW module; not one monolithic spacecraft or one-launch claim.",
       "metrics": {
         "continuousCompute": {
           "value": 1000,

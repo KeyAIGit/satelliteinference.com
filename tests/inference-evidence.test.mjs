@@ -45,8 +45,14 @@ test("every displayed numeric input declares a unit and evidence status", () => 
   for (const input of data.scenarioInputs) {
     assert.equal(typeof input.value, "number");
     assert.ok(input.unit.length > 0, `${input.id} has no unit`);
-    assert.equal(input.evidenceStatus, "USER_INPUT");
+    assert.equal(input.evidenceStatus, "ILLUSTRATIVE_EDITABLE_INPUT");
     assert.ok(Number.isFinite(input.min) && Number.isFinite(input.max));
+    assert.ok(Number.isFinite(input.step) && input.step > 0, `${input.id} has an invalid step`);
+    const latticePosition = (input.value - input.min) / input.step;
+    assert.ok(
+      Math.abs(latticePosition - Math.round(latticePosition)) < 1e-9,
+      `${input.id} default does not align with its HTML input step`,
+    );
   }
 });
 
@@ -60,12 +66,84 @@ test("calculates a deterministic reference scenario without calling it measured"
   assert.equal(first.evidenceStatus, "PENDING_MEASUREMENT");
 });
 
+test("accepts a user-edited scenario without treating it as measured evidence", () => {
+  const edited = data.scenarioInputs.map((input) => input.id === "sceneCount"
+    ? { ...input, value: 12, evidenceStatus: "USER_EDITED_INPUT" }
+    : input);
+  const result = calculateDownlinkScenario(edited);
+  assert.equal(result.rawVolumeMb, 19_200);
+  assert.equal(result.evidenceStatus, "PENDING_MEASUREMENT");
+});
+
+test("accepts every declared input boundary inclusively", () => {
+  const atMinimums = calculateDownlinkScenario(data.scenarioInputs.map((input) => ({
+    ...input,
+    value: input.min,
+  })));
+  assert.equal(atMinimums.rawVolumeMb, 1);
+  assert.equal(atMinimums.resultVolumeMb, 0.000001);
+
+  const atMaximums = calculateDownlinkScenario(data.scenarioInputs.map((input) => ({
+    ...input,
+    value: input.max,
+  })));
+  assert.equal(atMaximums.rawVolumeMb, 10_000_000_000);
+  assert.equal(atMaximums.resultVolumeMb, 10_000_000_000);
+  assert.equal(atMaximums.avoidedVolumeMb, 0);
+  assert.equal(atMaximums.scenarioReductionRatio, 1);
+});
+
+test("rejects every input below its declared min or above its declared max", () => {
+  const withChange = (id, change) => data.scenarioInputs.map((input) => input.id === id ? { ...input, ...change } : input);
+  for (const input of data.scenarioInputs) {
+    assert.throws(
+      () => calculateDownlinkScenario(withChange(input.id, { value: input.min / 2 })),
+      new RegExp(`${input.id} must be between its declared min and max`),
+    );
+    assert.throws(
+      () => calculateDownlinkScenario(withChange(input.id, { value: input.max + input.min })),
+      new RegExp(`${input.id} must be between its declared min and max`),
+    );
+  }
+});
+
+test("rejects missing, non-finite, non-positive, and inverted declared bounds", () => {
+  const withChange = (id, change) => data.scenarioInputs.map((input) => input.id === id ? { ...input, ...change } : input);
+  assert.throws(() => calculateDownlinkScenario(withChange("sceneCount", { min: undefined })), /valid positive finite min and max/);
+  assert.throws(() => calculateDownlinkScenario(withChange("rawBytesPerSceneMb", { max: Number.NaN })), /valid positive finite min and max/);
+  assert.throws(() => calculateDownlinkScenario(withChange("priorityFraction", { min: 0 })), /valid positive finite min and max/);
+  assert.throws(() => calculateDownlinkScenario(withChange("resultBytesPerPrioritySceneMb", { min: 19, max: 18 })), /valid positive finite min and max/);
+  assert.throws(() => calculateDownlinkScenario(withChange("resultBytesPerPrioritySceneMb", { step: 0 })), /positive finite step/);
+  assert.throws(() => calculateDownlinkScenario(withChange("priorityFraction", { value: 0.2005 })), /align with its declared step/);
+});
+
+test("rejects result volume above raw volume but permits a zero-avoidance edge", () => {
+  const withValues = (values) => data.scenarioInputs.map((input) => ({
+    ...input,
+    value: values[input.id] ?? input.value,
+  }));
+  assert.throws(() => calculateDownlinkScenario(withValues({
+    rawBytesPerSceneMb: 1,
+    priorityFraction: 1,
+    resultBytesPerPrioritySceneMb: 2,
+  })), /result volume must be no greater than raw volume/);
+
+  const equalVolumes = calculateDownlinkScenario(withValues({
+    rawBytesPerSceneMb: 18,
+    priorityFraction: 1,
+    resultBytesPerPrioritySceneMb: 18,
+  }));
+  assert.equal(equalVolumes.resultVolumeMb, equalVolumes.rawVolumeMb);
+  assert.equal(equalVolumes.avoidedVolumeMb, 0);
+  assert.equal(equalVolumes.scenarioReductionRatio, 1);
+});
+
 test("fails closed for non-finite, non-positive, zero-denominator, and dimensionally invalid inputs", () => {
   const withChange = (id, change) => data.scenarioInputs.map((input) => input.id === id ? { ...input, ...change } : input);
   assert.throws(() => calculateDownlinkScenario(withChange("sceneCount", { value: Number.NaN })), /positive finite/);
   assert.throws(() => calculateDownlinkScenario(withChange("rawBytesPerSceneMb", { value: -1 })), /positive finite/);
   assert.throws(() => calculateDownlinkScenario(withChange("resultBytesPerPrioritySceneMb", { value: 0 })), /positive finite/);
-  assert.throws(() => calculateDownlinkScenario(withChange("priorityFraction", { value: 1.01 })), /no greater than one/);
+  assert.throws(() => calculateDownlinkScenario(withChange("priorityFraction", { value: 1.01, max: 2 })), /no greater than one/);
   assert.throws(() => calculateDownlinkScenario(withChange("rawBytesPerSceneMb", { unit: "GB/scene" })), /invalid identifier or unit/);
   assert.throws(() => calculateDownlinkScenario([...data.scenarioInputs, { ...data.scenarioInputs[0] }]), /exactly once/);
   assert.throws(() => calculateDownlinkScenario(data.scenarioInputs.map((input, index) => index === 1 ? { ...input, id: "sceneCount" } : input)), /duplicate/);

@@ -11,10 +11,10 @@ import {
 
 const metricCards = [
   { icon: Cpu, label: "Payload electrical input", value: "10 kW", status: "PROGRAM TARGET" },
-  { icon: Sun, label: "BOL solar, nominal", value: "33.61 kW", status: "CALCULATED" },
-  { icon: Maximize2, label: "Gross solar planform, nominal", value: "140.02 m²", status: "CALCULATED" },
-  { icon: BatteryCharging, label: "Eclipse battery, nominal", value: "28.31 kWh", status: "CALCULATED" },
-  { icon: ThermometerSun, label: "Equivalent radiator, nominal", value: "37.41 m²", status: "CALCULATED" },
+  { icon: Sun, label: "BOL solar, nominal", value: "~34 kW", status: "CALCULATED" },
+  { icon: Maximize2, label: "Gross solar planform, nominal", value: "~140 m²", status: "CALCULATED" },
+  { icon: BatteryCharging, label: "Eclipse battery, nominal", value: "~28 kWh", status: "CALCULATED" },
+  { icon: ThermometerSun, label: "Equivalent radiator, nominal", value: "~37 m²", status: "CALCULATED" },
 ];
 
 export function FlightNodeConcept() {
@@ -65,7 +65,7 @@ export function FlightNodeConcept() {
         </div>
         <p className="concept-clarifier">
           <strong>10 kW</strong> is the target continuous electrical input available to the compute payload, not GPU nameplate power and not delivered customer FLOPS.
-          The model calculates <strong>33.61 kW</strong> required BOL solar at the <strong>13.5 kW</strong> nominal total spacecraft-load screen.
+          The model calculates approximately <strong>34 kW</strong> required BOL solar at the <strong>13.5 kW</strong> nominal total spacecraft-load screen.
           Every range is pre-SRR and must be replaced by supplier data, coupled analysis and test evidence.
         </p>
         <a className="concept-ga-link" href="/data/model-assumptions.json">

@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0.0",
+  "datasetManifestId": "xview3-d0-smoke.pending",
+  "version": "0.1.0",
+  "status": "PENDING_INPUT",
+  "title": "Pending xView3-SAR D0 smoke dataset selection",
+  "description": "No scene, terms snapshot, label artifact, or local data artifact has been selected or verified.",
+  "modality": null,
+  "source": {
+    "uri": null,
+    "license": null,
+    "acquiredAt": null,
+    "sha256": null
+  },
+  "artifacts": [],
+  "labels": {
+    "taxonomyUri": null,
+    "annotationProtocol": null,
+    "reviewStatus": "PENDING_INPUT"
+  },
+  "notes": [
+    "Record accepted access terms and a terms snapshot before selecting data.",
+    "Select exactly three scene IDs under the frozen D0 selection rule before viewing benchmark output.",
+    "Do not add a hash until it has been calculated from the exact acquired artifact."
+  ]
+}

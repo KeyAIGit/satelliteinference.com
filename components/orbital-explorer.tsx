@@ -50,7 +50,7 @@ function formatLatency(milliseconds: number) {
 }
 
 function formatAltitude(altitudeKm: number) {
-  return `${Math.round(altitudeKm).toLocaleString()} km`;
+  return `${Math.round(altitudeKm).toLocaleString("en-US")} km`;
 }
 
 export function OrbitalExplorer() {
@@ -58,6 +58,7 @@ export function OrbitalExplorer() {
   const metrics = useMemo(() => calculateOrbit(altitudeKm), [altitudeKm]);
   const isLeoPreset = Math.abs(altitudeKm - 550) < 1;
   const isGeoPreset = Math.abs(altitudeKm - MAX_ALTITUDE_KM) < 2;
+  const isBaselineOrbit = altitudeKm >= 500 && altitudeKm <= 600;
   const regime = altitudeKm < 2000 ? "LEO" : isGeoPreset ? "GEO" : "MEO";
   const earthRadiusPx = 38;
   const orbitRadiusPx = earthRadiusPx * metrics.earthRadii;
@@ -70,17 +71,17 @@ export function OrbitalExplorer() {
       <div className="orbit-control-panel">
         <div className="orbit-control-head orbit-control-head-v2">
           <div>
-            <span>LOG ALTITUDE CONTROL / PHYSICAL RADIAL VIEW</span>
+            <span>ALTITUDE COMPARISON / DISTANCES TO SCALE</span>
             <strong>{regime} / {formatAltitude(altitudeKm)}</strong>
           </div>
           <div className="orbit-presets" aria-label="Orbit presets">
-            <button type="button" aria-pressed={isLeoPreset} className={isLeoPreset ? "active" : ""} onClick={() => setAltitudeKm(550)}>550 KM LEO</button>
-            <button type="button" aria-pressed={isGeoPreset} className={isGeoPreset ? "active" : ""} onClick={() => setAltitudeKm(MAX_ALTITUDE_KM)}>GEO</button>
+            <button type="button" aria-pressed={isLeoPreset} className={isLeoPreset ? "active" : ""} onClick={() => setAltitudeKm(550)}>550 KM / BASELINE MIDPOINT</button>
+            <button type="button" aria-pressed={isGeoPreset} className={isGeoPreset ? "active" : ""} onClick={() => setAltitudeKm(MAX_ALTITUDE_KM)}>GEO / COMPARE</button>
           </div>
         </div>
 
         <div className="altitude-slider-wrap">
-          <label htmlFor="altitude-slider"><span>200 km</span><strong>Drag altitude</strong><span>35,786 km</span></label>
+          <label htmlFor="altitude-slider"><span>200 km</span><strong>Compare altitude</strong><span>35,786 km</span></label>
           <input
             id="altitude-slider"
             type="range"
@@ -145,48 +146,44 @@ export function OrbitalExplorer() {
               <line x1={earthRadiusPx} y1="-5" x2={earthRadiusPx} y2="5" />
               <text x="0" y="20">1 EARTH RADIUS = 6,378 KM</text>
             </g>
-            <text x="35" y="44" className="svg-kicker">LINEAR PHYSICAL RADIAL SCALE</text>
+            <text x="35" y="44" className="svg-kicker">DISTANCE TO SCALE FROM EARTH&apos;S CENTER</text>
             <text x="35" y="69" className="svg-title">{regime} / {formatAltitude(altitudeKm)}</text>
-            <text x="35" y="91" className="svg-subtitle">ANIMATION: 1 ORBIT / {ANIMATION_SECONDS} S, {Math.round(metrics.timeCompression).toLocaleString()}x REAL TIME</text>
+            <text x="35" y="91" className="svg-subtitle">ANIMATION: 1 ORBIT / {ANIMATION_SECONDS} S, {Math.round(metrics.timeCompression).toLocaleString("en-US")}x REAL TIME</text>
           </svg>
           <figcaption>
-            <span className="live-dot" /> Geometry is linear, not illustrative. The altitude control is logarithmic so LEO and GEO remain selectable.
+            <span className="live-dot" /> Earth and orbit distances use the same linear scale. Only 500-600 km low Earth orbit (LEO) is the program baseline; every other altitude is comparison-only.
           </figcaption>
         </figure>
       </div>
 
       <aside className="orbit-readout-panel" aria-live="polite">
         <div className="orbit-readout-title">
-          <span>{regime} / CALCULATED</span>
-          <h3>{isLeoPreset ? "Reference LEO" : isGeoPreset ? "Geostationary orbit" : "Circular orbit screen"}</h3>
-          <p>{isLeoPreset ? "Program baseline for the first 10 kW orbital node." : isGeoPreset ? "Comparison case only, not the baseline mission." : "Explore geometry between the first LEO mission and GEO."}</p>
+          <span>{isBaselineOrbit ? "PROGRAM BASELINE" : "COMPARISON ONLY"} / CALCULATED</span>
+          <h3>{isBaselineOrbit ? "500-600 km low Earth orbit" : `${regime} altitude comparison`}</h3>
+          <p>{isBaselineOrbit ? "Baseline band for the first 10 kW orbital node." : "This selected altitude is not a proposed mission orbit or program baseline."}</p>
         </div>
         <div className="metric-stack">
-          <div className="metric-row"><Clock3 aria-hidden="true" /><span><small>Orbital period</small><strong>{formatPeriod(metrics.periodMinutes)}</strong></span></div>
-          <div className="metric-row"><Radio aria-hidden="true" /><span><small>Zenith vacuum one-way</small><strong>{formatLatency(metrics.oneWayMs)}</strong></span></div>
-          <div className="metric-row"><Gauge aria-hidden="true" /><span><small>Zenith vacuum RTT</small><strong>{formatLatency(metrics.responseFloorMs)}</strong></span></div>
-          <div className="metric-row"><Sun aria-hidden="true" /><span><small>Worst-case shadow, beta 0</small><strong>{metrics.eclipseMinutes.toFixed(2)} min</strong></span></div>
-          <div className="metric-row"><BatteryCharging aria-hidden="true" /><span><small>Sunlit fraction, beta 0</small><strong>{metrics.sunlitPercent.toFixed(1)}%</strong></span></div>
+          <div className="metric-row"><Clock3 aria-hidden="true" /><span><small>Time for one orbit</small><strong>{formatPeriod(metrics.periodMinutes)}</strong></span></div>
+          <div className="metric-row"><Radio aria-hidden="true" /><span><small>Vacuum one-way, ground directly below</small><strong>{formatLatency(metrics.oneWayMs)}</strong></span></div>
+          <div className="metric-row"><Gauge aria-hidden="true" /><span><small>Vacuum round trip, ground directly below</small><strong>{formatLatency(metrics.responseFloorMs)}</strong></span></div>
+          <div className="metric-row"><Sun aria-hidden="true" /><span><small>Maximum shadow, Sun in orbit plane</small><strong>{metrics.eclipseMinutes.toFixed(2)} min</strong></span></div>
+          <div className="metric-row"><BatteryCharging aria-hidden="true" /><span><small>Time in sunlight, Sun in orbit plane</small><strong>{metrics.sunlitPercent.toFixed(1)}%</strong></span></div>
         </div>
         <div className="orbit-interpretation">
-          <strong>{altitudeKm < 2000 ? "Propagation screen: favorable" : "Propagation screen: workload-dependent"}</strong>
-          <p>
-            {altitudeKm < 2000
-              ? "Vacuum propagation is small versus many network and processing delays. Workload fitness still depends on the radio, compute, thermal, operations and model-quality evidence."
-              : "The number shown is propagation through vacuum only. End-to-end inference also includes radio, routing, queue and compute time."}
-          </p>
+          <strong>Vacuum signal-time comparison</strong>
+          <p>The values isolate travel through space. They do not predict end-to-end service, workload fitness, or a preferred orbit; those also depend on radios, routing, queues, computing, thermal design, operations, and model quality.</p>
         </div>
       </aside>
 
       <p className="model-footnote">
-        Circular two-body screen, WGS-84 equatorial radius, beta angle 0, cylindrical shadow and zenith ground geometry. RTT excludes atmosphere, routing, protocol, queues and compute. GEO eclipse is seasonal.
+        Comparison calculations assume a circular two-body orbit, WGS-84 equatorial Earth radius, the Sun in the orbit plane (beta angle 0), a simple cylindrical shadow, and a ground point directly below the spacecraft. Round-trip time excludes atmosphere, routing, protocols, queues, and compute. Geostationary eclipses are seasonal.
       </p>
       <details className="model-method">
-        <summary>Open equations, constants, status and sources</summary>
+        <summary>Open equations, assumptions, comparison status, and sources</summary>
         <div className="model-method-grid">
-          <div><span>ORBITAL PERIOD / CALCULATED</span><strong>T = 2pi sqrt(r³ / μ)</strong><p>Two-body circular-orbit screen from disclosed constants.</p></div>
-          <div><span>PROPAGATION / CALCULATED</span><strong>t = ρ / c</strong><p>Vacuum space-leg delay only. It is not application response time.</p></div>
-          <div><span>MAX SHADOW / CALCULATED</span><strong>te = T asin(RE / r) / pi</strong><p>Worst-case beta 0 cylindrical-shadow estimate.</p></div>
+          <div><span>TIME FOR ONE ORBIT / CALCULATED</span><strong>T = 2pi sqrt(r³ / μ)</strong><p>Two-body circular-orbit comparison from disclosed constants.</p></div>
+          <div><span>SIGNAL TRAVEL TIME / CALCULATED</span><strong>t = ρ / c</strong><p>Vacuum space-leg delay only. It is not application response time.</p></div>
+          <div><span>MAXIMUM SHADOW / CALCULATED</span><strong>te = T asin(RE / r) / pi</strong><p>Simple shadow estimate with the Sun in the orbit plane.</p></div>
         </div>
         <div className="model-sources">
           <span>EXTERNAL REFERENCES</span>
@@ -228,13 +225,13 @@ const missionProof: Record<string, string> = {
   "ground-engineering-tile": "One reusable 1 kW unit is intended to test compute, power, cooling, runtime recovery and telemetry on the ground.",
   "orbital-node-10kw": "The first owned flight system will be required to demonstrate continuous 10 kW payload operation, deployables, eclipse continuity and customer data flow.",
   "industrial-orbital-module": "100 kW scale is considered only after measured performance, demand and launch architecture are validated.",
-  "megawatt-orbital-network": "The 1 MW reference is modeled as ten measured 100 kW modules; it is not a claim for one monolithic spacecraft.",
+  "megawatt-orbital-network": "The 1 MW reference is a future ten-module architecture, conditional on validating each 100 kW module; it is not a claim for one monolithic spacecraft.",
 };
 
 function metricValue(metric: Metric | undefined, fallback = "TBD") {
   if (!metric) return fallback;
   if (metric.display?.value !== undefined) return `${metric.display.value.toFixed(metric.display.precision)} ${metric.display.unit}`;
-  if (metric.value !== undefined) return `${metric.value.toLocaleString(undefined, { maximumFractionDigits: 3 })} ${metric.unit}`;
+  if (metric.value !== undefined) return `${metric.value.toLocaleString("en-US", { maximumFractionDigits: 3 })} ${metric.unit}`;
   if (metric.min !== undefined && metric.max !== undefined) return `${metric.min}-${metric.max} ${metric.unit}`;
   return fallback;
 }
@@ -243,9 +240,9 @@ function MissionGraphic({ mission }: { mission: PublicMission }) {
   if (mission.id === "ground-engineering-tile") {
     return (
       <div className="ground-tile-graphic" aria-label="Ground engineering tile architecture">
-        <div><span>COMPUTE</span><strong>1 kW tile</strong></div>
+        <div><span>GROUND COMPUTE LOAD</span><strong>1 kW tile</strong></div>
         <i aria-hidden="true" />
-        <div><span>FACILITY LOOP</span><strong>power + cooling</strong></div>
+        <div><span>FACILITY SUPPORT</span><strong>power + cooling</strong></div>
         <p>GROUND ONLY / REUSABLE ENGINEERING BUILDING BLOCK</p>
       </div>
     );
@@ -272,9 +269,9 @@ function MissionGraphic({ mission }: { mission: PublicMission }) {
   const isIndustrial = mission.id === "industrial-orbital-module";
   return (
     <div className={isIndustrial ? "capacity-graphic industrial" : "capacity-graphic"} aria-label={`${mission.publicName} capacity diagram, physical geometry not selected`}>
-      <div><span>COMPUTE ENVELOPE</span><strong>{metricValue(mission.metrics.continuousCompute)}</strong></div>
-      <div><span>ACTIVE-PV EQUIVALENT</span><strong>{metricValue(mission.metrics.activePvEquivalentArea)}</strong></div>
-      <p>PHYSICAL GEOMETRY / TBD BY SUPPLIER</p>
+      <div><span>COMPUTE-POWER ENVELOPE</span><strong>{metricValue(mission.metrics.continuousCompute)}</strong></div>
+      <div><span>ACTIVE SOLAR-CELL AREA</span><strong>{metricValue(mission.metrics.activePvEquivalentArea)}</strong></div>
+      <p>PHYSICAL GEOMETRY / SUPPLIER DATA NEEDED</p>
     </div>
   );
 }
@@ -283,20 +280,43 @@ function missionMetrics(mission: PublicMission) {
   if (mission.id === "ground-engineering-tile") {
     return {
       compute: metricValue(mission.metrics.continuousCompute),
-      solar: "Facility supply",
-      battery: "Eclipse emulator",
-      radiator: "Facility cooling loop",
+      computeLabel: "ground compute-load target",
+      power: "External facility supply",
+      powerLabel: "Facility power",
+      continuity: "Simulated eclipse",
+      continuityLabel: "Power interruption test",
+      thermal: "Facility cooling loop",
+      thermalLabel: "Heat removal",
+      architectureLabel: "Ground test setup",
+      statusNote: "STAGE STATUS / Ground-validation assumptions only. No solar array, flight battery, or flight radiator is claimed for this tile; it uses facility power and cooling.",
     };
   }
   if (mission.id === "orbital-node-10kw") {
     return {
       compute: metricValue(mission.metrics.continuousCompute),
-      solar: `${metricValue(mission.metrics.solarBolPlanningRange)} planning`,
-      battery: `${metricValue(mission.metrics.batteryPlanningRange)} planning`,
-      radiator: `${metricValue(mission.metrics.radiatorPlanningRange)} planning`,
+      computeLabel: "flight compute-payload electrical input",
+      power: `${metricValue(mission.metrics.solarBolPlanningRange)} planning`,
+      powerLabel: "Solar power when new",
+      continuity: `${metricValue(mission.metrics.batteryPlanningRange)} planning`,
+      continuityLabel: "Flight battery energy",
+      thermal: `${metricValue(mission.metrics.radiatorPlanningRange)} planning`,
+      thermalLabel: "Flight radiator area",
+      architectureLabel: "Flight architecture",
+      statusNote: "STAGE STATUS / First-flight planning ranges. Solar power means output when new; battery and radiator values remain preliminary, and the visual is not flight CAD.",
     };
   }
-  return { compute: metricValue(mission.metrics.continuousCompute), solar: metricValue(mission.metrics.solarBolPower), battery: metricValue(mission.metrics.batteryEnergyScreen), radiator: `${metricValue(mission.metrics.radiatorEffectiveAreaScreen)} effective` };
+  return {
+    compute: metricValue(mission.metrics.continuousCompute),
+    computeLabel: "future compute-payload electrical input",
+    power: metricValue(mission.metrics.solarBolPower),
+    powerLabel: "Modeled solar power when new",
+    continuity: metricValue(mission.metrics.batteryEnergyScreen),
+    continuityLabel: "Modeled battery energy",
+    thermal: `${metricValue(mission.metrics.radiatorEffectiveAreaScreen)} effective`,
+    thermalLabel: "Modeled effective radiator area",
+    architectureLabel: "Future architecture",
+    statusNote: "STAGE STATUS / Future-scale calculation only, conditional on validated flight evidence. Solar area means active solar-cell equivalent and radiator area is idealized; visuals are not to a shared physical scale.",
+  };
 }
 
 export function ScaleJourney() {
@@ -327,15 +347,15 @@ export function ScaleJourney() {
         <div className="scale-visual scale-visual-v2"><MissionGraphic mission={mission} /></div>
         <div className="scale-title-row">
           <div><h3>{mission.publicName}</h3><p>{mission.description}</p></div>
-          <span>{metrics.compute}<small>continuous compute</small></span>
+          <span>{metrics.compute}<small>{metrics.computeLabel}</small></span>
         </div>
         <div className="scale-metrics">
-          <span><Sun aria-hidden="true" /><small>Solar BOL</small><strong>{metrics.solar}</strong></span>
-          <span><BatteryCharging aria-hidden="true" /><small>Battery</small><strong>{metrics.battery}</strong></span>
-          <span><ThermometerSun aria-hidden="true" /><small>Radiator</small><strong>{metrics.radiator}</strong></span>
-          <span><Gauge aria-hidden="true" /><small>Architecture</small><strong>{mission.architecture}</strong></span>
+          <span><Sun aria-hidden="true" /><small>{metrics.powerLabel}</small><strong>{metrics.power}</strong></span>
+          <span><BatteryCharging aria-hidden="true" /><small>{metrics.continuityLabel}</small><strong>{metrics.continuity}</strong></span>
+          <span><ThermometerSun aria-hidden="true" /><small>{metrics.thermalLabel}</small><strong>{metrics.thermal}</strong></span>
+          <span><Gauge aria-hidden="true" /><small>{metrics.architectureLabel}</small><strong>{mission.architecture}</strong></span>
         </div>
-        <p className="scale-status-note">MODEL STATUS / Working assumptions plus calculated Rev C screening values. The 1 kW tile is ground-only. Solar area is active-PV equivalent, radiator area is idealized effective area, and visuals do not share a physical scale.</p>
+        <p className="scale-status-note">{metrics.statusNote}</p>
       </div>
     </div>
   );

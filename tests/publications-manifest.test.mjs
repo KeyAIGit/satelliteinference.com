@@ -13,8 +13,8 @@ const copy = () => structuredClone(manifest);
 test("validates the two-purpose public reading set against its exact PDFs", async () => {
   assert.deepEqual(await validatePublicationManifest(manifest, publicRoot), { valid: true, documentCount: 2 });
   assert.deepEqual(manifest.documents.map(({ id }) => id), [
-    "public-whitepaper-v0-3",
-    "mission-definition-10kw-v0-2",
+    "public-whitepaper-v0-4",
+    "mission-definition-10kw-v0-3",
   ]);
   assert.ok(manifest.documents.every(({ filename }) => !/fundrais|capital|investor/i.test(filename)));
 });

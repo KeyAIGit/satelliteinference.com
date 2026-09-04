@@ -1,8 +1,11 @@
 export type ScenarioInputRecord = {
   id: string;
   unit: string;
-  evidenceStatus: "USER_INPUT";
+  evidenceStatus: "ILLUSTRATIVE_EDITABLE_INPUT" | "USER_EDITED_INPUT";
   value: number;
+  min: number;
+  max: number;
+  step: number;
 };
 
 export type ScenarioResult = {

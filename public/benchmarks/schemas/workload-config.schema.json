@@ -40,7 +40,7 @@
       "required": ["contract", "implementationStatus"],
       "properties": {
         "contract": { "const": "../lib/workload-adapter.mjs" },
-        "implementationStatus": { "const": "PENDING_MEASUREMENT" }
+        "implementationStatus": { "const": "PENDING_INPUT" }
       }
     },
     "metrics": {
@@ -70,7 +70,7 @@
       "required": ["manifestTemplate", "selectionStatus"],
       "properties": {
         "manifestTemplate": { "type": "string", "pattern": "^\\.\\./templates/[a-z-]+\\.template\\.json$" },
-        "selectionStatus": { "const": "PENDING_MEASUREMENT" }
+        "selectionStatus": { "const": "PENDING_INPUT" }
       }
     },
     "metricDefinition": {

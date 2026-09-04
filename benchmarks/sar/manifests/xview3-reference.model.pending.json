@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.0.0",
+  "modelManifestId": "xview3-reference.pending",
+  "version": "0.1.0",
+  "status": "PENDING_INPUT",
+  "title": "Pending xView3 reference-model selection",
+  "framework": null,
+  "architecture": null,
+  "weights": {
+    "uri": null,
+    "sha256": null,
+    "license": null
+  },
+  "preprocessing": [],
+  "postprocessing": [],
+  "notes": [
+    "Pin a source revision, compatible framework build, exact weights, and license before execution.",
+    "Do not infer compatibility with the local GPU from the historical reference environment."
+  ]
+}

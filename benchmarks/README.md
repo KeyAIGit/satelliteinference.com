@@ -23,6 +23,7 @@ telemetry, and measurement chain.
 ## Directory contract
 
 - `workloads/` contains three stable workload IDs with versioned configurations.
+- `sar/` contains the frozen pending D0 smoke protocol and its input manifests.
 - `templates/` contains pending dataset, model, and run-result manifests.
 - `../public/benchmarks/schemas/` contains the canonical, publicly resolvable JSON Schema 2020-12 contracts.
 - `lib/validate.mjs` applies fail-closed runtime validation without assuming a
@@ -40,6 +41,7 @@ telemetry, and measurement chain.
 
 | State | Meaning |
 |---|---|
+| `PENDING_INPUT` | A required dataset, model, adapter, or hardware description has not been selected and verified. Input manifests must not contain placeholder hashes or pretend that an intended device was observed. |
 | `PENDING_MEASUREMENT` | No real benchmark measurement is attached. Numeric values must be `null`. |
 | `MEASURED` | A real run and the required provenance are attached. |
 | `NOT_COLLECTED` | An optional instrument, such as board-energy or temperature telemetry, was not available for a measured run. |

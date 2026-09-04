@@ -11,15 +11,15 @@
   "firstFlightCandidate": true,
   "dataset": {
     "manifestTemplate": "../templates/dataset-manifest.template.json",
-    "selectionStatus": "PENDING_MEASUREMENT"
+    "selectionStatus": "PENDING_INPUT"
   },
   "model": {
     "manifestTemplate": "../templates/model-manifest.template.json",
-    "selectionStatus": "PENDING_MEASUREMENT"
+    "selectionStatus": "PENDING_INPUT"
   },
   "adapter": {
     "contract": "../lib/workload-adapter.mjs",
-    "implementationStatus": "PENDING_MEASUREMENT"
+    "implementationStatus": "PENDING_INPUT"
   },
   "metrics": {
     "elapsedTime": { "label": "End-to-end workload elapsed time", "unit": "ms", "evidenceState": "PENDING_MEASUREMENT" },
@@ -27,7 +27,7 @@
     "outputBytes": { "label": "Output bytes produced", "unit": "byte", "evidenceState": "PENDING_MEASUREMENT" },
     "energy": { "label": "Workload energy", "unit": "J", "evidenceState": "PENDING_MEASUREMENT" },
     "temperature": { "label": "Reported device temperature", "unit": "degC", "evidenceState": "PENDING_MEASUREMENT" },
-    "taskScore": { "label": "Average precision for the declared vessel class set", "unit": "ratio", "evidenceState": "PENDING_MEASUREMENT" }
+    "taskScore": { "label": "Localization F1 for maritime-object detections using a frozen 200 m matching tolerance", "unit": "ratio", "evidenceState": "PENDING_MEASUREMENT" }
   },
   "prohibitedClaims": [
     "No customer traction is implied.",

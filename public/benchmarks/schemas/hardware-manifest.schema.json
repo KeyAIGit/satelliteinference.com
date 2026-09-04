@@ -1,0 +1,119 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://satelliteinference.com/benchmarks/schemas/hardware-manifest.schema.json",
+  "title": "Satellite Inference hardware manifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "hardwareManifestId",
+    "version",
+    "status",
+    "title",
+    "intendedTarget",
+    "observed",
+    "source",
+    "notes"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "hardwareManifestId": { "type": "string", "pattern": "^[a-z0-9][a-z0-9.-]+$" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "status": { "enum": ["PENDING_INPUT", "VERIFIED_INPUT"] },
+    "title": { "type": "string", "minLength": 1 },
+    "intendedTarget": { "type": "string", "minLength": 1 },
+    "observed": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "hostOperatingSystem",
+        "cpu",
+        "systemMemoryBytes",
+        "acceleratorVendor",
+        "acceleratorModel",
+        "acceleratorMemoryBytes",
+        "driverVersion",
+        "cudaRuntime",
+        "computeCapability"
+      ],
+      "properties": {
+        "hostOperatingSystem": { "type": ["string", "null"] },
+        "cpu": { "type": ["string", "null"] },
+        "systemMemoryBytes": { "type": ["integer", "null"], "minimum": 1 },
+        "acceleratorVendor": { "type": ["string", "null"] },
+        "acceleratorModel": { "type": ["string", "null"] },
+        "acceleratorMemoryBytes": { "type": ["integer", "null"], "minimum": 1 },
+        "driverVersion": { "type": ["string", "null"] },
+        "cudaRuntime": { "type": ["string", "null"] },
+        "computeCapability": { "type": ["string", "null"] }
+      }
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["diagnostic", "capturedAt", "sha256"],
+      "properties": {
+        "diagnostic": { "type": ["string", "null"] },
+        "capturedAt": { "type": ["string", "null"], "format": "date-time" },
+        "sha256": { "type": ["string", "null"], "pattern": "^[a-f0-9]{64}$" }
+      }
+    },
+    "notes": { "type": "array", "items": { "type": "string", "minLength": 1 } }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "status": { "const": "PENDING_INPUT" } }, "required": ["status"] },
+      "then": {
+        "properties": {
+          "observed": {
+            "properties": {
+              "hostOperatingSystem": { "type": "null" },
+              "cpu": { "type": "null" },
+              "systemMemoryBytes": { "type": "null" },
+              "acceleratorVendor": { "type": "null" },
+              "acceleratorModel": { "type": "null" },
+              "acceleratorMemoryBytes": { "type": "null" },
+              "driverVersion": { "type": "null" },
+              "cudaRuntime": { "type": "null" },
+              "computeCapability": { "type": "null" }
+            }
+          },
+          "source": {
+            "properties": {
+              "diagnostic": { "type": "null" },
+              "capturedAt": { "type": "null" },
+              "sha256": { "type": "null" }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": { "properties": { "status": { "const": "VERIFIED_INPUT" } }, "required": ["status"] },
+      "then": {
+        "properties": {
+          "observed": {
+            "properties": {
+              "hostOperatingSystem": { "type": "string", "minLength": 1 },
+              "cpu": { "type": "string", "minLength": 1 },
+              "systemMemoryBytes": { "type": "integer", "minimum": 1 },
+              "acceleratorVendor": { "type": "string", "minLength": 1 },
+              "acceleratorModel": { "type": "string", "minLength": 1 },
+              "acceleratorMemoryBytes": { "type": "integer", "minimum": 1 },
+              "driverVersion": { "type": "string", "minLength": 1 },
+              "cudaRuntime": { "type": "string", "minLength": 1 },
+              "computeCapability": { "type": "string", "minLength": 1 }
+            }
+          },
+          "source": {
+            "properties": {
+              "diagnostic": { "type": "string", "minLength": 1 },
+              "capturedAt": { "type": "string", "format": "date-time" },
+              "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

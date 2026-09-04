@@ -115,8 +115,8 @@ function validatePendingDependency(value, path, expectedTemplate) {
   if (value.manifestTemplate !== expectedTemplate) {
     invalid(`${path}.manifestTemplate`, `must equal ${expectedTemplate}`);
   }
-  if (value.selectionStatus !== "PENDING_MEASUREMENT") {
-    invalid(`${path}.selectionStatus`, "must remain PENDING_MEASUREMENT before selection");
+  if (value.selectionStatus !== "PENDING_INPUT") {
+    invalid(`${path}.selectionStatus`, "must remain PENDING_INPUT before selection");
   }
 }
 
@@ -197,8 +197,8 @@ export function validateWorkloadConfig(value) {
   if (value.adapter.contract !== "../lib/workload-adapter.mjs") {
     invalid("config.adapter.contract", "must reference the public adapter contract");
   }
-  if (value.adapter.implementationStatus !== "PENDING_MEASUREMENT") {
-    invalid("config.adapter.implementationStatus", "must remain PENDING_MEASUREMENT");
+  if (value.adapter.implementationStatus !== "PENDING_INPUT") {
+    invalid("config.adapter.implementationStatus", "must remain PENDING_INPUT");
   }
 
   exactKeys(value.metrics, METRIC_KEYS, "config.metrics");
@@ -225,7 +225,7 @@ export function validateDatasetManifest(value) {
     invalid("dataset.datasetManifestId", "must be a stable lowercase ID");
   }
   if (typeof value.version !== "string" || !MANIFEST_VERSION.test(value.version)) invalid("dataset.version", "must be semantic version text");
-  if (!["PENDING_MEASUREMENT", "VERIFIED_INPUT"].includes(value.status)) invalid("dataset.status", "unknown state");
+  if (!["PENDING_INPUT", "VERIFIED_INPUT"].includes(value.status)) invalid("dataset.status", "unknown state");
   string(value.title, "dataset.title");
   string(value.description, "dataset.description");
   if (value.modality !== null && !["OPTICAL_IMAGERY", "SAR_IMAGERY"].includes(value.modality)) {
@@ -253,18 +253,18 @@ export function validateDatasetManifest(value) {
   exactKeys(value.labels, ["taxonomyUri", "annotationProtocol", "reviewStatus"], "dataset.labels");
   nullableUri(value.labels.taxonomyUri, "dataset.labels.taxonomyUri");
   nullableString(value.labels.annotationProtocol, "dataset.labels.annotationProtocol");
-  if (!["PENDING_MEASUREMENT", "VERIFIED_INPUT"].includes(value.labels.reviewStatus)) {
+  if (!["PENDING_INPUT", "VERIFIED_INPUT"].includes(value.labels.reviewStatus)) {
     invalid("dataset.labels.reviewStatus", "unknown state");
   }
   array(value.notes, "dataset.notes");
   value.notes.forEach((note, index) => string(note, `dataset.notes[${index}]`));
 
-  if (value.status === "PENDING_MEASUREMENT") {
+  if (value.status === "PENDING_INPUT") {
     for (const [key, entry] of Object.entries(value.source)) {
       if (entry !== null) invalid(`dataset.source.${key}`, "must be null while pending");
     }
     if (value.artifacts.length !== 0) invalid("dataset.artifacts", "must be empty while pending");
-    if (value.labels.reviewStatus !== "PENDING_MEASUREMENT") {
+    if (value.labels.reviewStatus !== "PENDING_INPUT") {
       invalid("dataset.labels.reviewStatus", "must remain pending");
     }
   } else {
@@ -295,7 +295,7 @@ export function validateModelManifest(value) {
     invalid("model.modelManifestId", "must be a stable lowercase ID");
   }
   if (typeof value.version !== "string" || !MANIFEST_VERSION.test(value.version)) invalid("model.version", "must be semantic version text");
-  if (!["PENDING_MEASUREMENT", "VERIFIED_INPUT"].includes(value.status)) invalid("model.status", "unknown state");
+  if (!["PENDING_INPUT", "VERIFIED_INPUT"].includes(value.status)) invalid("model.status", "unknown state");
   string(value.title, "model.title");
   nullableString(value.framework, "model.framework");
   nullableString(value.architecture, "model.architecture");
@@ -308,7 +308,7 @@ export function validateModelManifest(value) {
     value[key].forEach((entry, index) => string(entry, `model.${key}[${index}]`));
   }
 
-  if (value.status === "PENDING_MEASUREMENT") {
+  if (value.status === "PENDING_INPUT") {
     for (const key of ["framework", "architecture"]) {
       if (value[key] !== null) invalid(`model.${key}`, "must be null while pending");
     }
@@ -326,6 +326,176 @@ export function validateModelManifest(value) {
       if (entry === null) invalid(`model.weights.${key}`, "must be set for verified input");
     }
   }
+  return true;
+}
+
+export function validateHardwareManifest(value) {
+  exactKeys(
+    value,
+    ["schemaVersion", "hardwareManifestId", "version", "status", "title", "intendedTarget", "observed", "source", "notes"],
+    "hardware",
+  );
+  if (value.schemaVersion !== "1.0.0") invalid("hardware.schemaVersion", "unsupported version");
+  if (typeof value.hardwareManifestId !== "string" || !STABLE_ID.test(value.hardwareManifestId)) {
+    invalid("hardware.hardwareManifestId", "must be a stable lowercase ID");
+  }
+  if (typeof value.version !== "string" || !SEMVER.test(value.version)) {
+    invalid("hardware.version", "must be semantic version text");
+  }
+  if (!["PENDING_INPUT", "VERIFIED_INPUT"].includes(value.status)) {
+    invalid("hardware.status", "unknown state");
+  }
+  string(value.title, "hardware.title");
+  string(value.intendedTarget, "hardware.intendedTarget");
+
+  const observedKeys = [
+    "hostOperatingSystem",
+    "cpu",
+    "systemMemoryBytes",
+    "acceleratorVendor",
+    "acceleratorModel",
+    "acceleratorMemoryBytes",
+    "driverVersion",
+    "cudaRuntime",
+    "computeCapability",
+  ];
+  exactKeys(value.observed, observedKeys, "hardware.observed");
+  for (const key of observedKeys) {
+    const entry = value.observed[key];
+    if (["systemMemoryBytes", "acceleratorMemoryBytes"].includes(key)) {
+      if (entry !== null && (!Number.isInteger(entry) || entry < 1)) {
+        invalid(`hardware.observed.${key}`, "must be a positive integer or null");
+      }
+    } else {
+      nullableString(entry, `hardware.observed.${key}`);
+    }
+  }
+
+  exactKeys(value.source, ["diagnostic", "capturedAt", "sha256"], "hardware.source");
+  nullableString(value.source.diagnostic, "hardware.source.diagnostic");
+  nullableDateTime(value.source.capturedAt, "hardware.source.capturedAt");
+  nullableSha256(value.source.sha256, "hardware.source.sha256");
+  array(value.notes, "hardware.notes");
+  value.notes.forEach((note, index) => string(note, `hardware.notes[${index}]`));
+
+  if (value.status === "PENDING_INPUT") {
+    for (const [key, entry] of Object.entries(value.observed)) {
+      if (entry !== null) invalid(`hardware.observed.${key}`, "must be null while pending");
+    }
+    for (const [key, entry] of Object.entries(value.source)) {
+      if (entry !== null) invalid(`hardware.source.${key}`, "must be null while pending");
+    }
+  } else {
+    for (const [key, entry] of Object.entries(value.observed)) {
+      if (entry === null) invalid(`hardware.observed.${key}`, "must be set for verified input");
+    }
+    for (const [key, entry] of Object.entries(value.source)) {
+      if (entry === null) invalid(`hardware.source.${key}`, "must be set for verified input");
+    }
+  }
+  return true;
+}
+
+export function validateD0SmokeConfig(value) {
+  exactKeys(
+    value,
+    [
+      "schemaVersion",
+      "configVersion",
+      "protocolId",
+      "status",
+      "workloadId",
+      "scope",
+      "inputState",
+      "measurementState",
+      "manifests",
+      "adapter",
+      "scoring",
+      "execution",
+      "prohibitedClaims",
+    ],
+    "d0",
+  );
+  if (value.schemaVersion !== "1.0.0") invalid("d0.schemaVersion", "unsupported version");
+  if (typeof value.configVersion !== "string" || !SEMVER.test(value.configVersion)) {
+    invalid("d0.configVersion", "must be semantic version text");
+  }
+  if (value.protocolId !== "sar-d0-smoke") invalid("d0.protocolId", "must remain sar-d0-smoke");
+  if (value.status !== "PENDING_INPUT") invalid("d0.status", "must remain PENDING_INPUT");
+  if (value.workloadId !== "sar-vessel-detection") {
+    invalid("d0.workloadId", "must remain sar-vessel-detection");
+  }
+  string(value.scope, "d0.scope");
+  if (value.inputState !== "PENDING_INPUT") invalid("d0.inputState", "must remain PENDING_INPUT");
+  if (value.measurementState !== "PENDING_MEASUREMENT") {
+    invalid("d0.measurementState", "must remain PENDING_MEASUREMENT");
+  }
+
+  exactKeys(value.manifests, ["dataset", "model", "hardware"], "d0.manifests");
+  const manifestPaths = {
+    dataset: "../manifests/xview3-d0-smoke.dataset.pending.json",
+    model: "../manifests/xview3-reference.model.pending.json",
+    hardware: "../manifests/local-nvidia-gpu.hardware.pending.json",
+  };
+  for (const [key, expected] of Object.entries(manifestPaths)) {
+    if (value.manifests[key] !== expected) invalid(`d0.manifests.${key}`, `must equal ${expected}`);
+  }
+
+  exactKeys(value.adapter, ["id", "implementationState"], "d0.adapter");
+  if (value.adapter.id !== null) invalid("d0.adapter.id", "must be null while pending");
+  if (value.adapter.implementationState !== "PENDING_INPUT") {
+    invalid("d0.adapter.implementationState", "must remain PENDING_INPUT");
+  }
+
+  exactKeys(
+    value.scoring,
+    ["primaryMetric", "matching", "groundTruthConfidence", "scorerState", "evidenceState"],
+    "d0.scoring",
+  );
+  if (value.scoring.primaryMetric !== "localizationF1") {
+    invalid("d0.scoring.primaryMetric", "must remain localizationF1");
+  }
+  exactKeys(value.scoring.matching, ["method", "tolerance", "unit"], "d0.scoring.matching");
+  if (value.scoring.matching.method !== "GEODESIC_DISTANCE") {
+    invalid("d0.scoring.matching.method", "must remain GEODESIC_DISTANCE");
+  }
+  if (value.scoring.matching.tolerance !== 200) {
+    invalid("d0.scoring.matching.tolerance", "must remain 200");
+  }
+  if (value.scoring.matching.unit !== "m") invalid("d0.scoring.matching.unit", "must remain m");
+  if (
+    !Array.isArray(value.scoring.groundTruthConfidence)
+    || value.scoring.groundTruthConfidence.length !== 2
+    || value.scoring.groundTruthConfidence[0] !== "HIGH"
+    || value.scoring.groundTruthConfidence[1] !== "MEDIUM"
+  ) {
+    invalid("d0.scoring.groundTruthConfidence", "must remain [HIGH, MEDIUM]");
+  }
+  if (value.scoring.scorerState !== "PENDING_INPUT") {
+    invalid("d0.scoring.scorerState", "must remain PENDING_INPUT");
+  }
+  if (value.scoring.evidenceState !== "PENDING_MEASUREMENT") {
+    invalid("d0.scoring.evidenceState", "must remain PENDING_MEASUREMENT");
+  }
+
+  exactKeys(
+    value.execution,
+    ["plannedSceneCount", "sceneSelectionState", "resultState"],
+    "d0.execution",
+  );
+  if (value.execution.plannedSceneCount !== 3) {
+    invalid("d0.execution.plannedSceneCount", "must remain 3");
+  }
+  if (value.execution.sceneSelectionState !== "PENDING_INPUT") {
+    invalid("d0.execution.sceneSelectionState", "must remain PENDING_INPUT");
+  }
+  if (value.execution.resultState !== "PENDING_MEASUREMENT") {
+    invalid("d0.execution.resultState", "must remain PENDING_MEASUREMENT");
+  }
+
+  array(value.prohibitedClaims, "d0.prohibitedClaims");
+  if (value.prohibitedClaims.length === 0) invalid("d0.prohibitedClaims", "must not be empty");
+  value.prohibitedClaims.forEach((claim, index) => string(claim, `d0.prohibitedClaims[${index}]`));
   return true;
 }
 

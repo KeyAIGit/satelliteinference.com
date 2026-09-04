@@ -7,7 +7,9 @@ import { buildNvidiaSmiReadOnlyInvocation, runNvidiaSmiReadOnlyDiagnostic } from
 import { generatePendingResult } from "../benchmarks/lib/pending-result.mjs";
 import { createTelemetryRecord } from "../benchmarks/lib/telemetry.mjs";
 import {
+  validateD0SmokeConfig,
   validateDatasetManifest,
+  validateHardwareManifest,
   validateModelManifest,
   validateRunResult,
   validateWorkloadConfig,
@@ -37,6 +39,14 @@ async function loadWorkloads() {
 
 function clone(value) {
   return structuredClone(value);
+}
+
+function verifiedInputProperties(schema) {
+  const verifiedInputRule = schema.allOf.find(
+    (rule) => rule.if?.properties?.status?.const === "VERIFIED_INPUT",
+  );
+  assert.ok(verifiedInputRule, `${schema.title} must define VERIFIED_INPUT constraints`);
+  return verifiedInputRule.then.properties;
 }
 
 test("publishes one primary, one secondary, and one control workload", async () => {
@@ -69,6 +79,8 @@ test("keeps schemas strict and pending manifest templates valid", async () => {
   for (const filename of [
     "workload-config.schema.json",
     "dataset-manifest.schema.json",
+    "d0-smoke-config.schema.json",
+    "hardware-manifest.schema.json",
     "model-manifest.schema.json",
     "run-result.schema.json",
   ]) {
@@ -82,6 +94,141 @@ test("keeps schemas strict and pending manifest templates valid", async () => {
   assert.equal(validateDatasetManifest(dataset), true);
   assert.equal(validateModelManifest(model), true);
   assert.equal(validateRunResult(result), true);
+});
+
+test("encodes runtime VERIFIED_INPUT completeness rules in the public manifest schemas", async () => {
+  const datasetSchema = await loadJson("../public/benchmarks/schemas/dataset-manifest.schema.json");
+  const modelSchema = await loadJson("../public/benchmarks/schemas/model-manifest.schema.json");
+  const dataset = verifiedInputProperties(datasetSchema);
+  const model = verifiedInputProperties(modelSchema);
+
+  assert.equal(dataset.modality.type, "string");
+  for (const key of ["uri", "license", "acquiredAt", "sha256"]) {
+    assert.equal(dataset.source.properties[key].type, "string");
+  }
+  assert.equal(dataset.artifacts.minItems, 1);
+  assert.equal(dataset.labels.properties.reviewStatus.const, "VERIFIED_INPUT");
+
+  assert.equal(model.framework.type, "string");
+  assert.equal(model.architecture.type, "string");
+  for (const key of ["uri", "sha256", "license"]) {
+    assert.equal(model.weights.properties[key].type, "string");
+  }
+});
+
+test("rejects incomplete VERIFIED_INPUT dataset and model manifests", async () => {
+  const dataset = await loadJson("../benchmarks/templates/dataset-manifest.template.json");
+  Object.assign(dataset, {
+    datasetManifestId: "verified-dataset.test",
+    version: "1.0.0",
+    status: "VERIFIED_INPUT",
+    modality: "SAR_IMAGERY",
+    source: {
+      uri: "https://example.com/datasets/test",
+      license: "CC-BY-4.0",
+      acquiredAt: "2026-09-04T00:00:00.000Z",
+      sha256: "a".repeat(64),
+    },
+    artifacts: [{
+      id: "scene-1",
+      uri: "https://example.com/datasets/test/scene-1.tif",
+      sha256: "b".repeat(64),
+      sampleCount: 1,
+    }],
+    labels: {
+      taxonomyUri: null,
+      annotationProtocol: null,
+      reviewStatus: "VERIFIED_INPUT",
+    },
+  });
+  assert.equal(validateDatasetManifest(dataset), true);
+
+  const incompleteDatasets = [
+    ["missing modality", (value) => { value.modality = null; }, /modality.*must be set/],
+    ["missing source URI", (value) => { value.source.uri = null; }, /source\.uri.*must be set/],
+    ["missing source license", (value) => { value.source.license = null; }, /source\.license.*must be set/],
+    ["missing acquisition time", (value) => { value.source.acquiredAt = null; }, /source\.acquiredAt.*must be set/],
+    ["missing source hash", (value) => { value.source.sha256 = null; }, /source\.sha256.*must be set/],
+    ["missing artifacts", (value) => { value.artifacts = []; }, /must contain hashed artifacts/],
+    ["unverified labels", (value) => { value.labels.reviewStatus = "PENDING_INPUT"; }, /reviewStatus.*must be verified/],
+  ];
+  for (const [description, mutate, expected] of incompleteDatasets) {
+    const incomplete = clone(dataset);
+    mutate(incomplete);
+    assert.throws(() => validateDatasetManifest(incomplete), expected, description);
+  }
+
+  const model = await loadJson("../benchmarks/templates/model-manifest.template.json");
+  Object.assign(model, {
+    modelManifestId: "verified-model.test",
+    version: "1.0.0",
+    status: "VERIFIED_INPUT",
+    framework: "ONNX Runtime",
+    architecture: "Reference detector",
+    weights: {
+      uri: "https://example.com/models/test.onnx",
+      sha256: "c".repeat(64),
+      license: "Apache-2.0",
+    },
+  });
+  assert.equal(validateModelManifest(model), true);
+
+  const incompleteModels = [
+    ["missing framework", (value) => { value.framework = null; }, /framework.*must be set/],
+    ["missing architecture", (value) => { value.architecture = null; }, /architecture.*must be set/],
+    ["missing weights URI", (value) => { value.weights.uri = null; }, /weights\.uri.*must be set/],
+    ["missing weights hash", (value) => { value.weights.sha256 = null; }, /weights\.sha256.*must be set/],
+    ["missing weights license", (value) => { value.weights.license = null; }, /weights\.license.*must be set/],
+  ];
+  for (const [description, mutate, expected] of incompleteModels) {
+    const incomplete = clone(model);
+    mutate(incomplete);
+    assert.throws(() => validateModelManifest(incomplete), expected, description);
+  }
+});
+
+test("freezes an honest pending SAR D0 smoke protocol", async () => {
+  const config = await loadJson("../benchmarks/sar/configs/d0-smoke.v1.json");
+  const dataset = await loadJson("../benchmarks/sar/manifests/xview3-d0-smoke.dataset.pending.json");
+  const model = await loadJson("../benchmarks/sar/manifests/xview3-reference.model.pending.json");
+  const hardware = await loadJson("../benchmarks/sar/manifests/local-nvidia-gpu.hardware.pending.json");
+  const workload = await loadJson("../benchmarks/workloads/sar-vessel-detection.v1.json");
+  const configSchema = await loadJson("../public/benchmarks/schemas/d0-smoke-config.schema.json");
+  const hardwareSchema = await loadJson("../public/benchmarks/schemas/hardware-manifest.schema.json");
+
+  assert.equal(validateD0SmokeConfig(config), true);
+  assert.equal(validateDatasetManifest(dataset), true);
+  assert.equal(validateModelManifest(model), true);
+  assert.equal(validateHardwareManifest(hardware), true);
+
+  assert.equal(config.status, "PENDING_INPUT");
+  assert.equal(config.measurementState, "PENDING_MEASUREMENT");
+  assert.equal(config.scoring.primaryMetric, "localizationF1");
+  assert.deepEqual(config.scoring.matching, {
+    method: "GEODESIC_DISTANCE",
+    tolerance: 200,
+    unit: "m",
+  });
+  assert.deepEqual(config.scoring.groundTruthConfidence, ["HIGH", "MEDIUM"]);
+  assert.equal(
+    workload.metrics.taskScore.label,
+    "Localization F1 for maritime-object detections using a frozen 200 m matching tolerance",
+  );
+
+  assert.equal(dataset.status, "PENDING_INPUT");
+  assert.ok(Object.values(dataset.source).every((value) => value === null));
+  assert.deepEqual(dataset.artifacts, []);
+  assert.equal(model.status, "PENDING_INPUT");
+  assert.equal(model.framework, null);
+  assert.equal(model.architecture, null);
+  assert.ok(Object.values(model.weights).every((value) => value === null));
+  assert.equal(hardware.status, "PENDING_INPUT");
+  assert.ok(Object.values(hardware.observed).every((value) => value === null));
+  assert.ok(Object.values(hardware.source).every((value) => value === null));
+
+  assert.equal(configSchema.properties.scoring.properties.primaryMetric.const, "localizationF1");
+  assert.equal(configSchema.properties.scoring.properties.matching.properties.tolerance.const, 200);
+  assert.deepEqual(hardwareSchema.properties.status.enum, ["PENDING_INPUT", "VERIFIED_INPUT"]);
 });
 
 test("generates deterministic pending records without numeric benchmark claims", async () => {
@@ -124,6 +271,18 @@ test("fails closed on unknown fields, malformed inputs, and fabricated pending v
   nonFinite.runId = `run-${config.workloadId}-nonfinite`;
   nonFinite.measurements.elapsedTime = { value: Number.NaN, unit: "ms", evidenceState: "MEASURED" };
   assert.throws(() => validateRunResult(nonFinite), /finite number/);
+
+  const d0 = await loadJson("../benchmarks/sar/configs/d0-smoke.v1.json");
+  d0.scoring.matching.tolerance = 100;
+  assert.throws(() => validateD0SmokeConfig(d0), /must remain 200/);
+
+  const pendingHardware = await loadJson("../benchmarks/sar/manifests/local-nvidia-gpu.hardware.pending.json");
+  pendingHardware.observed.acceleratorModel = "Unverified accelerator";
+  assert.throws(() => validateHardwareManifest(pendingHardware), /must be null while pending/);
+
+  const pendingDataset = await loadJson("../benchmarks/sar/manifests/xview3-d0-smoke.dataset.pending.json");
+  pendingDataset.source.sha256 = "0".repeat(64);
+  assert.throws(() => validateDatasetManifest(pendingDataset), /must be null while pending/);
 });
 
 test("enforces the hardware-neutral WorkloadAdapter contract", async () => {

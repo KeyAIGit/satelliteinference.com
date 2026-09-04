@@ -1,6 +1,9 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
+const siteDescription =
+  "A proposed computing spacecraft (node) in low Earth orbit (LEO), targeting 10 kW of continuous electrical input to its onboard computing equipment (payload); SAR maritime vessel detection and scene prioritization is the primary ground benchmark candidate.";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://satelliteinference.com"),
   alternates: { canonical: "/" },
@@ -8,8 +11,7 @@ export const metadata: Metadata = {
     default: "Satellite Inference | Orbital Computing Infrastructure",
     template: "%s | Satellite Inference",
   },
-  description:
-    "A proposed 10 kW orbital compute node for processing time-sensitive SAR and Earth-observation data in low Earth orbit.",
+  description: siteDescription,
   applicationName: "Satellite Inference",
   authors: [{ name: "RFID INC" }],
   keywords: [
@@ -25,13 +27,13 @@ export const metadata: Metadata = {
     url: "https://satelliteinference.com",
     siteName: "Satellite Inference",
     title: "Satellite Inference | Orbital Computing Infrastructure",
-    description: "A proposed 10 kW orbital compute node for time-sensitive SAR and Earth-observation data in low Earth orbit.",
+    description: siteDescription,
     images: [{ url: "/og.png", width: 1200, height: 630, alt: "Satellite Inference orbital computing infrastructure" }],
   },
   twitter: {
     card: "summary_large_image",
     title: "Satellite Inference | Orbital Computing Infrastructure",
-    description: "A proposed 10 kW orbital compute node for time-sensitive SAR and Earth-observation data in low Earth orbit.",
+    description: siteDescription,
     images: [{ url: "/og.png", alt: "Satellite Inference orbital computing infrastructure" }],
   },
   robots: { index: true, follow: true },

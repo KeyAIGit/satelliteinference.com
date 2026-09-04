@@ -4,18 +4,18 @@ Public website and publication layer for Satellite Inference™, currently opera
 
 > Compute where space data begins.
 
-The site explains a staged path from a 1 kW ground engineering tile to a first 10 kW continuous-compute node in low Earth orbit. Its interactive Orbit Lab moves from 200 km to GEO using deterministic, client-side calculations for orbital period, worst-case beta-0 eclipse, and vacuum propagation delay. LEO is the mission baseline; GEO remains a comparison case. The public Inference Evidence Lab screens three ground workload candidates without inventing benchmark results.
+The site explains a staged path from a 1 kW ground engineering tile to a first low Earth orbit node delivering 10 kW of continuous electrical input to a compute payload. Its interactive Orbit Lab moves from 200 km to GEO using deterministic, client-side calculations for orbital period, worst-case beta-0 eclipse, and vacuum propagation delay. LEO is the mission baseline; GEO remains a comparison case. The public Inference Evidence Lab screens three ground workload candidates without inventing benchmark results.
 
 ## Public mission names
 
-| Name | Identifier | Continuous compute |
+| Name | Identifier | Continuous compute-payload electrical input |
 |---|---|---:|
 | Ground Engineering Tile | Ground / 1 kW | 1 kW, ground only |
 | 10 kW Orbital Node | LEO / 10 kW | 10 kW |
 | 100 kW Orbital Module | Scale / 100 kW | 100 kW |
 | Megawatt Orbital Network | Network / 1 MW | 1 MW aggregate |
 
-Continuous compute, solar generation and aggregate network capacity are stated separately. The Megawatt Orbital Network is exactly a ten-module reference architecture: 10 x 100 kW continuous compute = 1 MW aggregate.
+Compute-payload electrical input, solar generation and aggregate network capacity are stated separately. The Megawatt Orbital Network is a future ten-module reference architecture, conditional on validating each 100 kW module: 10 x 100 kW = 1 MW aggregate.
 
 ## Public model contract
 
@@ -35,11 +35,13 @@ Equation-based tests recompute the published values from those files. Important 
 
 ## Publications
 
-- `public/documents/Satellite_Inference_Public_Whitepaper_v0.3.pdf`
-- `public/documents/Node_10kW_Public_Mission_Definition_v0.2.pdf`
+- `public/documents/Satellite_Inference_Public_Whitepaper_v0.4.pdf`
+- `public/documents/Node_10kW_Public_Mission_Definition_v0.3.pdf`
 - `public/documents/manifest.json`
 
 These two PDFs have distinct jobs. The whitepaper is the starting point for the product and program thesis. The mission definition is the technical companion for first-flight requirements and success criteria. They are public concept documents, not flight-release data, manufacturing CAD, supplier quotations, launch reservations, regulatory determinations, or financing material.
+
+Only the two files listed in the manifest are current. Public Whitepaper v0.3 and Mission Definition v0.2 remain available at their original URLs as superseded archives so existing citations do not silently change.
 
 The `/publications` route renders this release set from the manifest and exposes exact page counts, byte sizes, SHA-256 digests, and document-level disclaimers.
 

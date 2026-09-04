@@ -27,7 +27,7 @@ type ScenarioInput = {
   max: number;
   step: number;
   unit: string;
-  evidenceStatus: "USER_INPUT";
+  evidenceStatus: "ILLUSTRATIVE_EDITABLE_INPUT" | "USER_EDITED_INPUT";
 };
 
 type MeasurementField = {
@@ -59,14 +59,16 @@ export function EvidenceLab({ workloads, scenarioInputs, measurementFields }: Ev
 
   const updateInput = (id: string, rawValue: string) => {
     const value = rawValue.trim() === "" ? Number.NaN : Number(rawValue);
-    setInputs((current) => current.map((input) => input.id === id ? { ...input, value } : input));
+    setInputs((current) => current.map((input) => input.id === id
+      ? { ...input, value, evidenceStatus: "USER_EDITED_INPUT" }
+      : input));
   };
 
   return (
     <div className={styles.labShell}>
       <div className={styles.workloadRail}>
-        <p className={styles.railLabel}>BENCHMARK PRIORITY</p>
-        <div className={styles.tabs} role="group" aria-label="Candidate workload selector">
+        <p className={styles.railLabel}>WORKLOAD DESCRIPTIONS / SAR FIRST</p>
+        <div className={styles.tabs} role="group" aria-label="Workload descriptions, ordered with SAR maritime first">
           {workloads.map((workload, index) => (
             <button
               key={workload.id}
@@ -98,7 +100,7 @@ export function EvidenceLab({ workloads, scenarioInputs, measurementFields }: Ev
 
       <div className={styles.scenarioPanel}>
         <div className={styles.scenarioHead}>
-          <div><span>EDITABLE / LOCAL</span><h3>Data-volume scenario</h3></div>
+          <div><span>SHARED ILLUSTRATION / LOCAL</span><h3>Data-volume calculator</h3></div>
           <Database aria-hidden="true" />
         </div>
         <div className={styles.inputGrid}>
@@ -117,7 +119,9 @@ export function EvidenceLab({ workloads, scenarioInputs, measurementFields }: Ev
                 />
                 <strong>{input.unit}</strong>
               </div>
-              <small id={`${input.id}-meta`}>{input.evidenceStatus} / range {input.min}-{input.max}</small>
+              <small id={`${input.id}-meta`}>
+                {input.evidenceStatus === "USER_EDITED_INPUT" ? "USER EDITED" : "ILLUSTRATIVE DEFAULT"} / range {input.min}-{input.max}
+              </small>
             </label>
           ))}
         </div>
@@ -135,18 +139,19 @@ export function EvidenceLab({ workloads, scenarioInputs, measurementFields }: Ev
           </div>
         ) : null}
 
-        <div className={styles.pendingGrid} aria-label="Fields requiring measurement">
+        <div className={styles.pendingGrid} aria-label="Ground benchmark fields requiring hardware measurement">
           {measurementFields.map((field) => (
             <div key={field.id}>
-              <span>{field.label}</span>
-              <strong>Not measured</strong>
-              <small>{field.unit} / {field.evidenceStatus}</small>
+              <span>GROUND BENCHMARK / {field.label}</span>
+              <strong>Not measured yet</strong>
+              <small>{field.unit} / HARDWARE TEST REQUIRED</small>
             </div>
           ))}
         </div>
         <p className={styles.scenarioDisclaimer}>
-          The displayed volume ratio follows only from your inputs. It is not a measured downlink reduction,
-          operational promise, link budget, or proxy for model quality.
+          Changing workload tabs changes only the description; all three share these illustrative
+          inputs and arithmetic. The displayed ratio is not a workload comparison, measured downlink
+          reduction, operational promise, link budget, or measure of hardware or model performance.
         </p>
       </div>
     </div>
