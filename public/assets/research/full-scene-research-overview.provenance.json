@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "purpose": "factual_website_research_figure",
+  "scene_id": "5c3d986db930f848v",
+  "acquisition_utc": "2020-08-03T07:57:21.931958Z",
+  "source_raster_sha256": "0bacf5b0dd7a4c09a3f77ec2a7b794612bdf8e2635b3baf7c4b38a1b2bc69968",
+  "source_dataset_url": "https://huggingface.co/datasets/ConnorLuckettDSTG/SARFishSample",
+  "run_result_sha256": "cde6187edf02db72f1fdc28cace78d5907ab7b091acf735a1f8e396437abe7a6",
+  "candidates_geojson_sha256": "065ea5e44efac24f094f652c3777471f958e20b8a90c128b5195fff94b9e3e8a",
+  "script_sha256": "6dd1385fb6c98a292610e856b77cb999023c907e4b7496af588134f002fe87c4",
+  "image_sha256": "d8c4c508e2df61828a8352d3c595aef5749761bfc576e1e4c6fa6943b0672cc8",
+  "image_pixels": [
+    1600,
+    1000
+  ],
+  "image_bytes": 707494,
+  "candidate_count": 1757,
+  "candidate_selection": "all saved run1 features; no filtering or cherry-picking",
+  "source_pixels": 421193064,
+  "classification": "unverified_radar_candidate",
+  "confirmed_vessel_count": null,
+  "geolocation": {
+    "method": "embedded source GCPs, GDAL thin-plate spline",
+    "crs": "EPSG:4326",
+    "independent_accuracy_verified": false,
+    "known_limitation": "Published-label native pixel positions and published geographic coordinates disagree; unresolved. This figure does not imply meter-level location accuracy."
+  },
+  "display": {
+    "overview_dimensions": [
+      900,
+      592
+    ],
+    "resampling": "average",
+    "display_transform": "log1p(amplitude)",
+    "display_percentiles": [
+      2,
+      99.5
+    ],
+    "colors": "monotonic navy-to-light grayscale-like colormap; amber candidate points",
+    "used_for_detection": false
+  },
+  "attribution": "Contains modified Copernicus Sentinel data (2020), SARFish. Data: CC BY-SA 3.0 IGO.",
+  "license_source": "https://github.com/DIUx-xView/SARFish/blob/main/SARFish_Terms_and_Conditions.md",
+  "caption": "One historic full Sentinel-1B scene and every candidate from the frozen CPU baseline. Research candidates, not confirmed vessels. Approximate GCP/TPS geolocation; published-label coordinate mismatch remains unresolved.",
+  "private_information_in_figure": false,
+  "render_timing_excluded_from_original_run_measurements": true
+}

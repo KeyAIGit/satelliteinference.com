@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 const siteDescription =
-  "A proposed computing spacecraft (node) in low Earth orbit (LEO), targeting 10 kW of continuous electrical input to its onboard computing equipment (payload); SAR maritime vessel detection and scene prioritization is the primary ground benchmark candidate.";
+  "Developing software to turn satellite images into useful results, with a path from ground research to computing in orbit. Explore our progress, mission and opportunities to work together.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://satelliteinference.com"),
@@ -38,8 +38,8 @@ export const metadata: Metadata = {
   },
   robots: { index: true, follow: true },
   icons: {
-    icon: "./favicon.svg",
-    shortcut: "./favicon.svg",
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
   },
 };
 

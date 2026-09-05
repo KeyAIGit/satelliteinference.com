@@ -191,8 +191,8 @@ export function OrbitalExplorer() {
           <a href="https://ssd.jpl.nasa.gov/astro_par.html">NASA JPL parameters</a>
           <a href="https://www.nist.gov/pml/owm/si-units-length">NIST speed of light</a>
           <a href="https://www.ospo.noaa.gov/operations/goes/eclipse.html">NOAA GEO eclipse</a>
-          <a href="/data/model-assumptions.json">Rev C assumptions</a>
-          <a href="/model/engineering-screen.mjs">Rev C equations</a>
+          <a href="https://github.com/KeyAIGit/satelliteinference.com/blob/main/public/data/model-assumptions.json">Rev C assumptions</a>
+          <a href="https://github.com/KeyAIGit/satelliteinference.com/blob/main/public/model/engineering-screen.mjs">Rev C equations</a>
         </div>
       </details>
     </div>

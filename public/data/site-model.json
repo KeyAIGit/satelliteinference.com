@@ -266,7 +266,7 @@
       "sourceIds": [
         "assumptions-rev-c"
       ],
-      "description": "A 1 kW modular compute, power, cooling and runtime unit used on the ground to retire integration risk before flight hardware is released.",
+      "description": "A proposed 1 kW modular compute, power, cooling and runtime unit intended for ground testing to retire integration risk before flight hardware is released.",
       "metrics": {
         "continuousCompute": {
           "value": 1,

@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function DisclaimerPage() {
   return (
-    <LegalDocument eyebrow="PUBLIC WORKING CONCEPT" title="Technical disclaimer" updated="2 September 2026">
+    <LegalDocument eyebrow="PUBLIC WORKING CONCEPT" title="Technical disclaimer" updated="5 September 2026">
       <section>
         <h2>Preliminary program</h2>
         <p>
@@ -25,6 +25,12 @@ export default function DisclaimerPage() {
           quotation, launch reservation, regulatory determination, service-level commitment, or an
           offer to sell securities.
         </p>
+      </section>
+      <section>
+        <h2>Research measurements and planning models</h2>
+        <p>Research measurements describe only the recorded ground test, its dataset, algorithm and
+          environment. They do not establish commercial accuracy, performance on new scenes, flight
+          readiness or a customer service guarantee. Figures labelled as concept illustrations are not validated CAD.</p>
       </section>
       <section>
         <h2>Validation required</h2>
