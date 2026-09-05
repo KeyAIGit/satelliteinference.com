@@ -9,16 +9,22 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <LegalDocument eyebrow="PUBLIC WEBSITE" title="Privacy notice" updated="4 September 2026">
+    <LegalDocument eyebrow="PUBLIC WEBSITE" title="Privacy notice" updated="5 September 2026">
       <section>
         <h2>Current site</h2>
         <p>
           This is a static informational website hosted through GitHub Pages. It currently has no
-          user accounts, forms, advertising, behavioral analytics, tracking pixels, or first-party database.
+          user accounts, advertising, behavioral analytics, tracking pixels, or first-party database.
         </p>
       </section>
       <section>
         <h2>Email and external services</h2>
+        <p>
+          The contact page can help compose an email. Optional text is held in the page while it is open;
+          it is not submitted to a site backend or saved in browser storage. Choosing Gmail or another
+          email application transfers the draft to that service or application. You review and send it there.
+          External services may process draft contents and URL information under their own terms.
+        </p>
         <p>
           GitHub may process technical request information, such as an IP address and access logs,
           under its own privacy terms. If you email Satellite Inference, the message and related
@@ -29,7 +35,7 @@ export default function PrivacyPage() {
       <section>
         <h2>Future changes</h2>
         <p>
-          This notice will be updated before forms, accounts, telemetry, analytics, or other data
+          This notice will be updated before server-submitted forms, accounts, telemetry, analytics, or other data
           collection features are enabled. Questions may be sent to procurement@satelliteinference.com.
         </p>
       </section>

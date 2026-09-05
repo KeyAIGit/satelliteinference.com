@@ -1,0 +1,14 @@
+.panel{display:grid;grid-template-columns:.9fr 1.1fr;gap:70px;align-items:start}
+.emailBlock{padding-top:15px}.emailBlock>span{font:12px var(--font-mono);color:#386b87;letter-spacing:.12em}
+.emailBlock p.email{font-size:clamp(19px,2vw,26px);line-height:1.5;color:#122f43;font-weight:500;overflow-wrap:anywhere;margin:20px 0}
+.copy{display:inline-flex;align-items:center;gap:9px;padding:12px 17px;border:1px solid #adc5d6;border-radius:3px;background:white;min-height:46px;color:#194560;font-size:14px;cursor:pointer}
+.copy:hover{background:#eaf5fd}.emailBlock p.feedback{min-height:45px;font-size:14px;color:#315a70;margin-top:17px}
+.composer{background:#fff;padding:32px;border:1px solid #d2e0eb;border-radius:4px}
+.brief{border-top:1px solid #d1e1ec;border-bottom:1px solid #d1e1ec;padding:15px 0;margin:25px 0}.brief summary{cursor:pointer;font-size:16px;color:#265b78;min-height:28px;line-height:1.6}
+.composer h2{font-size:29px!important;line-height:1.2}.composer>p{font-size:16px!important;line-height:1.65!important}
+.composer label{display:block;font-size:15px;font-weight:550;color:#234759;margin:22px 0 9px}.composer label span{color:#688091;font-weight:400}
+.composer select,.composer textarea{display:block;width:100%;font:16px/1.5 var(--font-sans);color:#143348;background:#f8fbfd;border:1px solid #b4cadb;padding:13px 14px;border-radius:3px}.composer textarea{resize:vertical;min-height:150px}.composer textarea::placeholder{color:#647d8e;opacity:1}
+.composer select:focus-visible,.composer textarea:focus-visible{outline:2px solid #076da2;outline-offset:3px}
+.composer p.privacy,.composer p.hint{font-size:13px!important;color:#5a7182;line-height:1.6!important;margin-top:12px}
+.actions{display:flex;flex-direction:column;align-items:flex-start;gap:15px;margin-top:23px}.actions a{display:inline-flex;gap:10px;align-items:center;font-size:15px;font-weight:550;min-height:46px}.actions a.gmail{background:#0d557c;color:white;padding:13px 18px;border-radius:3px;text-decoration:none}.actions a.gmail:hover{background:#073751}.actions a.other{color:#285f7d}.composer p.hint{margin-bottom:0}
+@media(max-width:850px){.panel{grid-template-columns:1fr;gap:20px}.composer{padding:25px}.emailBlock{padding-top:0}.emailBlock p.feedback{min-height:24px;margin-bottom:0}}

@@ -4376,3 +4376,14 @@ footer {
 .concept-envelope p {
   font-size: 14px;
 }
+
+/* Customer-facing navigation and accessible controls, September 2026 redesign. */
+:root{--paper:#f5f8fc;--paper-raised:#fff;--line:rgba(19,48,72,.14);--secondary:#e8f0f7}
+.site-header nav a,.header-cta{font-size:14px;letter-spacing:.04em;text-transform:none;min-height:44px;display:inline-flex;align-items:center}
+.brand-lockup strong{font-size:16px}.brand-lockup small{font-size:10px;letter-spacing:.07em}
+.site-header .desktop-nav{gap:25px}.footer-links{flex-wrap:wrap;row-gap:10px}.footer-links a{font-size:14px;min-height:44px;display:inline-flex;align-items:center}.footer-brand span,.footer-legal{font-size:12px}
+button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid #167cac;outline-offset:4px}.site-header a:focus-visible,.site-header button:focus-visible,footer a:focus-visible{outline-color:#92deff}
+.calculator-progress-note{font-size:16px;line-height:1.7;margin:0 0 25px;color:#b7cdda}.calculator-progress-note a{text-decoration:underline;text-underline-offset:4px;color:#94ddfa}
+@media(max-width:1100px){.site-header .desktop-nav{display:none}.site-header .header-cta{font-size:14px;min-height:44px}.site-header .mobile-menu nav a{font-size:23px;letter-spacing:0;min-height:50px}.site-header .mobile-menu nav .mobile-menu-contact{font-size:16px}.brand-lockup strong{font-size:15px}}
+@media(max-width:600px){.brand-lockup small{font-size:9px}.site-header .header-cta{display:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}

@@ -30,7 +30,7 @@ export function LegalDocument({ eyebrow, title, updated, children }: LegalDocume
 
       <footer className="legal-footer">
         <span>Satellite Inference™ is currently operated by RFID INC, a Delaware corporation.</span>
-        <a href="mailto:procurement@satelliteinference.com">procurement@satelliteinference.com</a>
+        <a href="/contact">Contact by email</a>
       </footer>
     </main>
   );

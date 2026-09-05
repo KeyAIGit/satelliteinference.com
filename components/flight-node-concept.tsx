@@ -68,8 +68,8 @@ export function FlightNodeConcept() {
           The model calculates approximately <strong>34 kW</strong> required BOL solar at the <strong>13.5 kW</strong> nominal total spacecraft-load screen.
           Every range is pre-SRR and must be replaced by supplier data, coupled analysis and test evidence.
         </p>
-        <a className="concept-ga-link" href="/data/model-assumptions.json">
-          Open the Rev C assumptions <ArrowUpRight aria-hidden="true" />
+        <a className="concept-ga-link" href="https://github.com/KeyAIGit/satelliteinference.com/blob/main/public/data/model-assumptions.json">
+          Read the assumptions on GitHub <ArrowUpRight aria-hidden="true" />
         </a>
       </aside>
     </div>

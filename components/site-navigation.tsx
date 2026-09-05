@@ -6,11 +6,10 @@ import Link from "next/link";
 import { ArrowUpRight, Menu, X } from "lucide-react";
 
 const navigation = [
-  { href: "/#concept", label: "Flight node" },
-  { href: "/#model", label: "Orbit model" },
-  { href: "/demo", label: "Evidence lab" },
-  { href: "/publications", label: "Documents" },
-  { href: "/#contact", label: "Contact" },
+  { href: "/#approach", label: "Approach" },
+  { href: "/progress", label: "Progress" },
+  { href: "/mission", label: "Mission" },
+  { href: "/publications", label: "Resources" },
 ];
 
 export function SiteNavigation() {
@@ -87,8 +86,8 @@ export function SiteNavigation() {
         {navigation.map((item) => <Link href={item.href} key={item.href}>{item.label}</Link>)}
       </nav>
 
-      <a className="header-cta" href="mailto:procurement@satelliteinference.com">
-        Work with us <ArrowUpRight aria-hidden="true" size={15} />
+      <a className="header-cta" href="/contact">
+        Get in touch <ArrowUpRight aria-hidden="true" size={15} />
       </a>
 
       <button
@@ -119,8 +118,8 @@ export function SiteNavigation() {
               <span>{String(index + 1).padStart(2, "0")}</span>{item.label}
             </Link>
           ))}
-          <a className="mobile-menu-contact" href="mailto:procurement@satelliteinference.com" onClick={closeMenu}>
-            Start a technical conversation <ArrowUpRight aria-hidden="true" />
+          <a className="mobile-menu-contact" href="/contact" onClick={closeMenu}>
+            Contact by email <ArrowUpRight aria-hidden="true" />
           </a>
         </nav>
         <p>Satellite Inference™ is currently operated by RFID INC, a Delaware corporation.</p>
